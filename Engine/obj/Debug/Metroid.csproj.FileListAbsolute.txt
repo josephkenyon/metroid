@@ -1,0 +1,30 @@
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\MonoGame.Forms Windows Project.exe.config
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\MonoGame.Forms Windows Project.exe
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\MonoGame.Forms Windows Project.pdb
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\MonoGame.Forms.DX.dll
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\MonoGame.Framework.dll
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.Direct3D11.dll
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.dll
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.DXGI.dll
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.MediaFoundation.dll
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.Direct2D1.dll
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.XAudio2.dll
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.XInput.dll
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\MonoGame.Forms.DX.xml
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\MonoGame.Framework.xml
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.xml
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.Direct3D11.xml
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.DXGI.xml
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.MediaFoundation.xml
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.Direct2D1.xml
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.XAudio2.xml
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\SharpDX.XInput.xml
+C:\Users\Joseph\source\repos\Metroid\Metroid\obj\Debug\Metroid.csprojAssemblyReference.cache
+C:\Users\Joseph\source\repos\Metroid\Metroid\obj\Debug\Metroid.Editor.resources
+C:\Users\Joseph\source\repos\Metroid\Metroid\obj\Debug\Metroid.Properties.Resources.resources
+C:\Users\Joseph\source\repos\Metroid\Metroid\obj\Debug\Metroid.csproj.GenerateResource.cache
+C:\Users\Joseph\source\repos\Metroid\Metroid\obj\Debug\Metroid.csproj.CoreCompileInputs.cache
+C:\Users\Joseph\source\repos\Metroid\Metroid\obj\Debug\Metroid.csproj.CopyComplete
+C:\Users\Joseph\source\repos\Metroid\Metroid\obj\Debug\MonoGame.Forms Windows Project.exe
+C:\Users\Joseph\source\repos\Metroid\Metroid\obj\Debug\MonoGame.Forms Windows Project.pdb
+C:\Users\Joseph\source\repos\Metroid\Metroid\bin\Debug\Content\Logo_Shadow_256.xnb
