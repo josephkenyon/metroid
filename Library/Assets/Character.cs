@@ -1,32 +1,26 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Library.Domain;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using static Library.Domain.Constants;
 using static Library.Domain.Enums;
-using Library.Domain;
 
 namespace Library.Assets
 {
-    public abstract class Character : GameObject
+    public abstract class Character : AnimateObject
     {
-        public bool Alive { get; private set; }
         public abstract int MaxHealth { get; }
-        public Vector2 SpriteNumber { get; protected set; }
-        public int SpriteTileSize { get; protected set; }
-        public Direction Direction { get; protected set; }
+        public bool Alive { get; private set; }
         public int NumJumps { get; protected set; }
-        public bool MovingLeft => CurrentVelocity.X < 0;
-        public bool MovingRight => CurrentVelocity.X > 0;
+
         public bool IsGrounded => Position.Y == floor;
         public bool IsNotCrouching => CurrentAnimation.AnimationType != AnimationType.crouchingType;
+
+        public Vector2 SpriteNumber { get; protected set; }
         public Animation CurrentAnimation => animations[(int)CurrentAnimationIndex];
 
         protected double health;
-        protected Texture2D spriteTexture;
-        protected Vector2 Acceleration;
-        protected Vector2 MaxVelocity;
-        protected Vector2 CurrentVelocity;
         protected Animation[] animations;
         protected AnimationName CurrentAnimationIndex;
 
@@ -40,23 +34,24 @@ namespace Library.Assets
             return CurrentVelocity.X * (int)overrideDirection >= MaxVelocity.X;
         }
 
-        public void Turn()
+        public void AccelerateX(Direction overrideDirection, float constant = 1)
         {
-            SetCurrentAnimation(AnimationName.turning);
-            CurrentAnimation.Direction = (Direction)((int)Direction * -1);
+            CurrentVelocity.X = CurrentVelocity.X + (Acceleration.X * (int)overrideDirection * Math.Abs(constant));
         }
 
-        public void Jump()
+        public void AccelerateX(float constant = 1f)
         {
-            switch (NumJumps)
-            {
-                case 2:
-                    SetCurrentAnimation(AnimationName.jumpingIdle);
-                    break;
-                case 1:
-                    SetCurrentAnimation(AnimationName.jumpingSpinning);
-                    break;
-            }
+            CurrentVelocity.X = CurrentVelocity.X + (Acceleration.X * constant);
+        }
+
+        public void AccelerateY(float constant = 1f)
+        {
+            CurrentVelocity.Y = CurrentVelocity.Y - (Acceleration.Y * constant);
+        }
+
+        public void InfluencePosition(Vector2 velocity)
+        {
+            Position += velocity;
         }
 
         public void SetDirection(Direction direction)
@@ -64,43 +59,28 @@ namespace Library.Assets
             Direction = direction;
         }
 
-        public void AccelerateX(Direction overrideDirection, float constant = 1)
+        public void SetCurrentAnimation(AnimationName animationName, int startingFrame = 0)
         {
-            CurrentVelocity.X = CurrentVelocity.X + (Acceleration.X * (int)overrideDirection * Math.Abs(constant));
-        }
-
-        public void AccelerateX(float constant = 1)
-        {
-            CurrentVelocity.X = CurrentVelocity.X + (Acceleration.X * constant);
-        }
-
-        public void AccelerateY()
-        {
-            CurrentVelocity.Y = CurrentVelocity.Y - Acceleration.Y;
-        }
-
-        public void SetCurrentAnimation(AnimationName animationName)
-        {
-            if (CurrentAnimation.IsActionable(animations[(int)animationName].AnimationType) && CurrentAnimation.Name != animationName)
+            if ( CurrentAnimation.IsActionable(animations[(int)animationName].AnimationType) && CurrentAnimation.Name != animationName )
             {
-                OverrideCurrentAnimation(animationName);
-                if (CurrentAnimation.AnimationType == AnimationType.jumpingType)
+                OverrideCurrentAnimation(animationName, startingFrame);
+                if ( CurrentAnimation.AnimationType == AnimationType.jumpingType )
                 {
                     NumJumps--;
                 }
             }
         }
 
-        public void OverrideCurrentAnimation(AnimationName animationName)
+        public void OverrideCurrentAnimation(AnimationName animationName, int startingFrame = 0)
         {
-            CurrentAnimation.Reset();
+            CurrentAnimation.Reset(startingFrame);
             CurrentAnimationIndex = animationName;
         }
 
         public void TakeDamage(double amount)
         {
             health -= amount;
-            if (health < 0)
+            if ( health < 0 )
             {
                 Alive = false;
             }
@@ -109,7 +89,7 @@ namespace Library.Assets
         public void Heal(double amount)
         {
             health += amount;
-            if (health > MaxHealth)
+            if ( health > MaxHealth )
             {
                 health = MaxHealth;
             }
@@ -123,15 +103,17 @@ namespace Library.Assets
 
         public abstract void HandleMovementY(Vector2 directionalInput);
 
+        public abstract Rectangle GetCollisionBox();
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             Rectangle drawRectangle = new Rectangle(
                 location: CurrentAnimation.GetDrawCoordinates(Direction).ToPoint(),
-                size: (Size * SpriteTileSize).ToPoint()
+                size: (SpriteSize * SpriteTileSize).ToPoint()
             );
             spriteBatch.Draw(
                 texture: spriteTexture,
-                position: Position,
+                position: new Vector2(Position.X - (SpriteSize.X * SpriteTileSize * tileSize / SpriteTileSize / 2), Position.Y - (SpriteSize.Y * SpriteTileSize * tileSize / SpriteTileSize)),
                 sourceRectangle:
                 drawRectangle,
                 color: Color.White,

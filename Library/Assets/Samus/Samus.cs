@@ -1,12 +1,12 @@
-﻿using Library;
+﻿using Library.Domain;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using static Library.Domain.Enums;
-using static Library.Domain.Constants;
 using static Library.Assets.Samus.SamusAnimationSet;
-using Library.Domain;
+using static Library.Assets.Samus.SamusCollisionBoxSet;
+using static Library.Domain.Constants;
+using static Library.Domain.Enums;
 
 namespace Library.Assets.Samus
 {
@@ -20,10 +20,10 @@ namespace Library.Assets.Samus
             SpriteNumber = new Vector2(10, 14);
             SpriteTileSize = 16;
             Direction = Direction.left;
-            Position = new Vector2(200f, 200f);
-            Acceleration = new Vector2(1.1f, 2.0f);
-            MaxVelocity = new Vector2(11f, 0.3f);
-            Size = new Vector2(3, 4);
+            Position = new Vector2(tileSize * 3, tileSize * 3);
+            Acceleration = new Vector2(0.025f * tileSize, 0.03f * tileSize);
+            MaxVelocity = new Vector2(0.18f * tileSize, 0.005f * tileSize);
+            SpriteSize = new Vector2(3, 4);
             animations = AnimationInitalizers.InitializeSamusAnimations(this, SamusAnimationProperties);
             SetCurrentAnimation(AnimationName.idle);
         }
@@ -31,35 +31,20 @@ namespace Library.Assets.Samus
         public override void Update(GamePadState gamePadState)
         {
             HandleMovementX(gamePadState.ThumbSticks.Left);
-            HandleMovementY(gamePadState.ThumbSticks.Left);
             HandleButtons(gamePadState);
-            CurrentAnimation.IncrementFrame();
+            CurrentAnimation.Increment(gamePadState);
 
-            if (CurrentAnimation.AnimationType == AnimationType.runningType)
+            if ( CurrentAnimation.AnimationType != AnimationType.runningType && CurrentAnimation.Name != AnimationName.jumpingSpinning )
             {
-                if (!AtMaxSpeedX())
-                {
-                    AccelerateX(gamePadState.ThumbSticks.Left.X);
-                }
-            }
-            else if (CurrentAnimation.Name == AnimationName.jumpingSpinning)
-            {
-                if (!AtMaxSpeedX((Direction)Math.Sign(gamePadState.ThumbSticks.Left.X)))
-                {
-                    AccelerateX((Direction)Math.Sign(gamePadState.ThumbSticks.Left.X), gamePadState.ThumbSticks.Left.X);
-                }
-            }
-            else
-            {
-                float constant = CurrentAnimation.Name == AnimationName.jumpingIdle? 0.6f : 1f;
+                float constant = CurrentAnimation.Name == AnimationName.jumpingIdle ? 0.6f : 1f;
 
-                if (MovingLeft)
+                if ( MovingLeft )
                 {
                     CurrentVelocity.X = CurrentVelocity.X > Acceleration.X
                         ? 0
                         : CurrentVelocity.X + (Acceleration.X * constant);
                 }
-                else if (MovingRight)
+                else if ( MovingRight )
                 {
                     CurrentVelocity.X = CurrentVelocity.X < Acceleration.X
                         ? 0
@@ -67,13 +52,9 @@ namespace Library.Assets.Samus
                 }
             }
 
-            if (CurrentAnimation.Name == AnimationName.jumpingIdle && CurrentAnimation.IsLooping == false)
+            if ( CurrentAnimation.IsLooping || CurrentAnimation.Name != AnimationName.jumpingIdle )
             {
-                AccelerateY();
-            }
-            else
-            {
-                if (Position.Y != floor)
+                if ( Position.Y != floor )
                 {
                     CurrentVelocity.Y += gravity;
                 }
@@ -81,14 +62,9 @@ namespace Library.Assets.Samus
 
             Position += CurrentVelocity;
 
-            if (CurrentAnimation.AnimationType == AnimationType.jumpingType || CurrentAnimation.AnimationType == AnimationType.fallingType)
+            if ( Position.Y >= floor )
             {
-                Position = new Vector2(Position.X + gamePadState.ThumbSticks.Left.X * 6f, Position.Y);
-            }
-
-            if (Position.Y >= floor)
-            {
-                if (NumJumps < 2)
+                if ( NumJumps < 2 )
                 {
                     NumJumps = 2;
                     OverrideCurrentAnimation(AnimationName.landing);
@@ -97,7 +73,7 @@ namespace Library.Assets.Samus
                 CurrentVelocity.Y = 0;
             }
 
-            if (CurrentVelocity.Y > 0)
+            if ( CurrentVelocity.Y > 0 )
             {
                 SetCurrentAnimation(AnimationName.falling);
             }
@@ -107,41 +83,45 @@ namespace Library.Assets.Samus
 
         public override void HandleMovementX(Vector2 directionalInput)
         {
-            if (IsGrounded && IsNotCrouching)
+            if ( IsGrounded && IsNotCrouching )
             {
-                if (directionalInput.X == 0)
+                if ( directionalInput.X == 0 && CurrentAnimation.AnimationType != AnimationType.standingType )
                 {
                     SetCurrentAnimation(AnimationName.idle);
                 }
-                else if (Math.Sign((int)Direction) != Math.Sign(directionalInput.X))
+                else if ( Math.Sign((int)Direction) != Math.Sign(directionalInput.X) && directionalInput.X != 0 )
                 {
-                    Turn();
-                }
-                else
-                {
-                    SetCurrentAnimation(AnimationName.running);
+                    SetCurrentAnimation(AnimationName.turning);
+                    CurrentAnimation.Direction = (Direction)((int)Direction * -1);
                 }
             }
         }
 
         public override void HandleMovementY(Vector2 directionalInput)
         {
-            if (directionalInput.Y < -.7f && IsGrounded)
-            {
-                SetCurrentAnimation(AnimationName.crouchingIdle);
-            }
-            else if (directionalInput.Y > 0 && CurrentAnimation.AnimationType == AnimationType.crouchingType && IsGrounded)
-            {
-                SetCurrentAnimation(AnimationName.standingUp);
-            }
+            throw new NotImplementedException();
         }
 
         public override void HandleButtons(GamePadState gamePadState)
         {
-            if (gamePadState.Buttons.A == ButtonState.Pressed)
+            if ( gamePadState.Buttons.A == ButtonState.Pressed && IsGrounded && NumJumps == 2 )
             {
-                Jump();
+                SetCurrentAnimation(AnimationName.jumpingIdle);
             }
+        }
+
+        public override Rectangle GetCollisionBox()
+        {
+            var collisionBox = SamusCollisionBoxes.ContainsKey(CurrentAnimation.Name)
+                ? SamusCollisionBoxes[CurrentAnimation.Name]
+                : DefaultCollisionBox;
+
+            collisionBox.Width = collisionBox.Width * tileSize / SpriteTileSize;
+            collisionBox.Height = collisionBox.Height * tileSize / SpriteTileSize;
+            collisionBox.X = (int)(Position.X - (collisionBox.Width / 2) + (collisionBox.X * tileSize / SpriteTileSize));
+            collisionBox.Y = (int)(Position.Y - collisionBox.Height + (collisionBox.Y * tileSize / SpriteTileSize));
+
+            return collisionBox;
         }
     }
 }

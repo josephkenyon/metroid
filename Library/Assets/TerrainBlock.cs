@@ -8,6 +8,7 @@ namespace Library.Assets
     {
         private readonly Texture2D texture;
         private readonly Vector2 spriteLocation;
+        private readonly Vector2 Size;
         private readonly int spriteTileSize;
         public readonly bool impenetrable;
 

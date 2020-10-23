@@ -1,4 +1,7 @@
 ﻿using Library.Domain;
+using static Library.Assets.Samus.SamusAnimationBeginActions;
+using static Library.Assets.Samus.SamusAnimationCompletedActions;
+using static Library.Assets.Samus.SamusAnimationIncrementActions;
 using static Library.Domain.Enums.AnimationName;
 using static Library.Domain.Enums.AnimationType;
 
@@ -8,27 +11,27 @@ namespace Library.Assets.Samus
     {
         public static AnimationProperties[] SamusAnimationProperties => new AnimationProperties[]
             {
-                new AnimationProperties(Name: idle, AnimationType: standingType, FrameCount: 1, Actionable: true, SpriteVerticalCoordinate: 1),
-                new AnimationProperties(Name: turning, AnimationType: turningType, FrameCount: 4, Actionable:false, SpriteVerticalCoordinate: 0, ExecuteCompleted: SamusAnimationActions.TurningCompleted),
-                new AnimationProperties(Name: shootingStandingStraight, AnimationType: standingType, FrameCount: 1, Actionable: false, SpriteVerticalCoordinate: 1),
-                new AnimationProperties(Name: shootingStandingDiagonalUp, AnimationType: standingType, FrameCount: 2, Actionable:false, SpriteVerticalCoordinate: 1),
-                new AnimationProperties(Name: shootingStandingStraightUp, AnimationType: standingType, FrameCount: 3, Actionable:false, SpriteVerticalCoordinate: 1),
-                new AnimationProperties(Name: shootingStandingDiagonalDown, AnimationType: standingType, FrameCount: 2, Actionable:false, SpriteVerticalCoordinate: 2),
-                new AnimationProperties(Name: crouchingIdle, AnimationType: crouchingType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 3, LoopFrameIndex: 2),
-                new AnimationProperties(Name: standingUp, AnimationType: standingType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 4, LoopFrameIndex: 2),
-                new AnimationProperties(Name: shootingCrouchingStraight, AnimationType: crouchingType, FrameCount: 1, Actionable: false, SpriteVerticalCoordinate: 5),
-                new AnimationProperties(Name: shootingCrouchingDiagonalUp, AnimationType: crouchingType, FrameCount: 2, Actionable: false, SpriteVerticalCoordinate: 5),
-                new AnimationProperties(Name: shootingCrouchingStraightUp, AnimationType: crouchingType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 5),
-                new AnimationProperties(Name: shootingCrouchingDiagonalDown, AnimationType: crouchingType, FrameCount: 2, Actionable: false, SpriteVerticalCoordinate: 6),
-                new AnimationProperties(Name: running, AnimationType: runningType, FrameCount: 10, Actionable:true, SpriteVerticalCoordinate: 7, LoopFrameIndex: 1),
-                new AnimationProperties(Name: runningShootingCenter, AnimationType: runningType, FrameCount: 9, LoopFrameIndex:1, Actionable: true, SpriteVerticalCoordinate: 8),
-                new AnimationProperties(Name: runningShootingDiagonalDown, AnimationType: runningType, FrameCount: 10, Actionable:true, SpriteVerticalCoordinate: 9, LoopFrameIndex: 1),
-                new AnimationProperties(Name: runningShootingDiagonalUp, AnimationType: runningType, FrameCount: 10, Actionable:true, SpriteVerticalCoordinate: 10, LoopFrameIndex: 1),
-                new AnimationProperties(Name: jumpingIdle, AnimationType: jumpingType, FrameCount: 3, Actionable:false, SpriteVerticalCoordinate: 11, LoopFrameIndex:2),
-                new AnimationProperties(Name: falling, AnimationType: fallingType, FrameCount: 4, Actionable:true, SpriteVerticalCoordinate: 12, LoopFrameIndex: 3),
-                new AnimationProperties(Name: landing, AnimationType: landingType, FrameCount: 3, Actionable:false, SpriteVerticalCoordinate: 13),
-                new AnimationProperties(Name: jumpingSpinning, AnimationType: jumpingType, FrameCount: 10, Actionable: false, SpriteVerticalCoordinate: 14, LoopFrameIndex: 2),
-                new AnimationProperties(Name: morphBall, AnimationType: morphBallType, FrameCount: 3, Actionable:false, SpriteVerticalCoordinate: 15, LoopFrameIndex: 3)
+                new AnimationProperties(idle, standingType, FrameCount: 1, Actionable: true, SpriteVerticalCoordinate: 1, ExecuteIncrement: IdleIncrement),
+                new AnimationProperties(turning, turningType, FrameCount: 4, Actionable: false, SpriteVerticalCoordinate: 0, OverrideFrameSkip: 2,ExecuteCompleted: TurningCompleted),
+                new AnimationProperties(aimingStandingStraight, standingType, FrameCount: 1, Actionable: false, SpriteVerticalCoordinate: 1, ExecuteIncrement: IdleIncrement),
+                new AnimationProperties(aimingStandingDiagonalUp, standingType, FrameCount: 2, Actionable:false, SpriteVerticalCoordinate: 1, ExecuteIncrement: IdleIncrement),
+                new AnimationProperties(aimingStandingStraightUp, standingType, FrameCount: 3, Actionable:false, SpriteVerticalCoordinate: 1, ExecuteIncrement: IdleIncrement),
+                new AnimationProperties(aimingStandingDiagonalDown, standingType, FrameCount: 2, Actionable:false, SpriteVerticalCoordinate: 2, ExecuteIncrement: IdleIncrement),
+                new AnimationProperties(crouchingIdle, crouchingType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 3, LoopFrameIndex: 2, ExecuteIncrement: CrouchingIncrement),
+                new AnimationProperties(standingUp, standingType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 4, ExecuteCompleted: StandingUpCompleted),
+                new AnimationProperties(aimingCrouchingStraight, crouchingType, FrameCount: 1, Actionable: false, SpriteVerticalCoordinate: 4, ExecuteIncrement: CrouchingIncrement),
+                new AnimationProperties(aimingCrouchingDiagonalUp, crouchingType, FrameCount: 2, Actionable: false, SpriteVerticalCoordinate: 5, ExecuteIncrement: CrouchingIncrement),
+                new AnimationProperties(aimingCrouchingStraightUp, crouchingType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 5, ExecuteIncrement: CrouchingIncrement),
+                new AnimationProperties(aimingCrouchingDiagonalDown, crouchingType, FrameCount: 2, Actionable: false, SpriteVerticalCoordinate: 6, ExecuteIncrement: CrouchingIncrement),
+                new AnimationProperties(running, runningType, FrameCount: 10, Actionable: true, SpriteVerticalCoordinate: 7, LoopFrameIndex: 1, ExecuteIncrement: RunningIncrement),
+                new AnimationProperties(runningAimingCenter, runningType, FrameCount: 10, LoopFrameIndex: 1, Actionable: true, SpriteVerticalCoordinate: 8, ExecuteIncrement: RunningIncrement),
+                new AnimationProperties(runningAimingDiagonalDown, runningType, FrameCount: 10, Actionable: true, SpriteVerticalCoordinate: 9, LoopFrameIndex: 1, ExecuteIncrement: RunningIncrement),
+                new AnimationProperties(runningAimingDiagonalUp, runningType, FrameCount: 10, Actionable: true, SpriteVerticalCoordinate: 10, LoopFrameIndex: 1, ExecuteIncrement: RunningIncrement, OverrideFrameSkip: 3),
+                new AnimationProperties(jumpingIdle, jumpingType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 11, LoopFrameIndex: 2, ExecuteIncrement: JumpingIdleIncrement),
+                new AnimationProperties(falling, fallingType, FrameCount: 4, Actionable: true, SpriteVerticalCoordinate: 12, LoopFrameIndex: 3, ExecuteIncrement: FallingIncrement),
+                new AnimationProperties(landing, landingType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 13),
+                new AnimationProperties(jumpingSpinning, jumpingType, FrameCount: 10, Actionable: false, SpriteVerticalCoordinate: 14, LoopFrameIndex: 2, ExecuteIncrement: JumpingSpinningIncrement, ExecuteBegin: JumpingSpinningBegin),
+                new AnimationProperties(morphBall, morphBallType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 15, LoopFrameIndex: 3)
             };
     }
 }

@@ -9,11 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Library</RootNamespace>
     <AssemblyName>Library</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,7 +74,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Samus\SamusAnimationActions.cs" />
+    <Compile Include="Assets\AnimateObject.cs" />
+    <Compile Include="Assets\Projectile.cs" />
+    <Compile Include="Assets\Samus\SamusAnimationCompletedActions.cs" />
+    <Compile Include="Assets\Samus\SamusAnimationBeginAction.cs" />
+    <Compile Include="Assets\Samus\SamusAnimationIncrementActions.cs" />
+    <Compile Include="Assets\Samus\SamusCollisionBoxSet.cs" />
     <Compile Include="Assets\Samus\SamusAnimationSet.cs" />
     <Compile Include="Assets\TerrainBlock.cs" />
     <Compile Include="Domain\Animation.cs" />
