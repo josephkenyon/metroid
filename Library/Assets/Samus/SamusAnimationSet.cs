@@ -29,7 +29,7 @@ namespace Library.Assets.Samus
                 new AnimationProperties(runningAimingDiagonalUp, runningType, FrameCount: 10, Actionable: true, SpriteVerticalCoordinate: 10, LoopFrameIndex: 1, ExecuteIncrement: RunningIncrement, OverrideFrameSkip: 3),
                 new AnimationProperties(jumpingIdle, jumpingType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 11, LoopFrameIndex: 2, ExecuteIncrement: JumpingIdleIncrement),
                 new AnimationProperties(falling, fallingType, FrameCount: 4, Actionable: true, SpriteVerticalCoordinate: 12, LoopFrameIndex: 3, ExecuteIncrement: FallingIncrement),
-                new AnimationProperties(landing, landingType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 13),
+                new AnimationProperties(landing, landingType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 13, ExecuteCompleted: LandingCompleted),
                 new AnimationProperties(jumpingSpinning, jumpingType, FrameCount: 10, Actionable: false, SpriteVerticalCoordinate: 14, LoopFrameIndex: 2, ExecuteIncrement: JumpingSpinningIncrement, ExecuteBegin: JumpingSpinningBegin),
                 new AnimationProperties(morphBall, morphBallType, FrameCount: 3, Actionable: false, SpriteVerticalCoordinate: 15, LoopFrameIndex: 3)
             };

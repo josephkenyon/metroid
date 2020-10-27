@@ -17,5 +17,10 @@ namespace Library.Assets.Samus
         {
             character.SetCurrentAnimation(AnimationName.idle);
         }
+
+        public static void LandingCompleted(Animation animation, Character character)
+        {
+            character.SetCurrentAnimation(AnimationName.idle);
+        }
     }
 }

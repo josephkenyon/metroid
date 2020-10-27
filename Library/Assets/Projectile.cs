@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace Library.Assets
 {
     public class Projectile : AnimateObject
     {
-
+        public override Rectangle GetCollisionBox()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

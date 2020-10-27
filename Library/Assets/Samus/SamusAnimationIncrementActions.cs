@@ -9,18 +9,18 @@ namespace Library.Assets.Samus
 {
     public static class SamusAnimationIncrementActions
     {
-        public static void IdleIncrement(Animation animation, Character character, GamePadState gamePadState)
+        public static void IdleIncrement(Animation animation, Character character)
         {
-            float inputX = gamePadState.ThumbSticks.Right.X;
-            float inputY = gamePadState.ThumbSticks.Right.Y;
+            float inputX = character.gamePadState.ThumbSticks.Right.X;
+            float inputY = character.gamePadState.ThumbSticks.Right.Y;
 
-            if ( Math.Abs(gamePadState.ThumbSticks.Left.X) > 0.3f )
+            if ( Math.Abs(character.gamePadState.ThumbSticks.Left.X) > 0.3f )
             {
                 character.SetCurrentAnimation(AnimationName.running);
                 return;
             }
 
-            if ( gamePadState.ThumbSticks.Left.Y < -.7f && character.IsGrounded )
+            if ( character.gamePadState.ThumbSticks.Left.Y < -.7f && character.IsGrounded )
             {
                 character.SetCurrentAnimation(AnimationName.crouchingIdle);
                 return;
@@ -30,20 +30,20 @@ namespace Library.Assets.Samus
             {
                 if ( inputY < -0.1 )
                 {
-                    character.SetCurrentAnimation(AnimationName.aimingStandingDiagonalDown);
+                    character.SetCurrentAnimation(AnimationName.aimingStandingDiagonalDown, finalFrame: true);
                 }
                 else if ( inputY > 0.1 )
                 {
-                    character.SetCurrentAnimation(AnimationName.aimingStandingDiagonalUp);
+                    character.SetCurrentAnimation(AnimationName.aimingStandingDiagonalUp, finalFrame: true);
                 }
                 else
                 {
-                    character.SetCurrentAnimation(AnimationName.aimingStandingStraight);
+                    character.SetCurrentAnimation(AnimationName.aimingStandingStraight, finalFrame: true);
                 }
             }
             else if ( Math.Abs(inputX) < 0.25 && inputY > 0.5 )
             {
-                character.SetCurrentAnimation(AnimationName.aimingStandingStraightUp);
+                character.SetCurrentAnimation(AnimationName.aimingStandingStraightUp, finalFrame: true);
             }
             else
             {
@@ -51,20 +51,33 @@ namespace Library.Assets.Samus
             }
         }
 
-        public static void RunningIncrement(Animation animation, Character character, GamePadState gamePadState)
+        public static void RunningIncrement(Animation animation, Character character)
         {
-            float inputX = gamePadState.ThumbSticks.Right.X;
-            float inputY = gamePadState.ThumbSticks.Right.Y;
+            float directionalInputX = character.gamePadState.ThumbSticks.Left.X;
+
+            if ( directionalInputX == 0 )
+            {
+                // if not moving set animation to idle
+                character.SetCurrentAnimation(AnimationName.idle);
+                return;
+            }
+            else if ( Math.Sign((int)character.Direction) != Math.Sign(directionalInputX) )
+            {
+                // if input is not the direction currently running in, turn
+                character.SetCurrentAnimation(AnimationName.turning);
+                character.CurrentAnimation.Direction = (Direction)((int)character.Direction * -1);
+            }
 
             int newFrame = animation.AnimationType == AnimationType.runningType ? animation.CurrentFrame : 0;
 
-            if ( Math.Abs(inputX) > 0.3 )
+            // allow character to aim
+            if ( Math.Abs(character.gamePadState.ThumbSticks.Right.X) > 0.3 )
             {
-                if ( inputY < -0.1 )
+                if ( character.gamePadState.ThumbSticks.Right.Y < -0.1 )
                 {
                     character.SetCurrentAnimation(AnimationName.runningAimingDiagonalDown, newFrame);
                 }
-                else if ( inputY > 0.1 )
+                else if ( character.gamePadState.ThumbSticks.Right.Y > 0.1 )
                 {
                     character.SetCurrentAnimation(AnimationName.runningAimingDiagonalUp, newFrame);
                 }
@@ -78,61 +91,62 @@ namespace Library.Assets.Samus
                 character.SetCurrentAnimation(AnimationName.running, newFrame);
             }
 
+            // if not at max speed, accelerate
             if ( !character.AtMaxSpeedX() )
             {
-                character.AccelerateX(gamePadState.ThumbSticks.Left.X);
+                character.AccelerateX(character.gamePadState.ThumbSticks.Left.X);
             }
         }
 
-        public static void JumpingIdleIncrement(Animation animation, Character character, GamePadState gamePadState)
+        public static void JumpingIdleIncrement(Animation animation, Character character)
         {
-            character.InfluencePosition(new Vector2(gamePadState.ThumbSticks.Left.X * 0.08f * tileSize, 0));
+            character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.08f * tileSize, 0));
 
             if ( animation.IsLooping == false )
             {
                 character.AccelerateY();
             }
 
-            if ( gamePadState.Buttons.A == ButtonState.Pressed && character.GetCurrentVelocity.Y > -0.2f * tileSize )
+            if ( character.gamePadState.Buttons.A == ButtonState.Pressed && character.GetCurrentVelocity.Y > -0.2f * tileSize )
             {
                 character.SetCurrentAnimation(AnimationName.jumpingSpinning);
             }
         }
 
-        public static void JumpingSpinningIncrement(Animation animation, Character character, GamePadState gamePadState)
+        public static void JumpingSpinningIncrement(Animation animation, Character character)
         {
-            character.InfluencePosition(new Vector2(gamePadState.ThumbSticks.Left.X * 0.08f * tileSize, 0));
+            character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.08f * tileSize, 0));
 
-            if ( !character.AtMaxSpeedX((Direction)Math.Sign(gamePadState.ThumbSticks.Left.X)) )
+            if ( !character.AtMaxSpeedX((Direction)Math.Sign(character.gamePadState.ThumbSticks.Left.X)) )
             {
-                character.AccelerateX((Direction)Math.Sign(gamePadState.ThumbSticks.Left.X), gamePadState.ThumbSticks.Left.X);
+                character.AccelerateX((Direction)Math.Sign(character.gamePadState.ThumbSticks.Left.X), character.gamePadState.ThumbSticks.Left.X);
             }
         }
 
-        public static void FallingIncrement(Animation animation, Character character, GamePadState gamePadState)
+        public static void FallingIncrement(Animation animation, Character character)
         {
-            character.InfluencePosition(new Vector2(gamePadState.ThumbSticks.Left.X * 0.08f * tileSize, 0));
+            character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.08f * tileSize, 0));
         }
 
-        public static void CrouchingIncrement(Animation animation, Character character, GamePadState gamePadState)
+        public static void CrouchingIncrement(Animation animation, Character character)
         {
-            float inputX = gamePadState.ThumbSticks.Right.X;
-            float inputY = gamePadState.ThumbSticks.Right.Y;
+            float inputX = character.gamePadState.ThumbSticks.Right.X;
+            float inputY = character.gamePadState.ThumbSticks.Right.Y;
 
-            if ( gamePadState.ThumbSticks.Left.Y > 0 )
+            if ( character.gamePadState.ThumbSticks.Left.Y > 0 )
             {
                 character.SetCurrentAnimation(AnimationName.standingUp);
             }
 
-            if ( Math.Abs(gamePadState.ThumbSticks.Left.X) > 0.7f )
+            if ( Math.Abs(character.gamePadState.ThumbSticks.Left.X) > 0.7f )
             {
-                if ( Math.Sign(gamePadState.ThumbSticks.Left.X) != (int)character.Direction )
+                if ( Math.Sign(character.gamePadState.ThumbSticks.Left.X) != (int)character.Direction )
                 {
                     character.SetCurrentAnimation(AnimationName.turning);
                 }
                 else
                 {
-                    character.SetCurrentAnimation(AnimationName.running);
+                    character.SetCurrentAnimation(AnimationName.standingUp);
                 }
                 return;
             }
@@ -141,24 +155,24 @@ namespace Library.Assets.Samus
             {
                 if ( inputY < -0.1 )
                 {
-                    character.SetCurrentAnimation(AnimationName.aimingCrouchingDiagonalDown);
+                    character.SetCurrentAnimation(AnimationName.aimingCrouchingDiagonalDown, finalFrame: true);
                 }
                 else if ( inputY > 0.1 )
                 {
-                    character.SetCurrentAnimation(AnimationName.aimingCrouchingDiagonalUp);
+                    character.SetCurrentAnimation(AnimationName.aimingCrouchingDiagonalUp, finalFrame: true);
                 }
                 else
                 {
-                    character.SetCurrentAnimation(AnimationName.aimingCrouchingStraight);
+                    character.SetCurrentAnimation(AnimationName.aimingCrouchingStraight, finalFrame: true);
                 }
             }
             else if ( Math.Abs(inputX) < 0.25 && inputY > 0.5 )
             {
-                character.SetCurrentAnimation(AnimationName.aimingCrouchingStraightUp);
+                character.SetCurrentAnimation(AnimationName.aimingCrouchingStraightUp, finalFrame: true);
             }
             else
             {
-                character.SetCurrentAnimation(AnimationName.crouchingIdle);
+                character.SetCurrentAnimation(AnimationName.crouchingIdle, finalFrame: true);
             }
         }
     }

@@ -17,7 +17,8 @@ namespace Library.Domain
         private bool Actionable { get; }
         private int FrameSkip => OverrideFrameSkip != null ? (int)OverrideFrameSkip : animationFrameSkip;
         public int CurrentFrame => CurrentFrameIndex * FrameSkip;
-        internal bool AnimationCompleted => CurrentFrameIndex >= (FrameCount * FrameSkip) - 1;
+        internal int FinalFrame => (FrameCount * FrameSkip) - 1;
+        internal bool AnimationCompleted => CurrentFrameIndex >= FinalFrame;
         internal bool AnimationHalfCompleted => CurrentFrameIndex >= (FrameCount * FrameSkip / 2) - 1;
         internal bool Completed { get; set; }
         public bool IsLooping { get; private set; }
@@ -27,7 +28,7 @@ namespace Library.Domain
         public readonly AnimationName Name;
         private readonly Character Character;
         private Action<Animation, Character> ExecuteBegin { get; set; }
-        private Action<Animation, Character, GamePadState> ExecuteIncrement { get; set; }
+        private Action<Animation, Character> ExecuteIncrement { get; set; }
         private Action<Animation, Character> ExecuteCompleted { get; set; }
 
         public Animation(Character SetCharacter, AnimationProperties AnimationProperties)
@@ -57,7 +58,7 @@ namespace Library.Domain
             {
                 ExecuteBegin?.Invoke(this, Character);
             }
-            ExecuteIncrement?.Invoke(this, Character, gamePadState);
+            ExecuteIncrement?.Invoke(this, Character);
 
             if (AnimationCompleted)
             {
@@ -78,10 +79,17 @@ namespace Library.Domain
             }
         }
 
-        public void Reset(int startingFrame = 0)
+        public void Reset(int startingFrame = 0, bool finalFrame = false)
         {
             IsLooping = false;
-            CurrentFrameIndex = startingFrame;
+            if ( finalFrame )
+            {
+                CurrentFrameIndex = FinalFrame;
+            }
+            else
+            {
+                CurrentFrameIndex = startingFrame;
+            }
             Completed = false;
         }
 

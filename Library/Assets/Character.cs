@@ -1,4 +1,5 @@
 ﻿using Library.Domain;
+using Library.State;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,11 +15,13 @@ namespace Library.Assets
         public bool Alive { get; private set; }
         public int NumJumps { get; protected set; }
 
-        public bool IsGrounded => Position.Y == floor;
+        public bool IsGrounded => GetCollisionBox().Bottom == GetFloor();
         public bool IsNotCrouching => CurrentAnimation.AnimationType != AnimationType.crouchingType;
 
         public Vector2 SpriteNumber { get; protected set; }
         public Animation CurrentAnimation => animations[(int)CurrentAnimationIndex];
+        public GamePadState gamePadState;
+        public GameState gameState;
 
         protected double health;
         protected Animation[] animations;
@@ -59,11 +62,11 @@ namespace Library.Assets
             Direction = direction;
         }
 
-        public void SetCurrentAnimation(AnimationName animationName, int startingFrame = 0)
+        public void SetCurrentAnimation(AnimationName animationName, int startingFrame = 0, bool finalFrame = false)
         {
             if ( CurrentAnimation.IsActionable(animations[(int)animationName].AnimationType) && CurrentAnimation.Name != animationName )
             {
-                OverrideCurrentAnimation(animationName, startingFrame);
+                OverrideCurrentAnimation(animationName, startingFrame, finalFrame);
                 if ( CurrentAnimation.AnimationType == AnimationType.jumpingType )
                 {
                     NumJumps--;
@@ -71,10 +74,11 @@ namespace Library.Assets
             }
         }
 
-        public void OverrideCurrentAnimation(AnimationName animationName, int startingFrame = 0)
+        public void OverrideCurrentAnimation(AnimationName animationName, int startingFrame, bool finalFrame)
         {
-            CurrentAnimation.Reset(startingFrame);
+            CurrentAnimation.Reset();
             CurrentAnimationIndex = animationName;
+            CurrentAnimation.Reset(startingFrame, finalFrame);
         }
 
         public void TakeDamage(double amount)
@@ -95,25 +99,33 @@ namespace Library.Assets
             }
         }
 
-        public abstract void Update(GamePadState gamePadState);
+        public abstract void Update(GameState gameState, GamePadState gamePadState);
 
         public abstract void HandleButtons(GamePadState gamePadState);
 
-        public abstract void HandleMovementX(Vector2 directionalInput);
+        public abstract void ApplyGravity(float floor);
 
-        public abstract void HandleMovementY(Vector2 directionalInput);
+        public abstract float GetFloor();
 
-        public abstract Rectangle GetCollisionBox();
+        public abstract float GetCeiling();
+
+        public abstract float GetLeftWall();
+
+        public abstract float GetRightWall();
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            Vector2 position = new Vector2(
+                Position.X - (SpriteSize.X * SpriteTileSize * tileSize / SpriteTileSize / 2),
+                Position.Y - (SpriteSize.Y * SpriteTileSize * tileSize / SpriteTileSize)
+                );
             Rectangle drawRectangle = new Rectangle(
                 location: CurrentAnimation.GetDrawCoordinates(Direction).ToPoint(),
                 size: (SpriteSize * SpriteTileSize).ToPoint()
             );
             spriteBatch.Draw(
                 texture: spriteTexture,
-                position: new Vector2(Position.X - (SpriteSize.X * SpriteTileSize * tileSize / SpriteTileSize / 2), Position.Y - (SpriteSize.Y * SpriteTileSize * tileSize / SpriteTileSize)),
+                position: position,
                 sourceRectangle:
                 drawRectangle,
                 color: Color.White,

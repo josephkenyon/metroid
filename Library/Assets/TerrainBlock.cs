@@ -4,29 +4,28 @@ using static Library.Domain.Constants;
 
 namespace Library.Assets
 {
-    internal class TerrainBlock : GameObject
+    public class TerrainBlock : GameObject
     {
         private readonly Texture2D texture;
-        private readonly Vector2 spriteLocation;
+        private readonly Vector2 SpriteLocation;
         private readonly Vector2 Size;
-        private readonly int spriteTileSize;
-        public readonly bool impenetrable;
+        public readonly bool Impenetrable;
 
-        public TerrainBlock(Texture2D texture, Vector2 spriteLocation, Vector2 Size, Vector2 Position, int spriteTileSize, bool impenetrable)
+        public TerrainBlock(Texture2D texture, Vector2 SpriteLocation, Vector2 Position, int SpriteTileSize, bool Impenetrable)
         {
+            Size = Vector2.One * SpriteTileSize * tileSize;
             this.texture = texture;
-            this.spriteLocation = spriteLocation;
-            this.Size = Size;
+            this.SpriteLocation = SpriteLocation;
             this.Position = Position;
-            this.spriteTileSize = spriteTileSize;
-            this.impenetrable = impenetrable;
+            this.SpriteTileSize = SpriteTileSize;
+            this.Impenetrable = Impenetrable;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             Rectangle drawRectangle = new Rectangle(
-                location: spriteLocation.ToPoint(),
-                size: Size.ToPoint()
+                location: (SpriteLocation * SpriteTileSize).ToPoint(),
+                size: (Vector2.One * SpriteTileSize).ToPoint()
             );
             spriteBatch.Draw(
                 texture: texture,
@@ -36,10 +35,15 @@ namespace Library.Assets
                 color: Color.White,
                 rotation: 0f,
                 origin: Vector2.Zero,
-                scale: tileSize / spriteTileSize,
+                scale: tileSize / SpriteTileSize,
                 effects: SpriteEffects.None,
                 layerDepth: 0f
             );
+        }
+
+        public override Rectangle GetCollisionBox()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

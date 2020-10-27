@@ -15,7 +15,7 @@ namespace Library.Domain
         public AnimationType AnimationType { get; private set; }
         public readonly AnimationName Name;
         public Action<Animation, Character> ExecuteBegin { get; private set; }
-        public Action<Animation, Character, GamePadState> ExecuteIncrement { get; private set; }
+        public Action<Animation, Character> ExecuteIncrement { get; private set; }
         public Action<Animation, Character> ExecuteCompleted { get; private set; }
 
         public AnimationProperties
@@ -27,7 +27,7 @@ namespace Library.Domain
             int? LoopFrameIndex = null,
             int? OverrideFrameSkip = null,
             Action<Animation, Character> ExecuteBegin = null,
-            Action<Animation, Character, GamePadState> ExecuteIncrement = null,
+            Action<Animation, Character> ExecuteIncrement = null,
             Action<Animation, Character> ExecuteCompleted = null
         )
         {

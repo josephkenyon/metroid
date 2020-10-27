@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/samus.png</SourceFile>
-  <SourceTime>2020-10-22T16:01:49.3033248-04:00</SourceTime>
+  <SourceTime>2020-10-23T19:54:55.1995302-04:00</SourceTime>
   <DestFile>C:/Users/Joseph/source/repos/Metroid/Game/Content/bin/Windows/Content/Sprites/samus.xnb</DestFile>
-  <DestTime>2020-10-22T18:12:14.6352574-04:00</DestTime>
+  <DestTime>2020-10-23T19:55:11.5829027-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
