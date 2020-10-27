@@ -107,9 +107,33 @@ namespace Library.Assets.Samus
                 character.AccelerateY();
             }
 
-            if ( character.gamePadState.Buttons.A == ButtonState.Pressed && character.GetCurrentVelocity.Y > -0.2f * tileSize )
+            if ( character.gamePadState.Buttons.A == ButtonState.Pressed && character.GetCurrentVelocity.Y > -0.2f * tileSize && character.NumJumps > 0 )
             {
                 character.SetCurrentAnimation(AnimationName.jumpingSpinning);
+            }
+        }
+
+        public static void MorphBallIncrement(Animation animation, Character character)
+        {
+            float directionalInputX = character.gamePadState.ThumbSticks.Left.X;
+
+            if ( character.gamePadState.ThumbSticks.Left.Y > 0.7f && Math.Abs(character.GetCeiling() - character.GetCollisionBox().Top) > tileSize / 2)
+            {
+                character.SetCurrentAnimation(AnimationName.standingUp);
+                return;
+            }
+
+            // if input is not the direction currently running in, stop
+            if ( directionalInputX != 0 && Math.Sign((int)character.Direction) != Math.Sign(directionalInputX) )
+            {
+                character.StopX();
+                character.SetDirection((Direction)((int)character.Direction * -1));
+            }
+
+            // if not at max speed, accelerate
+            if ( !character.AtMaxSpeedX() )
+            {
+                character.AccelerateX(character.gamePadState.ThumbSticks.Left.X * 1.2f);
             }
         }
 
@@ -126,6 +150,12 @@ namespace Library.Assets.Samus
         public static void FallingIncrement(Animation animation, Character character)
         {
             character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.08f * tileSize, 0));
+
+            if ( character.gamePadState.Buttons.A == ButtonState.Pressed && character.NumJumps > 0 )
+            {
+                character.SetCurrentAnimation(AnimationName.jumpingSpinning);
+                return;
+            }
         }
 
         public static void CrouchingIncrement(Animation animation, Character character)
@@ -136,6 +166,12 @@ namespace Library.Assets.Samus
             if ( character.gamePadState.ThumbSticks.Left.Y > 0 )
             {
                 character.SetCurrentAnimation(AnimationName.standingUp);
+                return;
+            }
+            else if ( character.gamePadState.ThumbSticks.Left.Y < -0.8f )
+            {
+                character.SetCurrentAnimation(AnimationName.morphBall);
+                return;
             }
 
             if ( Math.Abs(character.gamePadState.ThumbSticks.Left.X) > 0.7f )

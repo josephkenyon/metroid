@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using static Library.Domain.Constants;
 using static Library.Domain.Enums;
 
@@ -13,7 +15,7 @@ namespace Library.Assets
     {
         public abstract int MaxHealth { get; }
         public bool Alive { get; private set; }
-        public int NumJumps { get; protected set; }
+        public int NumJumps { get; set; }
 
         public bool IsGrounded => GetCollisionBox().Bottom == GetFloor();
         public bool IsNotCrouching => CurrentAnimation.AnimationType != AnimationType.crouchingType;
@@ -30,6 +32,12 @@ namespace Library.Assets
         public bool AtMaxSpeedX()
         {
             return CurrentVelocity.X * (int)Direction >= MaxVelocity.X;
+        }
+
+        public void StopX()
+        {
+            CurrentVelocity.X *= 0f;
+
         }
 
         public bool AtMaxSpeedX(Direction overrideDirection)
@@ -64,7 +72,7 @@ namespace Library.Assets
 
         public void SetCurrentAnimation(AnimationName animationName, int startingFrame = 0, bool finalFrame = false)
         {
-            if ( CurrentAnimation.IsActionable(animations[(int)animationName].AnimationType) && CurrentAnimation.Name != animationName )
+            if ( CurrentAnimation.IsActionable(animations[(int)animationName].AnimationType) && CurrentAnimation.Name != animationName || animationName == AnimationName.landing )
             {
                 OverrideCurrentAnimation(animationName, startingFrame, finalFrame);
                 if ( CurrentAnimation.AnimationType == AnimationType.jumpingType )
@@ -76,8 +84,16 @@ namespace Library.Assets
 
         public void OverrideCurrentAnimation(AnimationName animationName, int startingFrame, bool finalFrame)
         {
+            float oldBottom = GetFloor();
+
             CurrentAnimation.Reset();
             CurrentAnimationIndex = animationName;
+
+            if ( oldBottom != GetFloor() && Math.Abs(oldBottom - GetFloor()) <= tileSize )
+            {
+                InfluencePosition(new Vector2(0, oldBottom - GetCollisionBox().Bottom));
+            }
+
             CurrentAnimation.Reset(startingFrame, finalFrame);
         }
 
@@ -99,21 +115,106 @@ namespace Library.Assets
             }
         }
 
-        public abstract void Update(GameState gameState, GamePadState gamePadState);
+        public float GetFloor()
+        {
+            Rectangle collisionBox = GetCollisionBox();
+            int bottom = collisionBox.Bottom;
+            int center = collisionBox.Center.X / tileSize;
 
-        public abstract void HandleButtons(GamePadState gamePadState);
+            IEnumerable<TerrainBlock> candidates = from block in gameState.CurrentLevel.BlockMap.Values
+                                                   where block.CurrentQuadrant.X >= center - 1
+                                                         && block.CurrentQuadrant.X <= center + 1
+                                                   select block;
 
-        public abstract void ApplyGravity(float floor);
+            candidates = candidates.Where(b => b.Position.X < collisionBox.Right && b.Position.X + tileSize > collisionBox.Left).Where(b => b.Position.Y >= bottom);
 
-        public abstract float GetFloor();
+            return (from block in candidates select (float?)block.Position.Y).Min() ?? 999999f;
+        }
 
-        public abstract float GetCeiling();
+        public float GetCeiling()
+        {
+            Rectangle collisionBox = GetCollisionBox();
+            int top = collisionBox.Top;
+            int center = collisionBox.Center.X / tileSize;
 
-        public abstract float GetLeftWall();
+            IEnumerable<TerrainBlock> candidates = from block in gameState.CurrentLevel.BlockMap.Values
+                                                   where block.CurrentQuadrant.X >= center - 1
+                                                         && block.CurrentQuadrant.X <= center + 1
+                                                   select block;
 
-        public abstract float GetRightWall();
+            candidates = candidates.Where(
+                b => b.Position.X < collisionBox.Right && b.Position.X + tileSize > collisionBox.Left)
+                .Where(b => b.Position.Y + tileSize <= top);
 
-        public override void Draw(SpriteBatch spriteBatch)
+            return (from block in candidates select (float?)block.Position.Y + tileSize).Max() ?? -9999999f;
+        }
+
+        public float GetLeftWall()
+        {
+            Rectangle collisionBox = GetCollisionBox();
+            int left = collisionBox.Left;
+            int center = collisionBox.Center.Y / tileSize;
+
+            IEnumerable<TerrainBlock> candidates = from block in gameState.CurrentLevel.BlockMap.Values
+                                                   where block.CurrentQuadrant.Y >= center - 2
+                                                         && block.CurrentQuadrant.Y <= center + 2
+                                                   select block;
+
+            candidates = candidates.Where(b => b.Position.Y < collisionBox.Bottom && b.Position.Y + tileSize > collisionBox.Top).Where(b => b.Position.X <= left);
+
+            return (from block in candidates select (float?)block.Position.X + tileSize).Max() ?? -9999999f;
+        }
+
+
+        public float GetRightWall()
+        {
+            Rectangle collisionBox = GetCollisionBox();
+            int right = collisionBox.Right;
+            int center = collisionBox.Center.Y / tileSize;
+
+            IEnumerable<TerrainBlock> candidates = from block in gameState.CurrentLevel.BlockMap.Values
+                                                   where block.CurrentQuadrant.Y >= center - 2
+                                                         && block.CurrentQuadrant.Y <= center + 2
+                                                   select block;
+
+            candidates = candidates.Where(b => b.Position.Y < collisionBox.Bottom && b.Position.Y + tileSize > collisionBox.Top).Where(b => b.Position.X >= right);
+
+            return (from block in candidates select (float?)block.Position.X).Min() ?? 9999999f;
+        }
+
+        public void CheckCollisions(float currentFloor, float currentCeiling, float currentRightWall, float currentLeftWall)
+        {
+
+            if ( GetCollisionBox().Right > currentRightWall )
+            {
+                Position = new Vector2(Position.X + (currentRightWall - GetCollisionBox().Right), Position.Y);
+            }
+
+            if ( GetCollisionBox().Left < currentLeftWall )
+            {
+                Position = new Vector2(Position.X + (currentLeftWall - GetCollisionBox().Left), Position.Y);
+            }
+
+            if ( GetCollisionBox().Bottom > currentFloor )
+            {
+                if ( NumJumps < 2 && IsNotCrouching && CurrentAnimation.Name != AnimationName.morphBall )
+                {
+                    NumJumps = 2;
+                    SetCurrentAnimation(AnimationName.landing);
+                }
+                Position = new Vector2(Position.X, currentFloor - GetCollisionBox().Bottom + Position.Y);
+                CurrentVelocity.Y = 0;
+            }
+
+            if ( GetCollisionBox().Top < currentCeiling )
+            {
+                SetCurrentAnimation(AnimationName.falling);
+                Position = new Vector2(Position.X, currentCeiling + (Position.Y - GetCollisionBox().Top));
+                CurrentVelocity.Y = 0;
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, GameState gameState)
         {
             Vector2 position = new Vector2(
                 Position.X - (SpriteSize.X * SpriteTileSize * tileSize / SpriteTileSize / 2),
@@ -125,7 +226,7 @@ namespace Library.Assets
             );
             spriteBatch.Draw(
                 texture: spriteTexture,
-                position: position,
+                position: position - gameState.CameraLocation,
                 sourceRectangle:
                 drawRectangle,
                 color: Color.White,
@@ -136,5 +237,24 @@ namespace Library.Assets
                 layerDepth: 0f
             );
         }
+
+        public void ApplyGravity(float floor)
+        {
+            if ( CurrentAnimation.IsLooping || CurrentAnimation.Name != AnimationName.jumpingIdle )
+            {
+                if ( GetCollisionBox().Bottom != floor )
+                {
+                    CurrentVelocity.Y += gravity;
+                    if ( NumJumps == 2 )
+                    {
+                        NumJumps--;
+                    }
+                }
+            }
+        }
+
+        public abstract void Update(GameState gameState, GamePadState gamePadState);
+
+        public abstract void HandleButtons(GamePadState gamePadState);
     }
 }

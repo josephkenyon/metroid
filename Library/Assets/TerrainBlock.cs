@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Library.State;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static Library.Domain.Constants;
 
@@ -21,7 +22,7 @@ namespace Library.Assets
             this.Impenetrable = Impenetrable;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, GameState gameState)
         {
             Rectangle drawRectangle = new Rectangle(
                 location: (SpriteLocation * SpriteTileSize).ToPoint(),
@@ -29,10 +30,10 @@ namespace Library.Assets
             );
             spriteBatch.Draw(
                 texture: texture,
-                position: Position,
+                position: Position - gameState.CameraLocation,
                 sourceRectangle:
                 drawRectangle,
-                color: Color.White,
+                color: Color.IndianRed,
                 rotation: 0f,
                 origin: Vector2.Zero,
                 scale: tileSize / SpriteTileSize,

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static Library.Domain.Enums;
 using static Library.Domain.Constants;
+using Library.State;
 
 namespace Library.Assets
 {
@@ -21,7 +22,7 @@ namespace Library.Assets
         public bool MovingLeft => CurrentVelocity.X < 0;
         public bool MovingRight => CurrentVelocity.X > 0;
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, GameState gameState)
         {
             Rectangle drawRectangle = new Rectangle(
                 location: animation.GetDrawCoordinates(Direction).ToPoint(),
@@ -29,7 +30,7 @@ namespace Library.Assets
             );
             spriteBatch.Draw(
                 texture: spriteTexture,
-                position: Position,
+                position: Position - gameState.CameraLocation,
                 sourceRectangle:
                 drawRectangle,
                 color: Color.White,

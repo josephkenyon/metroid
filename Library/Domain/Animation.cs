@@ -27,9 +27,9 @@ namespace Library.Domain
         public Direction Direction { get; set; }
         public readonly AnimationName Name;
         private readonly Character Character;
-        private Action<Animation, Character> ExecuteBegin { get; set; }
-        private Action<Animation, Character> ExecuteIncrement { get; set; }
-        private Action<Animation, Character> ExecuteCompleted { get; set; }
+        public Action<Animation, Character> ExecuteBegin { get; private set; }
+        public Action<Animation, Character> ExecuteIncrement { get; private set; }
+        public Action<Animation, Character> ExecuteCompleted { get; private set; }
 
         public Animation(Character SetCharacter, AnimationProperties AnimationProperties)
         {
@@ -54,16 +54,16 @@ namespace Library.Domain
 
         public void Increment(GamePadState gamePadState)
         {
-            if (CurrentFrameIndex == 0)
+            if ( CurrentFrameIndex == 0 && !IsLooping )
             {
                 ExecuteBegin?.Invoke(this, Character);
             }
             ExecuteIncrement?.Invoke(this, Character);
 
-            if (AnimationCompleted)
+            if ( AnimationCompleted )
             {
                 Completed = true;
-                if (LoopFrameIndex != null)
+                if ( LoopFrameIndex != null )
                 {
                     IsLooping = true;
                     CurrentFrameIndex = (int)LoopFrameIndex * FrameSkip;

@@ -8,6 +8,15 @@
             right = 1
         }
 
+        public enum SamusColor
+        {
+            Orange,
+            Blue,
+            Purple,
+            Yellow,
+            Green
+        }
+
         public enum AnimationName
         {
             idle = 0,

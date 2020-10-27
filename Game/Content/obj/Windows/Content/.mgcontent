@@ -6,9 +6,19 @@
   <SourceFiles>
     <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Console.spritefont</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/samus.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/samusBlue.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/samusGreen.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/samusOrange.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/samusPurple.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/samusYellow.png</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/terrainpallete.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

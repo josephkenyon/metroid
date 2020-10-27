@@ -1,6 +1,5 @@
 ﻿using Library.Domain;
-using Microsoft.Xna.Framework.Input;
-using System;
+using Microsoft.Xna.Framework;
 using static Library.Domain.Enums;
 
 namespace Library.Assets.Samus

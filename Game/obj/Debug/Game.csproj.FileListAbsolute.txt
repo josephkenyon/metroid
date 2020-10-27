@@ -44,3 +44,8 @@ C:\Users\Joseph\source\repos\Metroid\Game\obj\Debug\Game.exe
 C:\Users\Joseph\source\repos\Metroid\Game\obj\Debug\Game.pdb
 C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\samus.xnb
 C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\terrainpallete.xnb
+C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\samusBlue.xnb
+C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\samusOrange.xnb
+C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\samusPurple.xnb
+C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\samusYellow.xnb
+C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\samusGreen.xnb

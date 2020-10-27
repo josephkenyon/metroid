@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Library.State;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static Library.Domain.Constants;
 
@@ -10,6 +11,6 @@ namespace Library.Assets
         public Point CurrentQuadrant => (Position / tileSize).ToPoint();
         public int SpriteTileSize { get; protected set; }
         public abstract Rectangle GetCollisionBox();
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public abstract void Draw(SpriteBatch spriteBatch, GameState gameState);
     }
 }

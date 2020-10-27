@@ -4,6 +4,7 @@ using Library.State;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using static Library.Domain.Constants;
 
@@ -26,6 +27,9 @@ namespace Game1
             graphics.PreferredBackBufferWidth = 30 * tileSize;
             Content.RootDirectory = "Content";
             Mouse.WindowHandle = Window.Handle;
+
+            IsFixedTimeStep = true;  //Force the game to update at fixed time intervals
+            TargetElapsedTime = TimeSpan.FromSeconds(1 / 60.0f);  //Set the time interval to 1/30th of a second
         }
 
         protected override void Initialize()
@@ -38,7 +42,7 @@ namespace Game1
         {
             // load content
             consoleFont = Content.Load<SpriteFont>("Console");
-            samus = new Samus(Content.Load<Texture2D>("Sprites\\samus"));
+            samus = new Samus(Content.Load<Texture2D>("Sprites\\samusOrange"));
 
             // create blocks for level
             List<TerrainBlock> blocks = new List<TerrainBlock>();
@@ -46,28 +50,29 @@ namespace Game1
             {
                 for ( int l = 1; l < 8; l++ )
                 {
-                    blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(2, 0), new Vector2(tileSize * i, floor + (tileSize * l)), 64, true));
+                    blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(2, 0), new Vector2(tileSize * i, floor + (tileSize * l)), 16, true));
                 };
-                blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(7, 4), new Vector2(tileSize * i, floor), 64, true));
+                blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(7, 4), new Vector2(tileSize * i, floor), 16, true));
             };
 
-            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(6, 3), new Vector2(tileSize * 12, floor - tileSize * 2), 64, true));
-            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(6, 2), new Vector2(tileSize * 12, floor - tileSize * 3), 64, true));
-            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(7, 3), new Vector2(tileSize * 13, floor - tileSize * 2), 64, true));
-            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(7, 2), new Vector2(tileSize * 13, floor - tileSize * 3), 64, true));
+            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(6, 3), new Vector2(tileSize * 12, floor - tileSize * 2), 16, true));
+            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(6, 2), new Vector2(tileSize * 12, floor - tileSize * 3), 16, true));
+            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(7, 3), new Vector2(tileSize * 13, floor - tileSize * 2), 16, true));
+            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(7, 2), new Vector2(tileSize * 13, floor - tileSize * 3), 16, true));
 
 
-            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(6, 3), new Vector2(tileSize * 15, floor - tileSize * 4), 64, true));
-            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(6, 2), new Vector2(tileSize * 15, floor - tileSize * 5), 64, true));
-            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(7, 3), new Vector2(tileSize * 16, floor - tileSize * 4), 64, true));
-            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(7, 2), new Vector2(tileSize * 16, floor - tileSize * 5), 64, true));
+            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(6, 3), new Vector2(tileSize * 15, floor - tileSize * 4), 16, true));
+            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(6, 2), new Vector2(tileSize * 15, floor - tileSize * 5), 16, true));
+            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(7, 3), new Vector2(tileSize * 16, floor - tileSize * 4), 16, true));
+            blocks.Add(new TerrainBlock(Content.Load<Texture2D>("Sprites\\terrainpallete"), new Vector2(7, 2), new Vector2(tileSize * 16, floor - tileSize * 5), 16, true));
 
             // add to level
-            gameState = new GameState();
+            gameState = new GameState(Window);
             foreach ( TerrainBlock block in blocks )
             {
                 gameState.CurrentLevel.BlockMap.Add(block.CurrentQuadrant, block);
             }
+            gameState.SetFocusObject(samus);
         }
 
 
@@ -87,41 +92,48 @@ namespace Game1
 
             samus.Update(gameState, GamePad.GetState(PlayerIndex.One));
 
+            gameState.Update();
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            //GraphicsDevice.Clear(new Color(10, 10, 20));
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp);
 
-            samus.Draw(spriteBatch);
+            samus.Draw(spriteBatch, gameState);
 
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp);
 
             foreach ( TerrainBlock block in gameState.CurrentLevel.BlockMap.Values )
             {
-                block.Draw(spriteBatch);
+                block.Draw(spriteBatch, gameState);
             }
 
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp);
+            spriteBatch.DrawString(consoleFont, samus.CurrentAnimation.CurrentFrame.ToString(), new Vector2(10, Window.ClientBounds.Height - 20), Color.White);
+            /*
+                       
 
-            Texture2D rect = new Texture2D(graphics.GraphicsDevice, samus.GetCollisionBox().Width, samus.GetCollisionBox().Height);
-            Color[] data = new Color[samus.GetCollisionBox().Width * samus.GetCollisionBox().Height];
+            Texture2D rect = new Texture2D(graphics.GraphicsDevice, tileSize, tileSize);
+            Color[] data = new Color[tileSize * tileSize];
             for ( int i = 0; i < data.Length; ++i ) data[i] = Color.Chocolate;
             rect.SetData(data);
 
-            // spriteBatch.Draw(rect, samus.GetCollisionBox().Location.ToVector2(), Color.White);
+            spriteBatch.Draw(rect, new Vector2((int)(samus.Position.X / tileSize) * tileSize, samus.GetFloor()) - gameState.CameraLocation, Color.White);
+            spriteBatch.Draw(rect, samus.GetCollisionBox().Location.ToVector2(), Color.White);
+            spriteBatch.DrawString(consoleFont, "FPS: " + (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString(), new Vector2(10, Window.ClientBounds.Height - 20), Color.White);
 
-            spriteBatch.DrawString(consoleFont, (Mouse.GetState().Position.ToVector2() / tileSize).ToPoint().ToString(), new Vector2(10, 10), Color.White);
 
+            */
             spriteBatch.End();
-
 
             base.Draw(gameTime);
         }
