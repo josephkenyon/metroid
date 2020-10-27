@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/Joseph/source/repos/Metroid/Engine/Content/Logo_Shadow_256.png</SourceFile>
-  <SourceTime>2020-10-19T22:51:11.0817396-04:00</SourceTime>
+  <SourceTime>2020-10-27T17:28:54.4815343-04:00</SourceTime>
   <DestFile>C:/Users/Joseph/source/repos/Metroid/Engine/Content/bin/Windows/Content/Logo_Shadow_256.xnb</DestFile>
-  <DestTime>2020-10-21T17:10:55.2489997-04:00</DestTime>
+  <DestTime>2020-10-27T17:29:22.6063489-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
