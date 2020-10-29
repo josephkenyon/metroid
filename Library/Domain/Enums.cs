@@ -17,6 +17,12 @@
             Green
         }
 
+        public enum WeaponType
+        {
+            Charge = 0,
+            Missile = 1,
+        }
+
         public enum AnimationName
         {
             idle = 0,
@@ -40,6 +46,12 @@
             landing = 18,
             jumpingSpinning = 19,
             morphBall = 20,
+            jumpingAimingStraight = 21,
+            jumpingAimingDiagonalUp = 22,
+            jumpingAimingStraightUp = 23,
+            jumpingAimingDiagonalDown = 24,
+            jumpingAimingStraightDown = 25,
+            dead = 26,
         }
 
         public enum AnimationType
@@ -52,6 +64,8 @@
             fallingType = 5,
             landingType = 6,
             morphBallType = 7,
+            jumpingShootingType = 8,
+            deadType = 9,
         }
     }
 }

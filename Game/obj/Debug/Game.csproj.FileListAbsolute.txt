@@ -1,5 +1,6 @@
 C:\Users\Joseph\source\repos\Metroid\Game1\obj\Debug\Game.csprojAssemblyReference.cache
 C:\Users\Joseph\source\repos\Metroid\Game1\obj\Debug\Game.csproj.CoreCompileInputs.cache
+C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\terrainpallete.xnb
 C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Console.xnb
 C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\x86\SDL2.dll
 C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\x64\SDL2.dll
@@ -42,10 +43,9 @@ C:\Users\Joseph\source\repos\Metroid\Game\obj\Debug\Game.csproj.CoreCompileInput
 C:\Users\Joseph\source\repos\Metroid\Game\obj\Debug\Game.csproj.CopyComplete
 C:\Users\Joseph\source\repos\Metroid\Game\obj\Debug\Game.exe
 C:\Users\Joseph\source\repos\Metroid\Game\obj\Debug\Game.pdb
-C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\samus.xnb
-C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\terrainpallete.xnb
-C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\samusBlue.xnb
-C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\samusOrange.xnb
-C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\samusPurple.xnb
-C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\samusYellow.xnb
-C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\samusGreen.xnb
+C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\Samus\samusBlue.xnb
+C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\Samus\samusGreen.xnb
+C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\Samus\samusOrange.xnb
+C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\Samus\samusPurple.xnb
+C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\Samus\samusYellow.xnb
+C:\Users\Joseph\source\repos\Metroid\Game\bin\DesktopGL\AnyCPU\Debug\Content\Sprites\weapons.xnb

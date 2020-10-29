@@ -33,7 +33,7 @@ namespace Library.Assets
                 position: Position - gameState.CameraLocation,
                 sourceRectangle:
                 drawRectangle,
-                color: Color.IndianRed,
+                color: Color.White,
                 rotation: 0f,
                 origin: Vector2.Zero,
                 scale: tileSize / SpriteTileSize,

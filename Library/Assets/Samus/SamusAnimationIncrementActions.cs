@@ -28,15 +28,15 @@ namespace Library.Assets.Samus
 
             if ( Math.Abs(inputX) > 0.3 )
             {
-                if ( inputY < -0.1 )
+                if ( inputY < -0.15 && Math.Sign(inputX) == Math.Sign((int)character.Direction) )
                 {
                     character.SetCurrentAnimation(AnimationName.aimingStandingDiagonalDown, finalFrame: true);
                 }
-                else if ( inputY > 0.1 )
+                else if ( inputY > 0.15 && Math.Sign(inputX) == Math.Sign((int)character.Direction) )
                 {
                     character.SetCurrentAnimation(AnimationName.aimingStandingDiagonalUp, finalFrame: true);
                 }
-                else
+                else if ( Math.Sign(inputX) == Math.Sign((int)character.Direction) )
                 {
                     character.SetCurrentAnimation(AnimationName.aimingStandingStraight, finalFrame: true);
                 }
@@ -54,6 +54,7 @@ namespace Library.Assets.Samus
         public static void RunningIncrement(Animation animation, Character character)
         {
             float directionalInputX = character.gamePadState.ThumbSticks.Left.X;
+            float inputX = character.gamePadState.ThumbSticks.Right.X;
 
             if ( directionalInputX == 0 )
             {
@@ -71,17 +72,17 @@ namespace Library.Assets.Samus
             int newFrame = animation.AnimationType == AnimationType.runningType ? animation.CurrentFrame : 0;
 
             // allow character to aim
-            if ( Math.Abs(character.gamePadState.ThumbSticks.Right.X) > 0.3 )
+            if ( Math.Abs(inputX) > 0.3 )
             {
-                if ( character.gamePadState.ThumbSticks.Right.Y < -0.1 )
+                if ( character.gamePadState.ThumbSticks.Right.Y < -0.15 && Math.Sign(inputX) == Math.Sign((int)character.Direction) )
                 {
                     character.SetCurrentAnimation(AnimationName.runningAimingDiagonalDown, newFrame);
                 }
-                else if ( character.gamePadState.ThumbSticks.Right.Y > 0.1 )
+                else if ( character.gamePadState.ThumbSticks.Right.Y > 0.15 && Math.Sign(inputX) == Math.Sign((int)character.Direction) )
                 {
                     character.SetCurrentAnimation(AnimationName.runningAimingDiagonalUp, newFrame);
                 }
-                else
+                else if ( Math.Sign(inputX) == Math.Sign((int)character.Direction) )
                 {
                     character.SetCurrentAnimation(AnimationName.runningAimingCenter, newFrame);
                 }
@@ -111,19 +112,47 @@ namespace Library.Assets.Samus
             {
                 character.SetCurrentAnimation(AnimationName.jumpingSpinning);
             }
+
+            AimingMidAir(animation, character);
+
+        }
+
+        public static void JumpingAimingIncrement(Animation animation, Character character)
+        {
+            character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.08f * tileSize, 0));
+            AimingMidAir(animation, character);
         }
 
         public static void MorphBallIncrement(Animation animation, Character character)
         {
             float directionalInputX = character.gamePadState.ThumbSticks.Left.X;
 
-            if ( character.gamePadState.ThumbSticks.Left.Y > 0.7f && Math.Abs(character.GetCeiling() - character.GetCollisionBox().Top) > tileSize / 2)
+            if ( character.gamePadState.ThumbSticks.Left.Y > 0.7f && Math.Abs(character.GetCeiling() - character.GetCollisionBox().Top) > tileSize / 2 )
             {
                 character.SetCurrentAnimation(AnimationName.standingUp);
                 return;
             }
 
+            if ( character.gamePadState.Buttons.A == ButtonState.Pressed )
+            {
+                if ( character.IsGrounded )
+                {
+                    if ( Math.Abs(character.GetCeiling() - character.GetCollisionBox().Top) > tileSize / 2 )
+                    {
+                        character.NumJumps = 2;
+                        character.SetCurrentAnimation(AnimationName.jumpingIdle);
+                    }
+                }
+                else
+                {
+                    character.SetCurrentAnimation(AnimationName.jumpingSpinning);
+                }
+                return;
+            }
+
             // if input is not the direction currently running in, stop
+            int test = Math.Sign(directionalInputX);
+            int test2 = Math.Sign((int)character.Direction);
             if ( directionalInputX != 0 && Math.Sign((int)character.Direction) != Math.Sign(directionalInputX) )
             {
                 character.StopX();
@@ -131,7 +160,7 @@ namespace Library.Assets.Samus
             }
 
             // if not at max speed, accelerate
-            if ( !character.AtMaxSpeedX() )
+            if ( !character.AtMaxSpeedX(0.85f) )
             {
                 character.AccelerateX(character.gamePadState.ThumbSticks.Left.X * 1.2f);
             }
@@ -149,12 +178,53 @@ namespace Library.Assets.Samus
 
         public static void FallingIncrement(Animation animation, Character character)
         {
+            float inputX = character.gamePadState.ThumbSticks.Right.X;
+            float inputY = character.gamePadState.ThumbSticks.Right.Y;
+
             character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.08f * tileSize, 0));
 
             if ( character.gamePadState.Buttons.A == ButtonState.Pressed && character.NumJumps > 0 )
             {
                 character.SetCurrentAnimation(AnimationName.jumpingSpinning);
                 return;
+            }
+
+            AimingMidAir(animation, character);
+        }
+
+        internal static void AimingMidAir(Animation animation, Character character)
+        {
+
+            float inputX = character.gamePadState.ThumbSticks.Right.X;
+            float inputY = character.gamePadState.ThumbSticks.Right.Y;
+
+
+            // aiming while mid air
+            if ( Math.Abs(inputX) > 0.3 )
+            {
+                if ( inputY < -0.15 && Math.Sign(inputX) == Math.Sign((int)character.Direction) )
+                {
+                    character.SetCurrentAnimation(AnimationName.jumpingAimingDiagonalDown, finalFrame: true);
+                }
+                else if ( inputY > 0.15 && Math.Sign(inputX) == Math.Sign((int)character.Direction) )
+                {
+                    character.SetCurrentAnimation(AnimationName.jumpingAimingDiagonalUp, finalFrame: true);
+                }
+                else if ( Math.Sign(inputX) == Math.Sign((int)character.Direction) )
+                {
+                    character.SetCurrentAnimation(AnimationName.jumpingAimingStraight, finalFrame: true);
+                }
+            }
+            else if ( Math.Abs(inputX) < 0.25 )
+            {
+                if ( inputY > 0.5 )
+                {
+                    character.SetCurrentAnimation(AnimationName.jumpingAimingStraightUp, finalFrame: true);
+                }
+                else if ( inputY < -0.5 )
+                {
+                    character.SetCurrentAnimation(AnimationName.jumpingAimingStraightDown, finalFrame: true);
+                }
             }
         }
 
@@ -179,6 +249,7 @@ namespace Library.Assets.Samus
                 if ( Math.Sign(character.gamePadState.ThumbSticks.Left.X) != (int)character.Direction )
                 {
                     character.SetCurrentAnimation(AnimationName.turning);
+                    character.CurrentAnimation.Direction = (Direction)((int)character.Direction * -1);
                 }
                 else
                 {
@@ -189,15 +260,15 @@ namespace Library.Assets.Samus
 
             if ( Math.Abs(inputX) > 0.3 )
             {
-                if ( inputY < -0.1 )
+                if ( inputY < -0.1 && Math.Sign(inputX) == Math.Sign((int)character.Direction) )
                 {
                     character.SetCurrentAnimation(AnimationName.aimingCrouchingDiagonalDown, finalFrame: true);
                 }
-                else if ( inputY > 0.1 )
+                else if ( inputY > 0.1 && Math.Sign(inputX) == Math.Sign((int)character.Direction) )
                 {
                     character.SetCurrentAnimation(AnimationName.aimingCrouchingDiagonalUp, finalFrame: true);
                 }
-                else
+                else if ( Math.Sign(inputX) == Math.Sign((int)character.Direction) )
                 {
                     character.SetCurrentAnimation(AnimationName.aimingCrouchingStraight, finalFrame: true);
                 }

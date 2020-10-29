@@ -82,6 +82,8 @@
     <Compile Include="Assets\Samus\SamusCollisionBoxSet.cs" />
     <Compile Include="Assets\Samus\SamusAnimationSet.cs" />
     <Compile Include="Assets\TerrainBlock.cs" />
+    <Compile Include="Assets\Weapon.cs" />
+    <Compile Include="Assets\WeaponProperties.cs" />
     <Compile Include="Domain\Animation.cs" />
     <Compile Include="Assets\Character.cs" />
     <Compile Include="Domain\AnimationInitalizer.cs" />

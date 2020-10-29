@@ -50,11 +50,10 @@ C:\Users\Joseph\source\repos\Metroid\Engine\bin\Debug\SharpDX.MediaFoundation.xm
 C:\Users\Joseph\source\repos\Metroid\Engine\bin\Debug\SharpDX.Direct2D1.xml
 C:\Users\Joseph\source\repos\Metroid\Engine\bin\Debug\SharpDX.XAudio2.xml
 C:\Users\Joseph\source\repos\Metroid\Engine\bin\Debug\SharpDX.XInput.xml
-C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.csprojAssemblyReference.cache
+C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.Editor.resources
 C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.Properties.Resources.resources
 C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.csproj.GenerateResource.cache
 C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.csproj.CoreCompileInputs.cache
 C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.csproj.CopyComplete
 C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.exe
 C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.pdb
-C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.Editor.resources

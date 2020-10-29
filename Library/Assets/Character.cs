@@ -29,9 +29,9 @@ namespace Library.Assets
         protected Animation[] animations;
         protected AnimationName CurrentAnimationIndex;
 
-        public bool AtMaxSpeedX()
+        public bool AtMaxSpeedX(float constant = 1f)
         {
-            return CurrentVelocity.X * (int)Direction >= MaxVelocity.X;
+            return CurrentVelocity.X * (int)Direction >= MaxVelocity.X * constant;
         }
 
         public void StopX()
@@ -50,9 +50,9 @@ namespace Library.Assets
             CurrentVelocity.X = CurrentVelocity.X + (Acceleration.X * (int)overrideDirection * Math.Abs(constant));
         }
 
-        public void AccelerateX(float constant = 1f)
+        public void AccelerateX(float directionConstant = 1f)
         {
-            CurrentVelocity.X = CurrentVelocity.X + (Acceleration.X * constant);
+            CurrentVelocity.X = CurrentVelocity.X + (Acceleration.X * directionConstant);
         }
 
         public void AccelerateY(float constant = 1f)
@@ -85,14 +85,22 @@ namespace Library.Assets
         public void OverrideCurrentAnimation(AnimationName animationName, int startingFrame, bool finalFrame)
         {
             float oldBottom = GetFloor();
+            float oldWidth = GetCollisionBox().Width;
 
             CurrentAnimation.Reset();
             CurrentAnimationIndex = animationName;
 
-            if ( oldBottom != GetFloor() && Math.Abs(oldBottom - GetFloor()) <= tileSize )
+            if ( oldWidth != GetCollisionBox().Width )
             {
-                InfluencePosition(new Vector2(0, oldBottom - GetCollisionBox().Bottom));
+                InfluencePosition(new Vector2((GetCollisionBox().Width - oldWidth) / 2, 0f));
             }
+
+            float newFloor = GetFloor();
+            if ( oldBottom != newFloor && Math.Abs(oldBottom - newFloor) <= tileSize && GetCurrentVelocity.Y > 0f && oldBottom < newFloor )
+            {
+                InfluencePosition(new Vector2(0f, oldBottom - GetCollisionBox().Bottom));
+            }
+
 
             CurrentAnimation.Reset(startingFrame, finalFrame);
         }
@@ -197,13 +205,14 @@ namespace Library.Assets
 
             if ( GetCollisionBox().Bottom > currentFloor )
             {
-                if ( NumJumps < 2 && IsNotCrouching && CurrentAnimation.Name != AnimationName.morphBall )
+                if ( NumJumps < 2 && IsNotCrouching && CurrentAnimation.Name != AnimationName.morphBall && CurrentAnimation.Name != AnimationName.turning )
                 {
                     NumJumps = 2;
                     SetCurrentAnimation(AnimationName.landing);
                 }
                 Position = new Vector2(Position.X, currentFloor - GetCollisionBox().Bottom + Position.Y);
                 CurrentVelocity.Y = 0;
+                NumJumps = 2;
             }
 
             if ( GetCollisionBox().Top < currentCeiling )
@@ -212,30 +221,6 @@ namespace Library.Assets
                 Position = new Vector2(Position.X, currentCeiling + (Position.Y - GetCollisionBox().Top));
                 CurrentVelocity.Y = 0;
             }
-        }
-
-        public override void Draw(SpriteBatch spriteBatch, GameState gameState)
-        {
-            Vector2 position = new Vector2(
-                Position.X - (SpriteSize.X * SpriteTileSize * tileSize / SpriteTileSize / 2),
-                Position.Y - (SpriteSize.Y * SpriteTileSize * tileSize / SpriteTileSize)
-                );
-            Rectangle drawRectangle = new Rectangle(
-                location: CurrentAnimation.GetDrawCoordinates(Direction).ToPoint(),
-                size: (SpriteSize * SpriteTileSize).ToPoint()
-            );
-            spriteBatch.Draw(
-                texture: spriteTexture,
-                position: position - gameState.CameraLocation,
-                sourceRectangle:
-                drawRectangle,
-                color: Color.White,
-                rotation: 0f,
-                origin: Vector2.Zero,
-                scale: tileSize / SpriteTileSize,
-                effects: SpriteEffects.None,
-                layerDepth: 0f
-            );
         }
 
         public void ApplyGravity(float floor)

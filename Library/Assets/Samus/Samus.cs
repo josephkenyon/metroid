@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using static Library.Assets.Samus.SamusAnimationSet;
 using static Library.Assets.Samus.SamusCollisionBoxSet;
 using static Library.Domain.Constants;
@@ -15,16 +14,22 @@ namespace Library.Assets.Samus
 {
     public class Samus : Character
     {
+        public List<Weapon> Weapons { get; set; }
         public override int MaxHealth => 100;
+        public bool Dead => CurrentAnimation.AnimationType == AnimationType.deadType;
 
         public Samus(Texture2D spriteTexture)
         {
             this.spriteTexture = spriteTexture;
+            Weapons = new List<Weapon>()
+            {
+                new Weapon(WeaponType.Charge, this)
+            };
             SpriteNumber = new Vector2(10, 14);
             SpriteTileSize = 16;
             Direction = Direction.left;
             Position = new Vector2(tileSize * 3, tileSize * 3);
-            Acceleration = new Vector2(0.025f * tileSize, 0.03f * tileSize);
+            Acceleration = new Vector2(0.025f * tileSize, 0.032f * tileSize);
             MaxVelocity = new Vector2(0.18f * tileSize, 0.005f * tileSize);
             SpriteSize = new Vector2(3, 4);
             animations = AnimationInitalizers.InitializeSamusAnimations(this, SamusAnimationProperties);
@@ -33,6 +38,7 @@ namespace Library.Assets.Samus
 
         public override void Update(GameState gameState, GamePadState gamePadState)
         {
+            if ( Dead ) return;
             this.gameState = gameState;
             this.gamePadState = gamePadState;
             float currentFloor = GetFloor();
@@ -43,21 +49,21 @@ namespace Library.Assets.Samus
             HandleButtons(gamePadState);
             CurrentAnimation.Increment(gamePadState);
 
-            Decelerate();
+            Decelerate(gamePadState);
             ApplyGravity(GetFloor());
 
             Position += CurrentVelocity;
 
             CheckCollisions(currentFloor, currentCeiling, currentRightWall, currentLeftWall);
 
-            if ( CurrentVelocity.Y > 0 && CurrentAnimation.Name != AnimationName.morphBall )
+            if ( CurrentVelocity.Y > 0 && CurrentAnimation.Name != AnimationName.morphBall && CurrentAnimation.Name != AnimationName.turning && CurrentAnimation.AnimationType != AnimationType.jumpingShootingType )
             {
                 SetCurrentAnimation(AnimationName.falling);
             }
 
         }
 
-        public void Decelerate()
+        public void Decelerate(GamePadState gamePadState)
         {
             if ( CurrentAnimation.AnimationType != AnimationType.runningType )
             {
@@ -73,6 +79,11 @@ namespace Library.Assets.Samus
                     default:
                         constant = 1f;
                         break;
+                }
+
+                if ( CurrentAnimation.Name == AnimationName.morphBall && gamePadState.ThumbSticks.Left.X != 0 )
+                {
+                    constant = 0f;
                 }
 
                 if ( MovingLeft )
@@ -96,6 +107,30 @@ namespace Library.Assets.Samus
             {
                 SetCurrentAnimation(AnimationName.jumpingIdle);
             }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, GameState gameState)
+        {
+            Vector2 position = new Vector2(
+                Position.X - (SpriteSize.X * SpriteTileSize * tileSize / SpriteTileSize / 2),
+                Position.Y - (SpriteSize.Y * SpriteTileSize * tileSize / SpriteTileSize)
+                );
+            Rectangle drawRectangle = new Rectangle(
+                location: CurrentAnimation.GetDrawCoordinates(Direction).ToPoint(),
+                size: (SpriteSize * SpriteTileSize).ToPoint()
+            );
+            spriteBatch.Draw(
+                texture: spriteTexture,
+                position: position - gameState.CameraLocation,
+                sourceRectangle:
+                drawRectangle,
+                color: Color.White,
+                rotation: 0f,
+                origin: Vector2.Zero,
+                scale: tileSize / SpriteTileSize,
+                effects: SpriteEffects.None,
+                layerDepth: 0f
+            );
         }
 
         public override Rectangle GetCollisionBox()

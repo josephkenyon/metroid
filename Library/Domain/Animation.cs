@@ -16,7 +16,7 @@ namespace Library.Domain
         private int? LoopFrameIndex { get; }
         private bool Actionable { get; }
         private int FrameSkip => OverrideFrameSkip != null ? (int)OverrideFrameSkip : animationFrameSkip;
-        public int CurrentFrame => CurrentFrameIndex * FrameSkip;
+        public int CurrentFrame => CurrentFrameIndex;
         internal int FinalFrame => (FrameCount * FrameSkip) - 1;
         internal bool AnimationCompleted => CurrentFrameIndex >= FinalFrame;
         internal bool AnimationHalfCompleted => CurrentFrameIndex >= (FrameCount * FrameSkip / 2) - 1;

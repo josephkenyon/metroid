@@ -29,6 +29,13 @@ namespace Library.Domain
                 new Animation(samus, animationProperties[(int)AnimationName.landing]),
                 new Animation(samus, animationProperties[(int)AnimationName.jumpingSpinning]),
                 new Animation(samus, animationProperties[(int)AnimationName.morphBall]),
+                new Animation(samus, animationProperties[(int)AnimationName.jumpingAimingStraight]),
+                new Animation(samus, animationProperties[(int)AnimationName.jumpingAimingDiagonalUp]),
+                new Animation(samus, animationProperties[(int)AnimationName.jumpingAimingStraightUp]),
+                new Animation(samus, animationProperties[(int)AnimationName.jumpingAimingDiagonalDown]),
+                new Animation(samus, animationProperties[(int)AnimationName.jumpingAimingStraightDown]),
+                new Animation(samus, animationProperties[(int)AnimationName.dead]),
+
             };
     }
 }
