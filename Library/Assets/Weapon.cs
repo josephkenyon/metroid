@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Library.State;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using static Library.Domain.Enums;
 
@@ -8,6 +10,7 @@ namespace Library.Assets
     {
         public readonly WeaponProperties WeaponProperties;
 
+        public Texture2D texture;
         public Character Character;
         public int? ammo;
         public int lastFired = 0;
@@ -15,8 +18,9 @@ namespace Library.Assets
 
         public List<Projectile> projectiles;
 
-        public Weapon(WeaponType weaponType, Character Character, int? ammo = null)
+        public Weapon(WeaponType weaponType, Character Character, Texture2D texture, int? ammo = null)
         {
+            this.texture = texture;
             this.ammo = ammo;
             this.Character = Character;
             WeaponProperties = new WeaponProperties(weaponType);
@@ -29,21 +33,26 @@ namespace Library.Assets
             foreach ( Projectile projectile in projectiles )
             {
                 projectile.Update();
-                if ( projectile.DeathAnimationCompleted )
-                {
-                    projectiles.Remove(projectile);
-                }
             }
+            projectiles.RemoveAll(a => a.DeathAnimationCompleted);
         }
 
         public void Fire()
         {
             Vector2 Direction = Vector2.One;
-            projectiles.Add(new Projectile(WeaponProperties.weaponType, Direction));
-            lastFired++;
-            if (ammo != null )
+            projectiles.Add(new Projectile(this, Direction));
+            lastFired = 0;
+            if ( ammo != null )
             {
                 ammo--;
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch, GameState gameState)
+        {
+            foreach ( Projectile projectile in projectiles )
+            {
+                projectile.Draw(spriteBatch, gameState);
             }
         }
     }

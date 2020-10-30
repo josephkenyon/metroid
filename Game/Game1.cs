@@ -42,7 +42,7 @@ namespace Game1
         {
             // load content
             consoleFont = Content.Load<SpriteFont>("Console");
-            samus = new Samus(Content.Load<Texture2D>("Sprites\\Samus\\samusOrange"));
+            samus = new Samus(Content.Load<Texture2D>("Sprites\\Samus\\samusOrange"), Content.Load<Texture2D>("Sprites\\weapons"));
 
             // create blocks for level
             List<TerrainBlock> blocks = new List<TerrainBlock>();

@@ -25,42 +25,7 @@ namespace Library.State
 
         public void Update()
         {
-            /*if ( CameraLocation.X < DrawTransform.X )
-            {
-                CameraLocation = CameraLocation + new Vector2(CameraSpeed.X, 0);
-                if ( CameraLocation.X > DrawTransform.X )
-                {
-                    CameraLocation = new Vector2(DrawTransform.X, CameraLocation.Y);
-                }
-            }
-            else if ( CameraLocation.X > DrawTransform.X )
-            {
-                CameraLocation = CameraLocation - new Vector2(CameraSpeed.X, 0);
-                if ( CameraLocation.X < DrawTransform.X )
-                {
-                    CameraLocation = new Vector2(DrawTransform.X, CameraLocation.Y);
-                }
-            }
-
-            if ( CameraLocation.Y < DrawTransform.Y )
-            {
-                CameraLocation = CameraLocation + new Vector2(0, CameraSpeed.Y);
-                if ( CameraLocation.Y > DrawTransform.Y )
-                {
-                    CameraLocation = new Vector2(CameraLocation.X, DrawTransform.Y);
-                }
-            }
-            else if ( CameraLocation.Y > DrawTransform.Y )
-            {
-                CameraLocation = CameraLocation - new Vector2(0, CameraSpeed.Y);
-                if ( CameraLocation.Y < DrawTransform.Y )
-                {
-                    CameraLocation = new Vector2(CameraLocation.X, DrawTransform.Y);
-                }
-            }*/
-
             CameraLocation -= (CameraLocation - DrawTransform) / 2;
-
         }
 
         public void SetFocusObject(Character focusObject)

@@ -57,3 +57,4 @@ C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.csproj.CoreCompileI
 C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.csproj.CopyComplete
 C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.exe
 C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.pdb
+C:\Users\Joseph\source\repos\Metroid\Engine\obj\Debug\Engine.csprojAssemblyReference.cache

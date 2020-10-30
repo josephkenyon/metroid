@@ -18,12 +18,12 @@ namespace Library.Assets.Samus
         public override int MaxHealth => 100;
         public bool Dead => CurrentAnimation.AnimationType == AnimationType.deadType;
 
-        public Samus(Texture2D spriteTexture)
+        public Samus(Texture2D spriteTexture, Texture2D weaponTexture)
         {
             this.spriteTexture = spriteTexture;
             Weapons = new List<Weapon>()
             {
-                new Weapon(WeaponType.Charge, this)
+                new Weapon(WeaponType.Charge, this, weaponTexture)
             };
             SpriteNumber = new Vector2(10, 14);
             SpriteTileSize = 16;
@@ -61,6 +61,11 @@ namespace Library.Assets.Samus
                 SetCurrentAnimation(AnimationName.falling);
             }
 
+            foreach ( Weapon weapon in Weapons )
+            {
+                weapon.Update();
+            }
+
         }
 
         public void Decelerate(GamePadState gamePadState)
@@ -81,18 +86,13 @@ namespace Library.Assets.Samus
                         break;
                 }
 
-                if ( CurrentAnimation.Name == AnimationName.morphBall && gamePadState.ThumbSticks.Left.X != 0 )
-                {
-                    constant = 0f;
-                }
-
-                if ( MovingLeft )
+                if ( MovingLeft && !(CurrentAnimation.Name == AnimationName.morphBall && gamePadState.ThumbSticks.Left.X != 0) )
                 {
                     CurrentVelocity.X = CurrentVelocity.X > Acceleration.X
                         ? 0
                         : CurrentVelocity.X + (Acceleration.X * constant);
                 }
-                else if ( MovingRight )
+                else if ( MovingRight && !(CurrentAnimation.Name == AnimationName.morphBall && gamePadState.ThumbSticks.Left.X != 0) )
                 {
                     CurrentVelocity.X = CurrentVelocity.X < Acceleration.X
                         ? 0
@@ -107,10 +107,20 @@ namespace Library.Assets.Samus
             {
                 SetCurrentAnimation(AnimationName.jumpingIdle);
             }
+
+            if ( (gamePadState.Triggers.Right == 1.0f || gamePadState.Triggers.Left == 1.0f) && Weapons[0].CanFire)
+            {
+                Weapons[0].Fire();
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameState gameState)
         {
+            foreach ( Weapon weapon in Weapons )
+            {
+                weapon.Draw(spriteBatch, gameState);
+            }
+
             Vector2 position = new Vector2(
                 Position.X - (SpriteSize.X * SpriteTileSize * tileSize / SpriteTileSize / 2),
                 Position.Y - (SpriteSize.Y * SpriteTileSize * tileSize / SpriteTileSize)
