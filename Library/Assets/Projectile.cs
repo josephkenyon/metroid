@@ -1,7 +1,7 @@
 ﻿using Library.State;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static Library.Domain.Enums;
+using System;
 using static Library.Domain.Constants;
 
 namespace Library.Assets
@@ -9,14 +9,18 @@ namespace Library.Assets
     public class Projectile : AnimateObject
     {
         public readonly WeaponProperties WeaponType;
+        public readonly Weapon Weapon;
+        public Vector2 StartingCoordinates;
         public int CurrentFrameIndex = 0;
         public int CurrentFrame => CurrentFrameIndex * WeaponType.frameSkip;
         internal int LiveFinalFrame => (WeaponType.liveFrames * WeaponType.frameSkip) - 1;
         internal int DeathFinalFrame => (WeaponType.deathFrames * WeaponType.frameSkip);
-        internal bool LiveAnimationCompleted => CurrentFrameIndex >= WeaponType.liveFrames;
-        public bool DeathAnimationCompleted => CurrentFrameIndex >= WeaponType.deathFrames;
+        internal bool LiveAnimationCompleted => CurrentFrameIndex >= LiveFinalFrame;
+        public bool DeathAnimationCompleted => CurrentFrameIndex >= DeathFinalFrame;
         public bool Dead { get; private set; }
+        public bool AtMaxRange => Math.Abs((StartingCoordinates - Position).Length()) > WeaponType.range;
         public new Vector2 Direction;
+        public Vector2 velocity;
 
         public override Rectangle GetCollisionBox()
         {
@@ -33,12 +37,21 @@ namespace Library.Assets
             if ( !Dead && LiveAnimationCompleted )
             {
                 CurrentFrameIndex = WeaponType.liveLoopIndex * WeaponType.frameSkip;
-                Dead = true;
+                if ( AtMaxRange )
+                {
+                    Dead = true;
+                    if ( Weapon.WeaponExplosionSounds.ContainsKey(WeaponType.weaponType) )
+                        Weapon.WeaponExplosionSounds[WeaponType.weaponType].Play(0.5f * soundLevel, 0, 0);
+                }
             }
             else if ( !DeathAnimationCompleted )
             {
                 CurrentFrameIndex += 1;
-                Position += Direction * WeaponType.weaponSpeed;
+                if ( !Dead )
+                {
+                    Position += velocity;
+                    velocity *= WeaponType.acceleration;
+                }
             }
         }
 
@@ -46,36 +59,41 @@ namespace Library.Assets
 
         public override void Draw(SpriteBatch spriteBatch, GameState gameState)
         {
-            Vector2 position = new Vector2(
-                Position.X - (SpriteSize.X * tileSize / 2),
-                Position.Y - (SpriteSize.Y * tileSize / 2)
-                );
             Rectangle drawRectangle = new Rectangle(
                 location: DrawCoordinates,
                 size: (SpriteSize * SpriteTileSize).ToPoint()
             );
             spriteBatch.Draw(
                 texture: spriteTexture,
-                position: position - gameState.CameraLocation,
+                position: Position - gameState.CameraLocation,
                 sourceRectangle:
                 drawRectangle,
                 color: Color.White,
-                rotation: 0f,
-                origin: Vector2.Zero,
+                rotation: (float)Math.Atan2(Direction.Y, Direction.X),
+                origin: new Vector2(SpriteSize.X * SpriteTileSize / 2, SpriteSize.Y * SpriteTileSize / 2),
                 scale: tileSize / SpriteTileSize,
                 effects: SpriteEffects.None,
                 layerDepth: 0f
             );
         }
 
-        public Projectile(Weapon weapon, Vector2 Direction)
+        public Projectile(Weapon weapon)
         {
-            spriteTexture = weapon.texture;
-            Position = weapon.Character.Position;
-            SpriteSize = weapon.WeaponProperties.SpriteSize;
-            this.Direction = Direction;
+            Vector2 gunLocation = weapon.Character.CurrentAnimation.GunLocation;
+            gunLocation.X *= (int)weapon.Character.Direction;
+
+            Vector2 gunDirection = weapon.Character.CurrentAnimation.GunDirection;
+            gunDirection.X *= (int)weapon.Character.Direction;
+
             SpriteTileSize = 16;
+            spriteTexture = weapon.texture;
+            Position = weapon.Character.Position + (gunLocation * tileSize / SpriteTileSize);
+            StartingCoordinates = Position;
+            SpriteSize = weapon.WeaponProperties.SpriteSize;
+            Direction = gunDirection;
+            Weapon = weapon;
             WeaponType = new WeaponProperties(weapon.WeaponProperties.weaponType);
+            velocity = Direction * WeaponType.weaponSpeed;
         }
     }
 }

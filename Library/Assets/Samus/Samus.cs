@@ -1,6 +1,7 @@
 ﻿using Library.Domain;
 using Library.State;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -18,12 +19,14 @@ namespace Library.Assets.Samus
         public override int MaxHealth => 100;
         public bool Dead => CurrentAnimation.AnimationType == AnimationType.deadType;
 
-        public Samus(Texture2D spriteTexture, Texture2D weaponTexture)
+        public Samus(Texture2D spriteTexture, Texture2D weaponTexture, SortedDictionary<WeaponType, SoundEffect> WeaponFireSounds, SortedDictionary<WeaponType, SoundEffect> WeaponExplosionSounds)
         {
             this.spriteTexture = spriteTexture;
             Weapons = new List<Weapon>()
             {
-                new Weapon(WeaponType.Charge, this, weaponTexture)
+                new Weapon(WeaponType.Charge, this, weaponTexture, WeaponFireSounds, WeaponExplosionSounds),
+                new Weapon(WeaponType.Rocket, this, weaponTexture, WeaponFireSounds, WeaponExplosionSounds)
+
             };
             SpriteNumber = new Vector2(10, 14);
             SpriteTileSize = 16;
@@ -46,8 +49,8 @@ namespace Library.Assets.Samus
             float currentRightWall = GetRightWall();
             float currentLeftWall = GetLeftWall();
 
-            HandleButtons(gamePadState);
             CurrentAnimation.Increment(gamePadState);
+            HandleButtons(gamePadState);
 
             Decelerate(gamePadState);
             ApplyGravity(GetFloor());
@@ -108,9 +111,12 @@ namespace Library.Assets.Samus
                 SetCurrentAnimation(AnimationName.jumpingIdle);
             }
 
-            if ( (gamePadState.Triggers.Right == 1.0f || gamePadState.Triggers.Left == 1.0f) && Weapons[0].CanFire)
+            if ( CurrentAnimation.Name.ToString().Contains("iming") )
             {
-                Weapons[0].Fire();
+                if ( gamePadState.Triggers.Right == 1.0f && Weapons[1].CanFire )
+                    Weapons[1].Fire();
+                else if ( gamePadState.Triggers.Left == 1.0f && Weapons[0].CanFire )
+                    Weapons[0].Fire();
             }
         }
 

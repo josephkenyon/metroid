@@ -45,10 +45,16 @@ namespace Library.Assets.Samus
             {
                 character.SetCurrentAnimation(AnimationName.aimingStandingStraightUp, finalFrame: true);
             }
+            else if ( character.gamePadState.Triggers.Right > 0 || character.gamePadState.Triggers.Left > 0 )
+            {
+                character.SetCurrentAnimation(AnimationName.aimingStandingStraight);
+            }
             else
             {
                 character.SetCurrentAnimation(AnimationName.idle);
             }
+
+
         }
 
         public static void RunningIncrement(Animation animation, Character character)
@@ -87,6 +93,10 @@ namespace Library.Assets.Samus
                     character.SetCurrentAnimation(AnimationName.runningAimingCenter, newFrame);
                 }
             }
+            else if ( character.gamePadState.Triggers.Right > 0 || character.gamePadState.Triggers.Left > 0 )
+            {
+                character.SetCurrentAnimation(AnimationName.runningAimingCenter);
+            }
             else
             {
                 character.SetCurrentAnimation(AnimationName.running, newFrame);
@@ -111,6 +121,10 @@ namespace Library.Assets.Samus
             if ( character.gamePadState.Buttons.A == ButtonState.Pressed && character.GetCurrentVelocity.Y > -0.2f * tileSize && character.NumJumps > 0 )
             {
                 character.SetCurrentAnimation(AnimationName.jumpingSpinning);
+            }
+            else if ( character.gamePadState.Triggers.Right > 0 || character.gamePadState.Triggers.Left > 0 )
+            {
+                character.SetCurrentAnimation(AnimationName.jumpingAimingStraight);
             }
 
             AimingMidAir(animation, character);
@@ -187,6 +201,10 @@ namespace Library.Assets.Samus
             {
                 character.SetCurrentAnimation(AnimationName.jumpingSpinning);
                 return;
+            }
+            else if ( character.gamePadState.Triggers.Right > 0 || character.gamePadState.Triggers.Left > 0 )
+            {
+                character.SetCurrentAnimation(AnimationName.jumpingAimingStraight);
             }
 
             AimingMidAir(animation, character);

@@ -1,7 +1,7 @@
 ﻿using Library.Domain;
 using Library.State;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -24,6 +24,8 @@ namespace Library.Assets
         public Animation CurrentAnimation => animations[(int)CurrentAnimationIndex];
         public GamePadState gamePadState;
         public GameState gameState;
+        public SortedList<int, SoundEffect> jumpSounds;
+        public SortedList<int, SoundEffect> jumpVoiceSounds;
 
         protected double health;
         protected Animation[] animations;
@@ -77,6 +79,8 @@ namespace Library.Assets
                 OverrideCurrentAnimation(animationName, startingFrame, finalFrame);
                 if ( CurrentAnimation.AnimationType == AnimationType.jumpingType )
                 {
+                    jumpVoiceSounds[new Random().Next(1, 3)].Play(0.7f * soundLevel, 0, 0);
+
                     NumJumps--;
                 }
             }
@@ -134,7 +138,9 @@ namespace Library.Assets
                                                          && block.CurrentQuadrant.X <= center + 1
                                                    select block;
 
-            candidates = candidates.Where(b => b.Position.X < collisionBox.Right && b.Position.X + tileSize > collisionBox.Left).Where(b => b.Position.Y >= bottom);
+            candidates = candidates.Where(
+                b => b.Position.X < collisionBox.Right && b.Position.X + tileSize > collisionBox.Left)
+                .Where(b => b.Position.Y >= bottom);
 
             return (from block in candidates select (float?)block.Position.Y).Min() ?? 999999f;
         }
@@ -168,7 +174,9 @@ namespace Library.Assets
                                                          && block.CurrentQuadrant.Y <= center + 2
                                                    select block;
 
-            candidates = candidates.Where(b => b.Position.Y < collisionBox.Bottom && b.Position.Y + tileSize > collisionBox.Top).Where(b => b.Position.X <= left);
+            candidates = candidates.Where(
+                b => b.Position.Y < collisionBox.Bottom && b.Position.Y + tileSize > collisionBox.Top)
+                .Where(b => b.Position.X <= left);
 
             return (from block in candidates select (float?)block.Position.X + tileSize).Max() ?? -9999999f;
         }
@@ -185,7 +193,9 @@ namespace Library.Assets
                                                          && block.CurrentQuadrant.Y <= center + 2
                                                    select block;
 
-            candidates = candidates.Where(b => b.Position.Y < collisionBox.Bottom && b.Position.Y + tileSize > collisionBox.Top).Where(b => b.Position.X >= right);
+            candidates = candidates.Where(
+                b => b.Position.Y < collisionBox.Bottom && b.Position.Y + tileSize > collisionBox.Top)
+                .Where(b => b.Position.X >= right);
 
             return (from block in candidates select (float?)block.Position.X).Min() ?? 9999999f;
         }

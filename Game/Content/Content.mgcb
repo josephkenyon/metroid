@@ -20,6 +20,48 @@
 /processorParam:TextureFormat=Compressed
 /build:Console.spritefont
 
+#begin Sound/chargeFire.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/chargeFire.mp3
+
+#begin Sound/jump1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/jump1.mp3
+
+#begin Sound/jump2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/jump2.mp3
+
+#begin Sound/jumpfx1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/jumpfx1.mp3
+
+#begin Sound/jumpfx2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/jumpfx2.mp3
+
+#begin Sound/rocketExplosion.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/rocketExplosion.mp3
+
+#begin Sound/rocketFire.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/rocketFire.mp3
+
 #begin Sprites/Samus/samusBlue.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -67,6 +109,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Samus/samusPurple.png
+
+#begin Sprites/Samus/samusRed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Samus/samusRed.png
 
 #begin Sprites/Samus/samusYellow.png
 /importer:TextureImporter

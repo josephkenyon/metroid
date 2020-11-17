@@ -1,4 +1,5 @@
 ﻿using Library.Assets;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using static Library.Domain.Enums;
@@ -14,6 +15,8 @@ namespace Library.Domain
         public int SpriteVerticalCoordinate { get; }
         public AnimationType AnimationType { get; private set; }
         public readonly AnimationName Name;
+        public Vector2 GunLocation { get; }
+        public Vector2 GunDirection { get; }
         public Action<Animation, Character> ExecuteBegin { get; private set; }
         public Action<Animation, Character> ExecuteIncrement { get; private set; }
         public Action<Animation, Character> ExecuteCompleted { get; private set; }
@@ -28,7 +31,9 @@ namespace Library.Domain
             int? OverrideFrameSkip = null,
             Action<Animation, Character> ExecuteBegin = null,
             Action<Animation, Character> ExecuteIncrement = null,
-            Action<Animation, Character> ExecuteCompleted = null
+            Action<Animation, Character> ExecuteCompleted = null,
+            Vector2 GunLocation = new Vector2(),
+            Vector2 GunDirection = new Vector2()
         )
         {
             this.Name = Name;
@@ -41,6 +46,8 @@ namespace Library.Domain
             this.ExecuteBegin = ExecuteBegin;
             this.ExecuteIncrement = ExecuteIncrement;
             this.ExecuteCompleted = ExecuteCompleted;
+            this.GunLocation = GunLocation;
+            this.GunDirection = GunDirection;
         }
     }
 }

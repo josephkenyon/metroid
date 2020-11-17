@@ -5,15 +5,31 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Console.spritefont</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sound/chargeFire.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sound/jump1.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sound/jump2.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sound/jumpfx1.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sound/jumpfx2.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sound/rocketExplosion.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sound/rocketFire.mp3</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/Samus/samusBlue.png</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/Samus/samusGreen.png</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/Samus/samusOrange.png</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/Samus/samusPurple.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/Samus/samusRed.png</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/Samus/samusYellow.png</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/terrainpallete.png</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game/Content/Sprites/weapons.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

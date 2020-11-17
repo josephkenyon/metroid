@@ -20,7 +20,7 @@
         public enum WeaponType
         {
             Charge = 0,
-            Missile = 1,
+            Rocket = 1,
         }
 
         public enum AnimationName

@@ -2,11 +2,13 @@
 using Library.Assets.Samus;
 using Library.State;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using static Library.Domain.Constants;
+using static Library.Domain.Enums;
 
 namespace Game1
 {
@@ -17,6 +19,8 @@ namespace Game1
         private Samus samus;
         private SpriteFont consoleFont;
         private GameState gameState;
+        private SortedDictionary<WeaponType, SoundEffect> WeaponFireSounds;
+        private SortedDictionary<WeaponType, SoundEffect> WeaponExplosionSounds;
 
         public Game1()
         {
@@ -35,6 +39,7 @@ namespace Game1
         protected override void Initialize()
         {
             base.Initialize();
+            IsMouseVisible = true;
             spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
@@ -42,7 +47,29 @@ namespace Game1
         {
             // load content
             consoleFont = Content.Load<SpriteFont>("Console");
-            samus = new Samus(Content.Load<Texture2D>("Sprites\\Samus\\samusOrange"), Content.Load<Texture2D>("Sprites\\weapons"));
+
+            WeaponFireSounds = new SortedDictionary<WeaponType, SoundEffect>
+            {
+                { WeaponType.Charge, Content.Load<SoundEffect>("Sound\\chargeFire") },
+                { WeaponType.Rocket, Content.Load<SoundEffect>("Sound\\rocketFire") }
+            };
+
+            WeaponExplosionSounds = new SortedDictionary<WeaponType, SoundEffect>
+            {
+                { WeaponType.Rocket, Content.Load<SoundEffect>("Sound\\rocketExplosion") },
+            };
+
+            samus = new Samus(Content.Load<Texture2D>("Sprites\\Samus\\samusPurple"), Content.Load<Texture2D>("Sprites\\weapons"), WeaponFireSounds, WeaponExplosionSounds)
+            {
+                jumpVoiceSounds = new SortedList<int, SoundEffect> {
+                    { 1, Content.Load<SoundEffect>("Sound\\jump1") },
+                    { 2, Content.Load<SoundEffect>("Sound\\jump2") }
+                },
+                jumpSounds = new SortedList<int, SoundEffect> {
+                    { 1, Content.Load<SoundEffect>("Sound\\jumpfx1") },
+                    { 2, Content.Load<SoundEffect>("Sound\\jumpfx2") }
+                }
+            };
 
             // create blocks for level
             List<TerrainBlock> blocks = new List<TerrainBlock>();
@@ -132,7 +159,9 @@ namespace Game1
             spriteBatch.DrawString(consoleFont, "FPS: " + (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString(), new Vector2(10, Window.ClientBounds.Height - 20), Color.White);
 
 
-            */
+            spriteBatch.DrawString(consoleFont, "Mouse: " + (Mouse.GetState().Position.ToVector2() + gameState.CameraLocation).ToString(), new Vector2(10, Window.ClientBounds.Height - 20), Color.White);
+            
+             */
             spriteBatch.End();
 
             base.Draw(gameTime);

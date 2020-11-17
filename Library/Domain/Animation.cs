@@ -26,6 +26,8 @@ namespace Library.Domain
         public AnimationType AnimationType { get; private set; }
         public Direction Direction { get; set; }
         public readonly AnimationName Name;
+        public Vector2 GunLocation { get; }
+        public Vector2 GunDirection { get; }
         private readonly Character Character;
         public Action<Animation, Character> ExecuteBegin { get; private set; }
         public Action<Animation, Character> ExecuteIncrement { get; private set; }
@@ -40,6 +42,8 @@ namespace Library.Domain
             FrameCount = AnimationProperties.FrameCount;
             LoopFrameIndex = AnimationProperties.LoopFrameIndex;
             OverrideFrameSkip = AnimationProperties.OverrideFrameSkip;
+            GunDirection = AnimationProperties.GunDirection;
+            GunLocation = AnimationProperties.GunLocation;
             Actionable = AnimationProperties.Actionable;
             SpriteVerticalCoordinate = AnimationProperties.SpriteVerticalCoordinate;
             ExecuteBegin = AnimationProperties.ExecuteBegin;
