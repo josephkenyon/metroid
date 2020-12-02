@@ -1,4 +1,6 @@
-﻿namespace Library.Domain
+﻿using System.Collections.Generic;
+
+namespace Library.Domain
 {
     public static class Enums
     {
@@ -10,17 +12,39 @@
 
         public enum SamusColor
         {
-            Orange,
             Blue,
+            Green,
+            Orange,
             Purple,
+            Red,
             Yellow,
-            Green
+            White,
+            Black
         }
+
+        public static Dictionary<string, SamusColor> SamusColorStringConversions = new Dictionary<string, SamusColor>
+        {
+            { "Blue", SamusColor.Blue },
+            { "Green", SamusColor.Green },
+            { "Orange", SamusColor.Orange },
+            { "Purple", SamusColor.Purple },
+            { "Red", SamusColor.Red },
+            { "Yellow", SamusColor.Yellow },
+            { "White", SamusColor.White },
+            { "Black", SamusColor.Black },
+        };
+
 
         public enum WeaponType
         {
             Charge = 0,
             Rocket = 1,
+        }
+
+        public enum PowerUpType
+        {
+            Health = 0,
+            RocketAmmo = 1,
         }
 
         public enum AnimationName

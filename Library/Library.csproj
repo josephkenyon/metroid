@@ -35,8 +35,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework, Version=3.8.0.1641, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Framework.WindowsDX.3.8.0.1641\lib\net452\MonoGame.Framework.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.2.4\lib\net451\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.2.4\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.2.4\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Common, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Services.Client.16.153.0\lib\net45\Microsoft.TeamFoundation.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Services.Common, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Services.Client.16.153.0\lib\net45\Microsoft.VisualStudio.Services.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Services.WebApi, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Services.Client.16.153.0\lib\net45\Microsoft.VisualStudio.Services.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Forms.GL, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Forms.GL.2.4.0\lib\net451\MonoGame.Forms.GL.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Forms.GL.2.4.0\lib\net451\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.0.1\lib\net45\SharpDX.dll</HintPath>
@@ -67,6 +91,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.2.4\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,7 +107,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AnimateObject.cs" />
+    <Compile Include="Assets\CharacterSounds.cs" />
+    <Compile Include="Assets\PowerUp.cs" />
+    <Compile Include="Assets\PowerUpSpawner.cs" />
     <Compile Include="Assets\Projectile.cs" />
+    <Compile Include="Assets\Samus\SamusAnimationLoopActions.cs" />
     <Compile Include="Assets\Samus\SamusAnimationCompletedActions.cs" />
     <Compile Include="Assets\Samus\SamusAnimationBeginAction.cs" />
     <Compile Include="Assets\Samus\SamusAnimationIncrementActions.cs" />
@@ -84,7 +119,9 @@
     <Compile Include="Assets\Samus\SamusAnimationSet.cs" />
     <Compile Include="Assets\TerrainBlock.cs" />
     <Compile Include="Assets\Weapon.cs" />
-    <Compile Include="Assets\WeaponProperties.cs" />
+    <Compile Include="Domain\CharacterStats.cs" />
+    <Compile Include="Domain\PowerUpProperties.cs" />
+    <Compile Include="Domain\WeaponProperties.cs" />
     <Compile Include="Domain\Animation.cs" />
     <Compile Include="Assets\Character.cs" />
     <Compile Include="Domain\AnimationInitalizer.cs" />
@@ -92,15 +129,23 @@
     <Compile Include="Domain\Constants.cs" />
     <Compile Include="Domain\Enums.cs" />
     <Compile Include="Assets\GameObject.cs" />
+    <Compile Include="Domain\PartialTexture.cs" />
+    <Compile Include="Domain\Polygon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Assets\Samus\Samus.cs" />
-    <Compile Include="State\GameState.cs" />
+    <Compile Include="State\GameProperties.cs" />
     <Compile Include="State\Level.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="x64\SDL2.dll" />
+    <Content Include="x64\soft_oal.dll" />
+    <Content Include="x86\SDL2.dll" />
+    <Content Include="x86\soft_oal.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Framework.WindowsDX.3.8.0.1641\build\MonoGame.Framework.WindowsDX.targets" Condition="Exists('..\packages\MonoGame.Framework.WindowsDX.3.8.0.1641\build\MonoGame.Framework.WindowsDX.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -108,5 +153,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MonoGame.Framework.WindowsDX.3.8.0.1641\build\MonoGame.Framework.WindowsDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Framework.WindowsDX.3.8.0.1641\build\MonoGame.Framework.WindowsDX.targets'))" />
+    <Error Condition="!Exists('..\packages\MonoGame.Forms.GL.2.4.0\build\MonoGame.Forms.GL.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Forms.GL.2.4.0\build\MonoGame.Forms.GL.targets'))" />
   </Target>
+  <Import Project="..\packages\MonoGame.Forms.GL.2.4.0\build\MonoGame.Forms.GL.targets" Condition="Exists('..\packages\MonoGame.Forms.GL.2.4.0\build\MonoGame.Forms.GL.targets')" />
 </Project>

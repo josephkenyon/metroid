@@ -22,7 +22,7 @@ namespace Library.Assets
         public bool MovingLeft => CurrentVelocity.X < 0;
         public bool MovingRight => CurrentVelocity.X > 0;
 
-        public override void Draw(SpriteBatch spriteBatch, GameState gameState)
+        public override void Draw(SpriteBatch spriteBatch, GameProperties gameState)
         {
             Rectangle drawRectangle = new Rectangle(
                 location: animation.GetDrawCoordinates(Direction).ToPoint(),

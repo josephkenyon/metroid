@@ -1,8 +1,12 @@
-﻿using Library.State;
+﻿using Library.Domain;
+using Library.State;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using static Library.Domain.Constants;
+using static Library.Domain.Enums;
 
 namespace Library.Assets
 {
@@ -18,47 +22,112 @@ namespace Library.Assets
         internal bool LiveAnimationCompleted => CurrentFrameIndex >= LiveFinalFrame;
         public bool DeathAnimationCompleted => CurrentFrameIndex >= DeathFinalFrame;
         public bool Dead { get; private set; }
-        public bool AtMaxRange => Math.Abs((StartingCoordinates - Position).Length()) > WeaponType.range;
         public new Vector2 Direction;
         public Vector2 velocity;
+
+        public bool AtMaxRange => Math.Abs((StartingCoordinates - Position).Length()) > WeaponType.range;
+        public Polygon Polygon => new Polygon(Position.ToPoint(), WeaponType.collisionBoxSize, Angle);
+        public float Angle => (float)Math.Atan2(Direction.Y, Direction.X);
 
         public override Rectangle GetCollisionBox()
         {
             return new Rectangle(
                 (int)(Position.X - WeaponType.collisionBoxSize.X / 2),
                 (int)(Position.Y - WeaponType.collisionBoxSize.Y / 2),
-                (int)WeaponType.collisionBoxSize.X,
-                (int)WeaponType.collisionBoxSize.Y
+                WeaponType.collisionBoxSize.X,
+                WeaponType.collisionBoxSize.Y
             );
         }
 
-        public void Update()
+
+
+        public void Update(GameProperties gameState)
         {
-            if ( !Dead && LiveAnimationCompleted )
+            var terrainCollision = WillCollideWithTerrain(gameState);
+            if (!Dead)
             {
-                CurrentFrameIndex = WeaponType.liveLoopIndex * WeaponType.frameSkip;
-                if ( AtMaxRange )
+                if (AtMaxRange || terrainCollision || WillCollideWithPlayer(gameState))
                 {
                     Dead = true;
-                    if ( Weapon.WeaponExplosionSounds.ContainsKey(WeaponType.weaponType) )
+                    if (Weapon.WeaponExplosionSounds.ContainsKey(WeaponType.weaponType))
                         Weapon.WeaponExplosionSounds[WeaponType.weaponType].Play(0.5f * soundLevel, 0, 0);
+
+                    if (terrainCollision)
+                        Weapon.WeaponCollisionSound.Play(0.23f * soundLevel, 0, 0);
                 }
             }
-            else if ( !DeathAnimationCompleted )
+
+            if (!Dead && LiveAnimationCompleted)
+            {
+                CurrentFrameIndex = WeaponType.liveLoopIndex * WeaponType.frameSkip;
+            }
+            else if (!DeathAnimationCompleted)
             {
                 CurrentFrameIndex += 1;
-                if ( !Dead )
+                if (!Dead)
                 {
                     Position += velocity;
-                    velocity *= WeaponType.acceleration;
+                    velocity *= (1f + ((WeaponType.acceleration - 1f) * gameState.CurrentLevel.Gravity / gravity));
                 }
             }
+        }
+
+        public bool WillCollideWithTerrain(GameProperties gameState)
+        {
+            IEnumerable<TerrainBlock> candidates = from block in gameState.CurrentLevel.BlockMap.Values
+                                                   where block.Impenetrable && (block.Position + Vector2.One * tileSize / 2 - Position).Length() < WeaponType.collisionBoxSize.ToVector2().Length() * tileSize / SpriteTileSize + velocity.Length() * 2
+                                                   select block;
+            foreach (TerrainBlock candidate in candidates)
+            {
+                var projectileCollisionBox = GetCollisionBox();
+                var candidateCollisionBox = candidate.GetCollisionBox();
+                var candidatePolygon = new Polygon(candidateCollisionBox);
+
+                var nextPosition = new Polygon((Position + velocity).ToPoint(), (WeaponType.collisionBoxSize.ToVector2() * tileSize / SpriteTileSize).ToPoint(), Angle);
+                if (new Polygon(Polygon.AddPoints(nextPosition.Points)).IsIntersectingWith(candidatePolygon))
+                {
+
+                    /*Position = new Vector2(
+                        projectileCollisionBox.Right < candidateCollisionBox.Left
+                        ? Position.X + candidateCollisionBox.Left - projectileCollisionBox.Right
+                        : Position.X - projectileCollisionBox.Left - candidateCollisionBox.Right,
+                        projectileCollisionBox.Bottom < candidateCollisionBox.Top
+                        ? Position.Y + candidateCollisionBox.Top - projectileCollisionBox.Bottom
+                        : Position.Y - projectileCollisionBox.Top - candidateCollisionBox.Bottom
+                        );
+                    */
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool WillCollideWithPlayer(GameProperties gameState)
+        {
+            foreach (Samus.Samus player in gameState.players.Values)
+            {
+                var candidatePolygon = new Polygon(player.GetCollisionBox());
+
+                var nextPosition = new Polygon((Position + velocity).ToPoint(), (WeaponType.collisionBoxSize.ToVector2() * tileSize / SpriteTileSize).ToPoint(), Angle);
+                if (new Polygon(Polygon.AddPoints(nextPosition.Points)).IsIntersectingWith(candidatePolygon) && Weapon.playerIndex != player.playerIndex && player.Alive)
+                {
+                    player.TakeDamage(WeaponType.weaponPower);
+                    Weapon.Character.characterStats.shotsHit++;
+                    if (WeaponType.weaponType == Enums.WeaponType.Rocket) 
+                    {
+                        player.SetVelocity(player.GetCurrentVelocity + (Direction * 20));
+                    }
+                    return true;
+                }
+            }
+            return false;
         }
 
         public Point DrawCoordinates => new Point((int)(CurrentFrameIndex / WeaponType.frameSkip * SpriteTileSize * SpriteSize.Y), (int)((int)WeaponType.weaponType * SpriteTileSize * SpriteSize.Y));
 
-        public override void Draw(SpriteBatch spriteBatch, GameState gameState)
+        public override void Draw(SpriteBatch spriteBatch, GameProperties gameState)
         {
+
             Rectangle drawRectangle = new Rectangle(
                 location: DrawCoordinates,
                 size: (SpriteSize * SpriteTileSize).ToPoint()
@@ -68,8 +137,8 @@ namespace Library.Assets
                 position: Position - gameState.CameraLocation,
                 sourceRectangle:
                 drawRectangle,
-                color: Color.White,
-                rotation: (float)Math.Atan2(Direction.Y, Direction.X),
+                color: gameState.CurrentLevel.TintColor,
+                rotation: Angle,
                 origin: new Vector2(SpriteSize.X * SpriteTileSize / 2, SpriteSize.Y * SpriteTileSize / 2),
                 scale: tileSize / SpriteTileSize,
                 effects: SpriteEffects.None,

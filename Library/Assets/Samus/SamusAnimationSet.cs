@@ -44,7 +44,7 @@ namespace Library.Assets.Samus
                 new AnimationProperties(jumpingAimingStraightUp, jumpingShootingType, FrameCount: 3, Actionable: true, SpriteVerticalCoordinate: 5, LoopFrameIndex: 2, ExecuteIncrement: JumpingAimingIncrement, GunLocation: new Vector2(0, -43), GunDirection: StraightUp),
                 new AnimationProperties(jumpingAimingDiagonalDown, jumpingShootingType, FrameCount: 2, Actionable: true, SpriteVerticalCoordinate: 6, LoopFrameIndex: 1, ExecuteIncrement: JumpingAimingIncrement, GunLocation: new Vector2(17, -14), GunDirection: DiagonalDown),
                 new AnimationProperties(jumpingAimingStraightDown, jumpingShootingType, FrameCount: 3, Actionable: true, SpriteVerticalCoordinate: 6, LoopFrameIndex: 2, ExecuteIncrement: JumpingAimingIncrement, GunLocation: new Vector2(6, -7), GunDirection: StraightDown),
-                new AnimationProperties(dead, jumpingType, FrameCount: 4, Actionable: false, SpriteVerticalCoordinate: 3, LoopFrameIndex: 3),
+                new AnimationProperties(dead, jumpingType, FrameCount: 4, Actionable: false, SpriteVerticalCoordinate: 3, LoopFrameIndex: 3, ExecuteCompleted: DeathCompleted),
             };
     }
 }

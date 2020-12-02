@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Fonts/Console.spritefont</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Fonts/mediumMenu.spritefont</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Fonts/menu.spritefont</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Fonts/smallMenu.spritefont</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/ammoCollect.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/ammoEmpty.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/chargeFire.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/controlSelect.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/controlSelectFail.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/deathSound.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/gameMusic.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/healthUp.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/hurt.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/jump1.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/jump2.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/jumpfx1.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/jumpfx2.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/menuMusic.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/rocketExplosion.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/rocketFire.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/rockHit.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/blankWhite.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/powerUps.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/Samus/samusBlack.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/Samus/samusBlue.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/Samus/samusGreen.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/Samus/samusOrange.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/Samus/samusPurple.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/Samus/samusRed.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/Samus/samusWhite.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/Samus/samusYellow.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/terrainpallete.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/titleScreen.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/weapons.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>

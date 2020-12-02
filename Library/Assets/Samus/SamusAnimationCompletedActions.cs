@@ -21,5 +21,12 @@ namespace Library.Assets.Samus
         {
             character.SetCurrentAnimation(AnimationName.idle);
         }
+
+        public static void DeathCompleted(Animation animation, Character character)
+        {
+            if (character.gameState.GameOver) {
+                character.gameState.ScoreScreen = true;
+            }
+        }
     }
 }

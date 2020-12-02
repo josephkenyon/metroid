@@ -52,48 +52,42 @@ namespace Library.Domain
         }
 
         public bool IsActionable(AnimationType animationType)
-        {
-            return (animationType == AnimationType && IsLooping) || (Actionable || Completed);
-        }
+            => (animationType == AnimationType && IsLooping) || (Actionable || Completed);
 
-        public void Increment(GamePadState gamePadState)
+
+        public void Increment()
         {
-            if ( CurrentFrameIndex == 0 && !IsLooping )
-            {
+            if (CurrentFrameIndex == 0 && !IsLooping)
                 ExecuteBegin?.Invoke(this, Character);
-            }
+
             ExecuteIncrement?.Invoke(this, Character);
 
-            if ( AnimationCompleted )
+            if (AnimationCompleted)
             {
                 Completed = true;
-                if ( LoopFrameIndex != null )
+                if (LoopFrameIndex != null)
                 {
+                    if (IsLooping == false)
+                    {
+                        ExecuteCompleted?.Invoke(this, Character);
+                    }
                     IsLooping = true;
                     CurrentFrameIndex = (int)LoopFrameIndex * FrameSkip;
                 }
                 else
-                {
                     ExecuteCompleted?.Invoke(this, Character);
-                }
             }
             else
-            {
                 CurrentFrameIndex += 1;
-            }
         }
 
         public void Reset(int startingFrame = 0, bool finalFrame = false)
         {
             IsLooping = false;
-            if ( finalFrame )
-            {
+            if (finalFrame)
                 CurrentFrameIndex = FinalFrame;
-            }
             else
-            {
                 CurrentFrameIndex = startingFrame;
-            }
             Completed = false;
         }
 

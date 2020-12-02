@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/gameMusic.mp3</SourceFile>
+  <SourceTime>2020-11-23T20:48:44-05:00</SourceTime>
+  <DestFile>C:/Users/Joseph/source/repos/Metroid/Game1/Content/bin/DesktopGL/Sound/gameMusic.xnb</DestFile>
+  <DestTime>2020-12-01T14:55:46.6676299-05:00</DestTime>
+  <Importer>Mp3Importer</Importer>
+  <ImporterTime>2020-08-10T16:17:54-04:00</ImporterTime>
+  <Processor>SongProcessor</Processor>
+  <ProcessorTime>2020-08-10T16:17:54-04:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput>
+    <string>C:/Users/Joseph/source/repos/Metroid/Game1/Content/bin/DesktopGL/Sound/gameMusic.ogg</string>
+  </BuildOutput>
+</PipelineBuildEvent>
