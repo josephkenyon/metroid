@@ -18,6 +18,9 @@ namespace Game1
 
         private State _nextState;
 
+        public float soundLevel = 0.2f;
+        public Point resolution { get; private set; }
+        
         public LevelManager levelManager { get; private set; }
 
         public void ChangeState(State state)
@@ -27,6 +30,20 @@ namespace Game1
 
         public void ReloadLevels() { 
             levelManager = LevelManager.Load();
+        }
+
+        public void SetResolution(Point newResolution) 
+        {
+            resolution = newResolution;
+            graphics.PreferredBackBufferWidth = resolution.X;
+            graphics.PreferredBackBufferHeight = resolution.Y;
+            graphics.ApplyChanges();
+        }
+
+        public void SetIsFullscreen(bool set)
+        {
+            graphics.IsFullScreen = set;
+            graphics.ApplyChanges();
         }
 
         public Game1()
@@ -46,11 +63,13 @@ namespace Game1
             IsMouseVisible = true;
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            resolution = new Point(1920, 1080);
 
-            //Window.IsBorderless = true;
-            graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = resolution.X;
+            graphics.PreferredBackBufferHeight = resolution.Y;
+
+            Window.IsBorderless = true;
+            graphics.IsFullScreen = false;
             Window.Position = new Point((GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - 1920) / 2, (GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 1080) / 2);
 
             graphics.ApplyChanges();

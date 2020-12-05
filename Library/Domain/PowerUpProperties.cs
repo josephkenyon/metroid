@@ -41,13 +41,13 @@ namespace Library.Assets
             else
                 character.Heal(healAmount);
 
-            character.characterSounds.healthUpSound.Play(1.2f * soundLevel, 0, 0);
+            character.characterSounds.healthUpSound.Play(1.2f * character.gameState.soundLevel, 0, 0);
         }
 
         public static void RocketAmmoPickUp(Character character)
         {
             character.Weapons.Find(w => w.WeaponProperties.weaponType == WeaponType.Rocket).ammo = rocketAmmoSize;
-            character.characterSounds.ammoCollectSound.Play(1.2f * soundLevel, 0, 0);
+            character.characterSounds.ammoCollectSound.Play(1.2f * character.gameState.soundLevel, 0, 0);
         }
     }
 }

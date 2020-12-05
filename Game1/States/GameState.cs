@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using Library.State;
 using Game1.Menu;
 using Library.Domain;
+using Microsoft.VisualStudio.Services.Common;
 
 namespace Game1.States
 {
@@ -36,25 +37,25 @@ namespace Game1.States
             font = Content.Load<SpriteFont>("Fonts\\smallMenu");
 
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = soundLevel / 1.8f;
+            MediaPlayer.Volume = game.soundLevel / 1.8f;
             MediaPlayer.Play(Content.Load<Song>("Sound\\gameMusic"));
 
-            var players = new Dictionary<PlayerIndex, Samus>();
+            var players = new SerializableDictionary<PlayerIndex, Samus>();
 
             characterSounds = new CharacterSounds(Content);
 
-            gameState = new GameProperties(game.Window, level) { players = players };
+            gameState = new GameProperties(game.Window, level, game.soundLevel) { players = players };
             gameState.CurrentLevel.LoadTextures(Content);
 
             foreach (PowerUpSpawner powerUpSpawner in gameState.CurrentLevel.PowerUpSpawners)
             {
-                powerUpSpawner.Load(powerUpSpawner.PowerUpType, powerUpSpawner.Location, Content.Load<Texture2D>("Sprites\\powerUps"));
+                powerUpSpawner.Load(powerUpSpawner.PowerUpType, powerUpSpawner.Location, Content.Load<Texture2D>("Sprites\\powerUps"), gameState.tileSize);
             }
 
             //selectedColors.Add(PlayerIndex.Three, SamusColor.Red);
             foreach (PlayerIndex playerIndex in selectedColors.Keys)
             {
-                players.Add(playerIndex, new Samus(playerIndex, selectedColors[playerIndex], gameState.CurrentLevel.SpawnLocations[(int)playerIndex], Content, characterSounds));
+                players.Add(playerIndex, new Samus(playerIndex, selectedColors[playerIndex], gameState.CurrentLevel.SpawnLocations[(int)playerIndex], Content, characterSounds, gameState));
             }
 
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.VisualStudio.Services.Common;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
@@ -10,27 +11,31 @@ namespace Library.Assets
 {
     public class CharacterSounds
     {
-        public SortedList<int, SoundEffect> jumpSounds;
-        public SortedList<int, SoundEffect> jumpVoiceSounds;
-        public SortedList<int, SoundEffect> runSounds;
+        public SerializableDictionary<int, SoundEffect> jumpSounds;
+        public SerializableDictionary<int, SoundEffect> jumpVoiceSounds;
+        public SerializableDictionary<int, SoundEffect> runSounds;
         public SoundEffect hurtSound;
         public SoundEffect deathSound;
         public SoundEffect emptyGunSound;
         public SoundEffect ammoCollectSound;
         public SoundEffect healthUpSound;
+        public CharacterSounds()
+        {
+        }
 
-        public CharacterSounds(ContentManager content) {
-            jumpVoiceSounds = new SortedList<int, SoundEffect> {
+        public CharacterSounds(ContentManager content)
+        {
+            jumpVoiceSounds = new SerializableDictionary<int, SoundEffect> {
                 { 1, content.Load<SoundEffect>("Sound\\jump1") },
                 { 2, content.Load<SoundEffect>("Sound\\jump2") }
             };
 
-            jumpSounds = new SortedList<int, SoundEffect> {
+            jumpSounds = new SerializableDictionary<int, SoundEffect> {
                 { 1, content.Load<SoundEffect>("Sound\\jumpfx1") },
                 { 2, content.Load<SoundEffect>("Sound\\jumpfx2") }
             };
 
-            runSounds = new SortedList<int, SoundEffect> {
+            runSounds = new SerializableDictionary<int, SoundEffect> {
                 { 1, content.Load<SoundEffect>("Sound\\jump1") },
             };
 

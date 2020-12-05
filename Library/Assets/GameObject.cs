@@ -8,9 +8,9 @@ namespace Library.Assets
     public abstract class GameObject
     {
         public Vector2 Position { get; set; }
-        public Point CurrentQuadrant => (Position / tileSize).ToPoint();
+        public Point CurrentQuadrant(GameProperties gameState) => (Position / gameState.tileSize).ToPoint();
         public int SpriteTileSize { get; set; }
-        public abstract Rectangle GetCollisionBox();
+        public abstract Rectangle GetCollisionBox(GameProperties gameState);
         public abstract void Draw(SpriteBatch spriteBatch, GameProperties gameState);
     }
 }

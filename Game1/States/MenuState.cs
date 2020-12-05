@@ -18,8 +18,11 @@ namespace Game1.States
         public readonly Game1 game;
 
         public readonly SubMenu mainMenu;
-        public readonly SubMenu stageSelectMenuForGame;
+        public readonly SubMenu stageSelectMenuForGameMenu;
         public readonly SubMenu stageSelectMenuForEngine;
+        public readonly SubMenu settingsMenu;
+        public readonly SubMenu audioMenu;
+        public readonly SubMenu videoMenu;
         public readonly CharSelectSubMenu charSelectMenu;
 
         public readonly SpriteFont menuFont;
@@ -69,11 +72,28 @@ namespace Game1.States
                 textureDictionary);
             charSelectMenu.LoadControls(PlayerIndices, CharSelectControls.Controls(game, mainMenu));
 
-            stageSelectMenuForGame = new SubMenu(
+            settingsMenu = new SubMenu(
                 this, Color.White, Color.Crimson, graphicsDevice, menuFont,
                 content.Load<Texture2D>("Sprites\\titleScreen")
             );
-            stageSelectMenuForGame.LoadControls(StageSelectControls.ControlsForGame(game, mainMenu, game.GetLevels().Select(l => l.Name).ToList()));
+            settingsMenu.LoadControls(SettingsControls.Controls(game, mainMenu));
+
+            videoMenu = new SubMenu(
+                this, Color.White, Color.Crimson, graphicsDevice, menuFont,
+                content.Load<Texture2D>("Sprites\\titleScreen")
+            );
+            videoMenu.LoadControls(SettingsControls.VideoControls(game, settingsMenu));
+            audioMenu = new SubMenu(
+                this, Color.White, Color.Crimson, graphicsDevice, menuFont,
+                content.Load<Texture2D>("Sprites\\titleScreen")
+            );
+            audioMenu.LoadControls(SettingsControls.AudioControls(game, settingsMenu));
+
+            stageSelectMenuForGameMenu = new SubMenu(
+                this, Color.White, Color.Crimson, graphicsDevice, menuFont,
+                content.Load<Texture2D>("Sprites\\titleScreen")
+            );
+            stageSelectMenuForGameMenu.LoadControls(StageSelectControls.ControlsForGame(game, mainMenu, game.GetLevels().Select(l => l.Name).ToList()));
 
             stageSelectMenuForEngine = new SubMenu(
                 this, Color.White, Color.Crimson, graphicsDevice, mediumMenuFont,
@@ -96,7 +116,7 @@ namespace Game1.States
             selectedMenu = mainMenu;
 
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = Constants.soundLevel < 0.5f ? Constants.soundLevel * 2 : Constants.soundLevel;
+            MediaPlayer.Volume = game.soundLevel < 0.5f ? game.soundLevel * 2 : game.soundLevel;
             MediaPlayer.Play(menuMusic);
         }
         public void TriggerInputDelay()
@@ -131,7 +151,10 @@ namespace Game1.States
                 HoverInputDelay--;
 
             if (PlayerIndices.Count() != players.Count())
+            {
+                PlayerIndices = players;
                 charSelectMenu.LoadControls(PlayerIndices, CharSelectControls.Controls(game, mainMenu));
+            }
 
             selectedMenu.Update(_game);
         }
@@ -141,8 +164,12 @@ namespace Game1.States
             var players = new List<PlayerIndex>();
 
             foreach (PlayerIndex playerIndex in new List<PlayerIndex> { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four })
-                if (GamePad.GetState(playerIndex).IsConnected)
+            {
+                var playerState = GamePad.GetState(playerIndex);
+                if (playerState.IsConnected)
                     players.Add(playerIndex);
+            }
+                
 
             return players;
         }

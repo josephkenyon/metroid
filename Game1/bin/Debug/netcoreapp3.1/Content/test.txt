@@ -1,8 +1,0 @@
-backgroundColor,{R:100 G:149 B:237 A:255}
-spawnLocation,5,2
-spawnLocation,6,2
-spawnLocation,7,2
-spawnLocation,8,2
-terrainBlock,0,0,0,0,16,True
-terrainBlock,0,0,2,1,16,True
-terrainBlock,0,0,2,2,16,True

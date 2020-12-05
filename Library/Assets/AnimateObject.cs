@@ -36,7 +36,7 @@ namespace Library.Assets
                 color: Color.White,
                 rotation: 0f,
                 origin: Vector2.Zero,
-                scale: tileSize / SpriteTileSize,
+                scale: gameState.tileSize / SpriteTileSize,
                 effects: SpriteEffects.None,
                 layerDepth: 0f
             );

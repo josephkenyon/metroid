@@ -9,6 +9,8 @@ namespace Library.Assets
     {
         private Texture2D texture;
         public Vector2 SpriteLocation;
+        public new Point CurrentQuadrant(GameProperties gameState) => Position.ToPoint();
+        public int tileSize;
         public bool Impenetrable;
         public bool Background;
 
@@ -24,11 +26,11 @@ namespace Library.Assets
         public Texture2D Texture
             => texture;
 
-        public TerrainBlock(Texture2D texture, Vector2 SpriteLocation, Vector2 Position, int SpriteTileSize, bool Impenetrable, bool Background = false)
+        public TerrainBlock(Texture2D texture, Vector2 SpriteLocation, Vector2 Position, int SpriteTileSize, bool Impenetrable, int tileSize, bool Background = false)
         {
+            this.tileSize = tileSize;
             this.texture = texture;
             this.SpriteLocation = SpriteLocation;
-            this.Position = Position;
             this.SpriteTileSize = SpriteTileSize;
             this.Impenetrable = Impenetrable;
             this.Background = Background;
@@ -42,20 +44,20 @@ namespace Library.Assets
             );
             spriteBatch.Draw(
                 texture: texture,
-                position: Position - gameState.CameraLocation,
+                position: (Position * gameState.tileSize) - gameState.CameraLocation,
                 sourceRectangle: drawRectangle,
                 color: Background ? gameState.CurrentLevel.TintColor * 0.65f : gameState.CurrentLevel.TintColor,
                 rotation: 0f,
                 origin: Vector2.Zero,
-                scale: tileSize / SpriteTileSize,
+                scale: gameState.tileSize / SpriteTileSize,
                 effects: SpriteEffects.None,
                 layerDepth: 0f
             );
         }
 
-        public override Rectangle GetCollisionBox()
+        public override Rectangle GetCollisionBox(GameProperties gameState)
         {
-            return new Rectangle(Position.ToPoint(), (Vector2.One * tileSize).ToPoint());
+            return new Rectangle((Position * gameState.tileSize).ToPoint(), (Vector2.One * gameState.tileSize).ToPoint());
         }
     }
 }

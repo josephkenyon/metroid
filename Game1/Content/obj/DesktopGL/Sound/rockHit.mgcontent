@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/rockHit.mp3</SourceFile>
   <SourceTime>2020-12-01T15:16:12.4599938-05:00</SourceTime>
   <DestFile>C:/Users/Joseph/source/repos/Metroid/Game1/Content/bin/DesktopGL/Sound/rockHit.xnb</DestFile>
-  <DestTime>2020-12-01T15:17:45.9575583-05:00</DestTime>
+  <DestTime>2020-12-03T14:02:38.8703487-05:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2020-08-10T16:17:54-04:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

@@ -65,7 +65,7 @@ namespace Library.Assets.Samus
                 character.SetCurrentAnimation(AnimationName.idle);
                 return;
             }
-            else if ( Math.Sign((int)character.Direction) != Math.Sign(directionalInputX) )
+            else if ( Math.Sign((int)character.Direction) != Math.Sign(directionalInputX))
             {
                 // if input is not the direction currently running in, turn
                 character.SetCurrentAnimation(AnimationName.turning);
@@ -105,14 +105,14 @@ namespace Library.Assets.Samus
 
         public static void JumpingIdleIncrement(Animation animation, Character character)
         {
-            character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.12f * tileSize, 0));
+            character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.12f * character.gameState.tileSize, 0));
 
             if ( animation.IsLooping == false )
             {
                 character.AccelerateY();
             }
 
-            if ( character.gamePadState.Buttons.A == ButtonState.Pressed && character.GetCurrentVelocity.Y > -0.5f * tileSize && character.NumJumps > 0 )
+            if ( character.gamePadState.Buttons.A == ButtonState.Pressed && character.GetCurrentVelocity.Y > -0.5f * character.gameState.tileSize && character.NumJumps > 0 )
             {
                 character.SetCurrentAnimation(AnimationName.jumpingSpinning);
             }
@@ -127,7 +127,7 @@ namespace Library.Assets.Samus
 
         public static void JumpingAimingIncrement(Animation animation, Character character)
         {
-            character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.08f * tileSize, 0));
+            character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.08f * character.gameState.tileSize, 0));
             AimingMidAir(animation, character);
         }
 
@@ -135,7 +135,7 @@ namespace Library.Assets.Samus
         {
             float directionalInputX = character.gamePadState.ThumbSticks.Left.X;
 
-            if ( character.gamePadState.ThumbSticks.Left.Y > 0.7f && Math.Abs(character.GetCeiling() - character.GetCollisionBox().Top) > tileSize / 2 )
+            if ( character.gamePadState.ThumbSticks.Left.Y > 0.7f && Math.Abs(character.GetCeiling() - character.GetCollisionBox(character.gameState).Top) > character.gameState.tileSize / 2 )
             {
                 character.SetCurrentAnimation(AnimationName.crouchingIdle, finalFrame: true);
                 return;
@@ -145,7 +145,7 @@ namespace Library.Assets.Samus
             {
                 if ( character.IsGrounded )
                 {
-                    if ( Math.Abs(character.GetCeiling() - character.GetCollisionBox().Top) > tileSize / 2 )
+                    if ( Math.Abs(character.GetCeiling() - character.GetCollisionBox(character.gameState).Top) > character.gameState.tileSize / 2 )
                     {
                         character.NumJumps = 2;
                         character.SetCurrentAnimation(AnimationName.jumpingIdle);
@@ -176,7 +176,7 @@ namespace Library.Assets.Samus
 
         public static void JumpingSpinningIncrement(Animation animation, Character character)
         {
-            character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.15f * tileSize, 0));
+            character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.15f * character.gameState.tileSize, 0));
         }
 
         public static void FallingIncrement(Animation animation, Character character)
@@ -184,7 +184,7 @@ namespace Library.Assets.Samus
             float inputX = character.gamePadState.ThumbSticks.Right.X;
             float inputY = character.gamePadState.ThumbSticks.Right.Y;
 
-            character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.08f * tileSize, 0));
+            character.InfluencePosition(new Vector2(character.gamePadState.ThumbSticks.Left.X * 0.08f * character.gameState.tileSize, 0));
 
             if ( character.gamePadState.Buttons.A == ButtonState.Pressed && character.NumJumps > 0 )
             {
@@ -243,7 +243,7 @@ namespace Library.Assets.Samus
             float inputX = character.gamePadState.ThumbSticks.Right.X;
             float inputY = character.gamePadState.ThumbSticks.Right.Y;
 
-            if ( character.gamePadState.ThumbSticks.Left.Y > 0 && Math.Abs(character.GetCeiling() - character.GetCollisionBox().Top) > tileSize / 2)
+            if ( character.gamePadState.ThumbSticks.Left.Y > 0 && Math.Abs(character.GetCeiling() - character.GetCollisionBox(character.gameState).Top) > character.gameState.tileSize / 2)
             {
                 character.SetCurrentAnimation(AnimationName.standingUp);
                 return;
@@ -254,7 +254,7 @@ namespace Library.Assets.Samus
                 return;
             }
 
-            if ( Math.Abs(character.gamePadState.ThumbSticks.Left.X) > 0.7f && Math.Abs(character.GetCeiling() - character.GetCollisionBox().Top) > tileSize / 2)
+            if ( Math.Abs(character.gamePadState.ThumbSticks.Left.X) > 0.7f && Math.Abs(character.GetCeiling() - character.GetCollisionBox(character.gameState).Top) > character.gameState.tileSize / 2)
             {
                 if ( Math.Sign(character.gamePadState.ThumbSticks.Left.X) != (int)character.Direction )
                 {

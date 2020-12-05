@@ -17,6 +17,7 @@ namespace Library.Assets
 
         private int timer;
         private PowerUp PowerUp;
+        public int tileSize;
 
         private Texture2D texture;
 
@@ -24,13 +25,14 @@ namespace Library.Assets
         {
         }
 
-        public void Load(PowerUpType powerUpType, Point location, Texture2D texture)
+        public void Load(PowerUpType powerUpType, Point location, Texture2D texture, int tileSize)
         {
             this.texture = texture;
             PowerUpType = powerUpType;
             Location = location;
             timer = TimerLength;
             PowerUp = null;
+            this.tileSize = tileSize;
         }
         private int TimerLength => PowerUpType == PowerUpType.Health ? 60 * 25 : 60 * 18;
 

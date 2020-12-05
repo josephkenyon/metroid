@@ -21,8 +21,9 @@ namespace Library.Assets.Samus
         public Texture2D whiteTexture;
         public bool Dead => CurrentAnimation.AnimationType == AnimationType.deadType;
 
-        public Samus(PlayerIndex index, SamusColor color, Point spawnLocation, ContentManager Content, CharacterSounds characterSounds)
+        public Samus(PlayerIndex index, SamusColor color, Point spawnLocation, ContentManager Content, CharacterSounds characterSounds, GameProperties gameState)
         {
+            this.gameState = gameState;
             Texture2D weaponTexture = Content.Load<Texture2D>("Sprites\\weapons");
             Health = MaxHealth;
             playerIndex = index;
@@ -34,12 +35,14 @@ namespace Library.Assets.Samus
             SortedDictionary<WeaponType, SoundEffect> WeaponFireSounds = new SortedDictionary<WeaponType, SoundEffect>
             {
                 { WeaponType.Charge, Content.Load<SoundEffect>("Sound\\chargeFire") },
-                { WeaponType.Rocket, Content.Load<SoundEffect>("Sound\\rocketFire") }
+                { WeaponType.Rocket, Content.Load<SoundEffect>("Sound\\rocketFire") },
+                { WeaponType.Bomb, Content.Load<SoundEffect>("Sound\\bombDrop") },
             };
 
             SortedDictionary<WeaponType, SoundEffect> WeaponExplosionSounds = new SortedDictionary<WeaponType, SoundEffect>
             {
                 { WeaponType.Rocket, Content.Load<SoundEffect>("Sound\\rocketExplosion") },
+                { WeaponType.Bomb, Content.Load<SoundEffect>("Sound\\bombExplosion") },
             };
 
             SoundEffect WeaponCollisionSound = Content.Load<SoundEffect>("Sound\\rockHit");
@@ -47,16 +50,17 @@ namespace Library.Assets.Samus
             Weapons = new List<Weapon>()
             {
                 new Weapon(WeaponType.Charge, this, weaponTexture, WeaponFireSounds, WeaponExplosionSounds, WeaponCollisionSound, playerIndex: index),
-                new Weapon(WeaponType.Rocket, this, weaponTexture, WeaponFireSounds, WeaponExplosionSounds, WeaponCollisionSound, ammo: rocketAmmoSize, playerIndex: index)
+                new Weapon(WeaponType.Rocket, this, weaponTexture, WeaponFireSounds, WeaponExplosionSounds, WeaponCollisionSound, ammo: rocketAmmoSize, playerIndex: index),
+                new Weapon(WeaponType.Bomb, this, weaponTexture, WeaponFireSounds, WeaponExplosionSounds, WeaponCollisionSound, playerIndex: index)
 
             };
 
             SpriteNumber = new Vector2(10, 14);
             SpriteTileSize = 16;
             Direction = Direction.left;
-            Position = spawnLocation.ToVector2() * tileSize;
-            Acceleration = new Vector2(0.025f * tileSize, 0.032f * tileSize);
-            MaxVelocity = new Vector2(0.18f * tileSize, 0.005f * tileSize);
+            Position = spawnLocation.ToVector2() * gameState.tileSize;
+            Acceleration = new Vector2(0.025f * gameState.tileSize, 0.032f * gameState.tileSize);
+            MaxVelocity = new Vector2(0.18f * gameState.tileSize, 0.005f * gameState.tileSize);
             SpriteSize = new Vector2(3, 4);
             animations = AnimationInitalizers.InitializeSamusAnimations(this, SamusAnimationProperties);
             SetCurrentAnimation(AnimationName.idle);
@@ -66,8 +70,10 @@ namespace Library.Assets.Samus
         {
             if (HitTimer > 0)
                 HitTimer--;
-            if (Dead) return;
-            Health += 0.01f;
+
+            if (Alive)
+                Health += 0.01f;
+
             this.gameState = gameState;
             this.gamePadState = gamePadState;
             float currentFloor = GetFloor();
@@ -84,6 +90,8 @@ namespace Library.Assets.Samus
             Position += CurrentVelocity;
 
             CheckCollisions(currentFloor, currentCeiling, currentRightWall, currentLeftWall);
+
+            CheckOutOfBounds();
 
             if (CurrentVelocity.Y > 0 && CurrentAnimation.Name != AnimationName.morphBall && CurrentAnimation.AnimationType != AnimationType.crouchingType && CurrentAnimation.Name != AnimationName.turning && CurrentAnimation.AnimationType != AnimationType.jumpingShootingType)
                 SetCurrentAnimation(AnimationName.falling);
@@ -121,7 +129,7 @@ namespace Library.Assets.Samus
 
         public override void HandleButtons(GamePadState gamePadState)
         {
-            if (gamePadState.Buttons.A == ButtonState.Pressed && IsGrounded && NumJumps == 2 && Math.Abs(GetCeiling() - GetCollisionBox().Top) > tileSize / 2)
+            if (gamePadState.Buttons.A == ButtonState.Pressed && IsGrounded && NumJumps == 2 && Math.Abs(GetCeiling() - GetCollisionBox(gameState).Top) > gameState.tileSize / 2)
                 SetCurrentAnimation(AnimationName.jumpingIdle);
 
             if (CurrentAnimation.Name.ToString().Contains("iming"))
@@ -129,13 +137,29 @@ namespace Library.Assets.Samus
                     Weapons[1].Fire();
                 else if (gamePadState.Triggers.Left == 1.0f && Weapons[0].CanFire)
                     Weapons[0].Fire();
+
+            if (CurrentAnimation.AnimationType == AnimationType.morphBallType)
+                if ((gamePadState.Triggers.Right == 1.0f && Weapons[2].CanFire) || (gamePadState.Triggers.Left == 1.0f && Weapons[2].CanFire))
+                    Weapons[2].Fire();
+        }
+
+        public void CheckOutOfBounds()
+        {
+            if (Position.Y > 1500f && Alive)
+            {
+                TakeDamage(35f);
+                if (Alive)
+                {
+                    Position = gameState.CurrentLevel.SpawnLocations[(int)playerIndex].ToVector2() * gameState.tileSize;
+                }
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameProperties gameState)
         {
             Vector2 position = new Vector2(
-                Position.X - (SpriteSize.X * SpriteTileSize * tileSize / SpriteTileSize / 2),
-                Position.Y - (SpriteSize.Y * SpriteTileSize * tileSize / SpriteTileSize)
+                Position.X - (SpriteSize.X * SpriteTileSize * gameState.tileSize / SpriteTileSize / 2),
+                Position.Y - (SpriteSize.Y * SpriteTileSize * gameState.tileSize / SpriteTileSize)
             );
             Rectangle drawRectangle = new Rectangle(
                 location: CurrentAnimation.GetDrawCoordinates(Direction).ToPoint(),
@@ -151,7 +175,7 @@ namespace Library.Assets.Samus
                             (int)(gameState.CurrentLevel.TintColor.B - HitTimer * gameState.CurrentLevel.TintColor.B / 30f)),
                 rotation: 0f,
                 origin: Vector2.Zero,
-                scale: tileSize / SpriteTileSize,
+                scale: gameState.tileSize / SpriteTileSize,
                 effects: SpriteEffects.None,
                 layerDepth: 0f
             );
@@ -159,12 +183,12 @@ namespace Library.Assets.Samus
 
         public void DrawHealthBar(SpriteBatch spriteBatch)
         {
-            var collisionBox = GetCollisionBox();
+            var collisionBox = GetCollisionBox(gameState);
             var position = collisionBox.Location;
-            position.Y = (int)(Position.Y - tileSize * 3.1);
-            var size = new Vector2(tileSize * 1.4f * (float)Health / 100f, tileSize / 6);
-            var blackSize = new Vector2(tileSize * 1.4f - size.X, tileSize / 6);
-            position.X -= (int)(tileSize * 0.3f);
+            position.Y = (int)(Position.Y - gameState.tileSize * 3.1);
+            var size = new Vector2(gameState.tileSize * 1.4f * (float)Health / 100f, gameState.tileSize / 6);
+            var blackSize = new Vector2(gameState.tileSize * 1.4f - size.X, gameState.tileSize / 6);
+            position.X -= (int)(gameState.tileSize * 0.3f);
 
             spriteBatch.Draw(whiteTexture, new Rectangle(position, size.ToPoint()), Color.Red);
             spriteBatch.Draw(whiteTexture, new Rectangle(new Point(position.X + (int)size.X, position.Y), blackSize.ToPoint()), Color.Black);
@@ -176,16 +200,16 @@ namespace Library.Assets.Samus
                 weapon.Draw(spriteBatch, gameState);
         }
 
-        public override Rectangle GetCollisionBox()
+        public override Rectangle GetCollisionBox(GameProperties gameState)
         {
             Rectangle collisionBox = SamusCollisionBoxes.ContainsKey(CurrentAnimation.Name)
                 ? SamusCollisionBoxes[CurrentAnimation.Name]
                 : DefaultCollisionBox;
 
-            collisionBox.Width = collisionBox.Width * tileSize / SpriteTileSize;
-            collisionBox.Height = collisionBox.Height * tileSize / SpriteTileSize;
-            collisionBox.X = (int)(Position.X - (collisionBox.Width / 2) + (collisionBox.X * tileSize / SpriteTileSize));
-            collisionBox.Y = (int)(Position.Y - collisionBox.Height + (collisionBox.Y * tileSize / SpriteTileSize));
+            collisionBox.Width = collisionBox.Width * gameState.tileSize / SpriteTileSize;
+            collisionBox.Height = collisionBox.Height * gameState.tileSize / SpriteTileSize;
+            collisionBox.X = (int)(Position.X - (collisionBox.Width / 2) + (collisionBox.X * gameState.tileSize / SpriteTileSize));
+            collisionBox.Y = (int)(Position.Y - collisionBox.Height + (collisionBox.Y * gameState.tileSize / SpriteTileSize));
 
             collisionBox.Y = (int)(collisionBox.Y + (collisionBox.Height * 0.03));
             collisionBox.Height = (int)(collisionBox.Height * 0.9);

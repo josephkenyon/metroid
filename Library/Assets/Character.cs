@@ -18,7 +18,7 @@ namespace Library.Assets
         public List<Weapon> Weapons { get; set; }
         public bool Alive => Health > 0;
 
-        public bool IsGrounded => GetCollisionBox().Bottom == GetFloor();
+        public bool IsGrounded => GetCollisionBox(gameState).Bottom == GetFloor();
         public bool IsNotCrouching => CurrentAnimation.AnimationType != AnimationType.crouchingType;
 
         public Vector2 SpriteNumber { get; protected set; }
@@ -94,7 +94,7 @@ namespace Library.Assets
                 OverrideCurrentAnimation(animationName, startingFrame, finalFrame);
                 if (CurrentAnimation.AnimationType == AnimationType.jumpingType)
                 {
-                    characterSounds.jumpVoiceSounds[new Random().Next(1, 3)].Play(0.7f * soundLevel, 0, 0);
+                    characterSounds.jumpVoiceSounds[new Random().Next(1, 3)].Play(0.7f * gameState.soundLevel, 0, 0);
                     NumJumps--;
                 }
             }
@@ -106,8 +106,8 @@ namespace Library.Assets
 
             float oldBottom = GetFloor();
             float oldCeiling = GetCeiling();
-            float oldWidth = GetCollisionBox().Width;
-            float oldHeight = GetCollisionBox().Height;
+            float oldWidth = GetCollisionBox(gameState).Width;
+            float oldHeight = GetCollisionBox(gameState).Height;
 
             CurrentAnimation.Reset();
             CurrentAnimationIndex = animationName;
@@ -117,12 +117,12 @@ namespace Library.Assets
 
             float newFloor = GetFloor();
             float newCeiling = GetCeiling();
-            if (oldBottom != newFloor && Math.Abs(oldBottom - newFloor) <= tileSize && GetCurrentVelocity.Y > 0f && oldBottom < newFloor)
-                InfluencePosition(new Vector2(0f, oldBottom - GetCollisionBox().Bottom - 1));
+            if (oldBottom != newFloor && Math.Abs(oldBottom - newFloor) <= gameState.tileSize && GetCurrentVelocity.Y > 0f && oldBottom < newFloor)
+                InfluencePosition(new Vector2(0f, oldBottom - GetCollisionBox(gameState).Bottom - 1));
             //SetCurrentAnimation(AnimationName.crouchingIdle, finalFrame: true);
 
-            if (oldCeiling != newCeiling && Math.Abs(oldCeiling - newCeiling) <= tileSize && oldCeiling > newCeiling)
-                InfluencePosition(new Vector2(0f, oldCeiling - GetCollisionBox().Top + 1));
+            if (oldCeiling != newCeiling && Math.Abs(oldCeiling - newCeiling) <= gameState.tileSize && oldCeiling > newCeiling)
+                InfluencePosition(new Vector2(0f, oldCeiling - GetCollisionBox(gameState).Top + 1));
             //SetCurrentAnimation(AnimationName.crouchingIdle, finalFrame: true);
 
             CurrentAnimation.Reset(startingFrame, finalFrame);
@@ -136,7 +136,7 @@ namespace Library.Assets
             {
                 OverrideCurrentAnimation(AnimationName.dead, 0, false);
                 Health = 0;
-                characterSounds.deathSound.Play(0.7f * soundLevel, 0, 0);
+                characterSounds.deathSound.Play(0.7f * gameState.soundLevel, 0, 0);
                 if (gameState.players.Where(p => p.Value.Alive).Count() == 1)
                 {
                     gameState.GameOver = true;
@@ -144,7 +144,7 @@ namespace Library.Assets
             }
             else
             {
-                characterSounds.hurtSound.Play(0.35f * soundLevel, 0, 0);
+                characterSounds.hurtSound.Play(0.35f * gameState.soundLevel, 0, 0);
             }
         }
 
@@ -157,90 +157,90 @@ namespace Library.Assets
 
         public float GetFloor()
         {
-            Rectangle collisionBox = GetCollisionBox();
+            Rectangle collisionBox = GetCollisionBox(gameState);
             int bottom = collisionBox.Bottom;
-            int center = collisionBox.Center.X / tileSize;
+            int center = collisionBox.Center.X / gameState.tileSize;
 
             IEnumerable<GameObject> candidates = from block in gameState.CurrentLevel.BlockMap.Values
                                                  where block.Impenetrable
-                                                       && block.CurrentQuadrant.X >= center - 1
-                                                       && block.CurrentQuadrant.X <= center + 1
+                                                       && block.CurrentQuadrant(gameState).X >= center - 1
+                                                       && block.CurrentQuadrant(gameState).X <= center + 1
                                                  select block;
 
             candidates = candidates.Where(
-                b => b.Position.X < collisionBox.Right && b.Position.X + tileSize > collisionBox.Left)
-                .Where(b => b.Position.Y >= bottom);
+                b => (b.Position * gameState.tileSize).X < collisionBox.Right && (b.Position * gameState.tileSize).X + gameState.tileSize > collisionBox.Left)
+                .Where(b => (b.Position * gameState.tileSize).Y >= bottom);
 
-            return (from block in candidates select (float?)block.Position.Y).Min() ?? 999999f;
+            return (from block in candidates select (float?)(block.Position * gameState.tileSize).Y).Min() ?? 3000f;
         }
 
         public float GetCeiling()
         {
-            Rectangle collisionBox = GetCollisionBox();
+            Rectangle collisionBox = GetCollisionBox(gameState);
             int top = collisionBox.Top;
-            int center = collisionBox.Center.X / tileSize;
+            int center = collisionBox.Center.X / gameState.tileSize;
 
             IEnumerable<GameObject> candidates = from block in gameState.CurrentLevel.BlockMap.Values
                                                  where block.Impenetrable
-                                                       && block.CurrentQuadrant.X >= center - 1
-                                                       && block.CurrentQuadrant.X <= center + 1
+                                                       && block.CurrentQuadrant(gameState).X >= center - 1
+                                                       && block.CurrentQuadrant(gameState).X <= center + 1
                                                  select block;
 
             candidates = candidates.Where(
-                b => b.Position.X < collisionBox.Right && b.Position.X + tileSize > collisionBox.Left)
-                .Where(b => b.Position.Y + tileSize <= top);
+                b => (b.Position * gameState.tileSize).X < collisionBox.Right && (b.Position * gameState.tileSize).X + gameState.tileSize > collisionBox.Left)
+                .Where(b => (b.Position * gameState.tileSize).Y + gameState.tileSize <= top);
 
-            return (from block in candidates select (float?)block.Position.Y + tileSize).Max() ?? -9999999f;
+            return (from block in candidates select (float?)(block.Position * gameState.tileSize).Y + gameState.tileSize).Max() ?? -9999999f;
         }
 
         public float GetLeftWall()
         {
-            Rectangle collisionBox = GetCollisionBox();
+            Rectangle collisionBox = GetCollisionBox(gameState);
             int left = collisionBox.Left;
-            int center = collisionBox.Center.Y / tileSize;
+            int center = collisionBox.Center.Y / gameState.tileSize;
 
             IEnumerable<GameObject> candidates = from block in gameState.CurrentLevel.BlockMap.Values
                                                  where block.Impenetrable
-                                                       && block.CurrentQuadrant.Y >= center - 2
-                                                       && block.CurrentQuadrant.Y <= center + 2
+                                                       && block.CurrentQuadrant(gameState).Y >= center - 2
+                                                       && block.CurrentQuadrant(gameState).Y <= center + 2
                                                  select block;
 
             candidates = candidates.Where(
-                b => b.Position.Y < collisionBox.Bottom && b.Position.Y + tileSize > collisionBox.Top)
-                .Where(b => b.Position.X <= left);
+                b => (b.Position * gameState.tileSize).Y < collisionBox.Bottom && (b.Position * gameState.tileSize).Y + gameState.tileSize > collisionBox.Top)
+                .Where(b => (b.Position * gameState.tileSize).X <= left);
 
-            return (from block in candidates select (float?)block.Position.X + tileSize).Max() ?? -9999999f;
+            return (from block in candidates select (float?)(block.Position * gameState.tileSize).X + gameState.tileSize).Max() ?? -9999999f;
         }
 
         public float GetRightWall()
         {
-            Rectangle collisionBox = GetCollisionBox();
+            Rectangle collisionBox = GetCollisionBox(gameState);
             int right = collisionBox.Right;
-            int center = collisionBox.Center.Y / tileSize;
+            int center = collisionBox.Center.Y / gameState.tileSize;
 
             IEnumerable<GameObject> candidates = from block in gameState.CurrentLevel.BlockMap.Values
                                                  where block.Impenetrable
-                                                       && block.CurrentQuadrant.Y >= center - 2
-                                                       && block.CurrentQuadrant.Y <= center + 2
+                                                       && block.CurrentQuadrant(gameState).Y >= center - 2
+                                                       && block.CurrentQuadrant(gameState).Y <= center + 2
                                                  select block;
 
             candidates = candidates.Where(
-                b => b.Position.Y < collisionBox.Bottom && b.Position.Y + tileSize > collisionBox.Top)
-                .Where(b => b.Position.X >= right);
+                b => (b.Position * gameState.tileSize).Y < collisionBox.Bottom && (b.Position * gameState.tileSize).Y + gameState.tileSize > collisionBox.Top)
+                .Where(b => (b.Position * gameState.tileSize).X >= right);
 
-            return (from block in candidates select (float?)block.Position.X).Min() ?? 9999999f;
+            return (from block in candidates select (float?)(block.Position * gameState.tileSize).X).Min() ?? 9999999f;
         }
 
         public Vector2 GetIntersections(Rectangle collisionBox)
         {
             int right = collisionBox.Right;
-            int center = collisionBox.Center.Y / tileSize;
+            int center = collisionBox.Center.Y / gameState.tileSize;
 
-            var candidate = gameState.CurrentLevel.BlockMap.Values.Where(b => b.GetCollisionBox().Intersects(collisionBox) && b.Impenetrable).DefaultIfEmpty(new TerrainBlock()).First();
+            var candidate = gameState.CurrentLevel.BlockMap.Values.Where(b => b.GetCollisionBox(gameState).Intersects(collisionBox) && b.Impenetrable).DefaultIfEmpty(new TerrainBlock()).First();
 
             if (candidate.SpriteTileSize == 0) return Vector2.Zero;
 
-            var blockCollisionBox = candidate.GetCollisionBox();
+            var blockCollisionBox = candidate.GetCollisionBox(gameState);
 
             List<int> options = new List<int>{
                 Math.Abs(collisionBox.Left - blockCollisionBox.Right),
@@ -263,11 +263,11 @@ namespace Library.Assets
 
         public void CheckCollisions(float currentFloor, float currentCeiling, float currentRightWall, float currentLeftWall)
         {
-            var collisionBox = GetCollisionBox();
+            var collisionBox = GetCollisionBox(gameState);
             foreach (PowerUpSpawner powerUpSpawner in gameState.CurrentLevel.PowerUpSpawners)
             {
                 var powerUp = powerUpSpawner.GetPowerUp();
-                if (powerUp != null && collisionBox.Intersects(powerUp.GetCollisionBox()))
+                if (powerUp != null && collisionBox.Intersects(powerUp.GetCollisionBox(gameState)))
                 {
                     powerUp.PowerUpProperties.ExecutePickedUpAction.Invoke(this);
                     powerUpSpawner.PowerUpCollected();
@@ -308,16 +308,16 @@ namespace Library.Assets
                 CurrentVelocity.Y = 0;
             }
 
-            Position -= GetIntersections(GetCollisionBox());
+            Position -= GetIntersections(GetCollisionBox(gameState));
         }
 
         public void ApplyGravity(float floor)
         {
-            var collisionBox = GetCollisionBox();
+            var collisionBox = GetCollisionBox(gameState);
             if ((CurrentAnimation.IsLooping || CurrentAnimation.Name != AnimationName.jumpingIdle) && collisionBox.Bottom != floor)
             {
                 var constant = gravity == gameState.CurrentLevel.Gravity ? 1f : (gravity - gameState.CurrentLevel.Gravity) * 100;
-                CurrentVelocity.Y += gameState.CurrentLevel.Gravity * tileSize * constant;
+                CurrentVelocity.Y += gameState.CurrentLevel.Gravity * gameState.tileSize * constant;
                 if (NumJumps == 2)
                     NumJumps--;
             }

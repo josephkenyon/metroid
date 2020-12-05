@@ -1,5 +1,6 @@
 ﻿using Library.Assets;
 using Library.Assets.Samus;
+using Microsoft.VisualStudio.Services.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -11,11 +12,13 @@ namespace Library.State
     {
         public Level CurrentLevel { get; private set; }
         public GameWindow Window;
-        public Dictionary<PlayerIndex, Samus> players;
+        public SerializableDictionary<PlayerIndex, Samus> players;
         public Character focusObject;
         public bool GameOver = false;
         public bool ScoreScreen = false;
+        public int tileSize;
         public int frameSkip = 3;
+        public float soundLevel;
         public Vector2 DrawTransform => new Vector2(0, 0);
         public Vector2 DrawTransform2 => new Vector2(
             focusObject.Position.X + (focusObject.SpriteSize.X * tileSize / focusObject.SpriteTileSize / 2),
@@ -23,8 +26,11 @@ namespace Library.State
             - new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2);
         public Vector2 CameraLocation { get; private set; }
 
-        public GameProperties(GameWindow Window, Level level)
+        public GameProperties(GameWindow Window, Level level, float soundLevel)
         {
+            tileSize = (int)(48 * (Window.ClientBounds.Height / 1080f));
+
+            this.soundLevel = soundLevel;
             CurrentLevel = level;
             this.Window = Window;
         }

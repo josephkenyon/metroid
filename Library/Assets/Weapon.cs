@@ -61,10 +61,10 @@ namespace Library.Assets
         public void Fire()
         {
             Character.characterStats.shotsFired++;
-            if ((ammo == null || ammo > 0))
+            if ((ammo == null || ammo > 0) && (WeaponProperties.activeProjectilesAllowed == null || projectiles.Count < WeaponProperties.activeProjectilesAllowed))
             {
                 projectiles.Add(new Projectile(this));
-                WeaponFireSounds[WeaponProperties.weaponType]?.Play(0.5f * soundLevel, 0, 0);
+                WeaponFireSounds[WeaponProperties.weaponType]?.Play(0.5f * Character.gameState.soundLevel, 0, 0);
                 lastFired = 0;
                 if (ammo != null)
                 {
@@ -72,7 +72,7 @@ namespace Library.Assets
                 }
             }
             else {
-                Character.characterSounds.emptyGunSound.Play(0.5f * soundLevel, 0, 0);
+                Character.characterSounds.emptyGunSound.Play(0.5f * Character.gameState.soundLevel, 0, 0);
                 lastFired = 0;
             }
         }

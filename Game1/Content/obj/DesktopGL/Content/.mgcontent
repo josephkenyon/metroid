@@ -10,6 +10,8 @@
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Fonts/smallMenu.spritefont</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/ammoCollect.mp3</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/ammoEmpty.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/bombDrop.mp3</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/bombExplosion.mp3</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/chargeFire.mp3</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/controlSelect.mp3</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/controlSelectFail.mp3</File>
@@ -40,6 +42,8 @@
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/weapons.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

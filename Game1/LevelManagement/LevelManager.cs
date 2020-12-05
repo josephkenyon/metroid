@@ -1,4 +1,5 @@
-﻿using Library.State;
+﻿using Library.Assets;
+using Library.State;
 using Microsoft.VisualStudio.Services.Common;
 using Microsoft.Xna.Framework;
 using System;
@@ -16,31 +17,41 @@ namespace Game1.LevelManagement
         public List<Level> Levels { get; private set; }
 
         public LevelManager()
-            : this( new List<Level>())
+            : this(new List<Level>())
         {
 
         }
 
-        public LevelManager(List<Level> levels) 
+        public LevelManager(List<Level> levels)
         {
             Levels = levels;
         }
 
-        public static LevelManager Load() {
+        public static LevelManager Load()
+        {
             if (!File.Exists(_filename))
                 return new LevelManager();
 
             using var reader = new StreamReader(new FileStream(_filename, FileMode.Open));
-            
+
             var serializer = new XmlSerializer(typeof(List<Level>));
 
             var levels = (List<Level>)serializer.Deserialize(reader);
 
-           /* foreach (Level level in levels) {
-                level.TintColor = Color.White;
+            //levels.Find(a => a.Name == "depths").TintColor = new Color(115, 115, 255, 255);
+            /*
+            
+            foreach (TerrainBlock block in level.BlockMap.Values)
+            {
+                block.Position *= 64;
             }
 
-            levels.Find(a => a.Name == "depths").TintColor = new Color(72, 81, 232, 255);*/
+            foreach (TerrainBlock block in level.BackgroundBlockMap.Values)
+            {
+                block.Position *= 64;
+            }
+            */
+
 
             return new LevelManager(levels);
         }
@@ -55,7 +66,8 @@ namespace Game1.LevelManagement
 
         }
 
-        public void Sort() {
+        public void Sort()
+        {
             Levels.Sort();
         }
     }

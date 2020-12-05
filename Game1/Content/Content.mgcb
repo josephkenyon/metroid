@@ -44,11 +44,8 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/smallMenu.spritefont
 
-#begin Levels/battlefield.txt
-/copy:Levels/battlefield.txt
-
-#begin Levels/nightfall.txt
-/copy:Levels/nightfall.txt
+#begin Levels/levels.xml
+/copy:Levels/levels.xml
 
 #begin Sound/ammoCollect.mp3
 /importer:Mp3Importer
@@ -61,6 +58,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/ammoEmpty.mp3
+
+#begin Sound/bombDrop.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/bombDrop.mp3
+
+#begin Sound/bombExplosion.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/bombExplosion.mp3
 
 #begin Sound/chargeFire.mp3
 /importer:Mp3Importer

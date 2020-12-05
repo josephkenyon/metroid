@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/ammoEmpty.mp3</SourceFile>
   <SourceTime>2020-11-24T13:07:22-05:00</SourceTime>
   <DestFile>C:/Users/Joseph/source/repos/Metroid/Game1/Content/bin/DesktopGL/Sound/ammoEmpty.xnb</DestFile>
-  <DestTime>2020-12-01T14:55:43.8701122-05:00</DestTime>
+  <DestTime>2020-12-03T14:02:32.9381873-05:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2020-08-10T16:17:54-04:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

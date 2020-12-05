@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Library.Assets;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -48,16 +49,16 @@ namespace Library.Domain
                     Y = rectangle.Y
                 },
                new Point{
-                    X = rectangle.X + Convert.ToInt32(rectangle.Width / 2f),
+                    X = rectangle.X + Convert.ToInt32(rectangle.Width),
                     Y = rectangle.Y
                 },
                new Point{
                     X = rectangle.X,
-                    Y = rectangle.Y + Convert.ToInt32(rectangle.Height / 2f)
+                    Y = rectangle.Y + Convert.ToInt32(rectangle.Height)
                 },
                new Point{
-                    X = rectangle.X + Convert.ToInt32(rectangle.Width / 2f),
-                    Y = rectangle.Y + Convert.ToInt32(rectangle.Height / 2f)
+                    X = rectangle.X + Convert.ToInt32(rectangle.Width),
+                    Y = rectangle.Y + Convert.ToInt32(rectangle.Height)
                 },
             };
         }

@@ -39,6 +39,7 @@ namespace Library.Domain
         {
             Charge = 0,
             Rocket = 1,
+            Bomb = 2,
         }
 
         public enum PowerUpType

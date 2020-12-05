@@ -18,7 +18,7 @@ namespace Library.Assets
             PowerUpSpawner = powerUpSpawner;
             PowerUpProperties = new PowerUpProperties(powerUpSpawner.PowerUpType);
             SpriteTileSize = PowerUpProperties.spriteTileSize;
-            Position = powerUpSpawner.Location.ToVector2() * tileSize;
+            Position = powerUpSpawner.Location.ToVector2() * powerUpSpawner.tileSize;
         }
 
         public void Update()
@@ -46,12 +46,12 @@ namespace Library.Assets
                 color: gameState.CurrentLevel.TintColor,
                 rotation: 0f,
                 origin: Vector2.Zero,
-                scale: tileSize / SpriteTileSize,
+                scale: gameState.tileSize / SpriteTileSize,
                 effects: SpriteEffects.None,
                 layerDepth: 0f
             );
         }
 
-        public override Rectangle GetCollisionBox() => new Rectangle(Position.ToPoint(), (Vector2.One * tileSize).ToPoint());
+        public override Rectangle GetCollisionBox(GameProperties gameState) => new Rectangle(Position.ToPoint(), (Vector2.One * PowerUpSpawner.tileSize).ToPoint());
     }
 }

@@ -227,3 +227,11 @@ C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Sprites\Samus
 C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Content\Sprites\Samus\samusBlack.xnb
 C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Fonts\mediumMenu.xnb
 C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Content\Fonts\mediumMenu.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\levels.xml
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Content\levels.xml
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Sound\bombDrop.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Sound\bombExplosion.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Content\Sound\bombDrop.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Content\Sound\bombExplosion.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Levels\levels.xml
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Content\Levels\levels.xml
