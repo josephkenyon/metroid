@@ -8,6 +8,7 @@
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Fonts/mediumMenu.spritefont</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Fonts/menu.spritefont</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Fonts/smallMenu.spritefont</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Fonts/verySmallMenu.spritefont</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/ammoCollect.mp3</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/ammoEmpty.mp3</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/bombDrop.mp3</File>
@@ -28,6 +29,7 @@
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/rocketFire.mp3</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sound/rockHit.mp3</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/blankWhite.png</File>
+    <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/buttons.png</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/powerUps.png</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/Samus/samusBlack.png</File>
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/Samus/samusBlue.png</File>
@@ -42,6 +44,8 @@
     <File>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/weapons.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

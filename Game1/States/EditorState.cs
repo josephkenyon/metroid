@@ -275,7 +275,7 @@ namespace Game1.States
                     var direction = GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.X > 0 ? 1 : -1;
                     spriteLocation.X += direction;
 
-                    if (spriteLocation.X < 0 || spriteLocation.X >= 8)
+                    if (spriteLocation.X < 0 || spriteLocation.X >= terrainPallete.Width / 16)
                         spriteLocation.X -= direction;
 
                     inputDelay = 6;
@@ -285,7 +285,7 @@ namespace Game1.States
                     var direction = GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.Y < 0 ? 1 : -1;
                     spriteLocation.Y += direction;
 
-                    if (spriteLocation.Y < 0 || spriteLocation.Y >= 10)
+                    if (spriteLocation.Y < 0 || spriteLocation.Y >= terrainPallete.Height / 16)
                         spriteLocation.Y -= direction;
 
                     inputDelay = 6;

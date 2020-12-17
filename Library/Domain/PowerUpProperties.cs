@@ -33,6 +33,7 @@ namespace Library.Assets
 
         public static void HealthPickUp(Character character)
         {
+            var previousHealth = character.Health;
             int healAmount = 35;
             if (character.Health + healAmount > character.MaxHealth)
             {
@@ -40,6 +41,8 @@ namespace Library.Assets
             }
             else
                 character.Heal(healAmount);
+
+            character.characterStats.hitPointsHealed += character.Health - previousHealth;
 
             character.characterSounds.healthUpSound.Play(1.2f * character.gameState.soundLevel, 0, 0);
         }

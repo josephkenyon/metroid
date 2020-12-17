@@ -42,7 +42,7 @@ namespace Game1.States
             selectedMenu = newMenu;
         }
 
-        public MenuState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
+        public MenuState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content, Dictionary<PlayerIndex, SamusColor> selectedColors = null)
           : base(game, graphicsDevice, content)
         {
             this.game = game;
@@ -113,7 +113,13 @@ namespace Game1.States
             );
             stageSelectMenuForEngine.LoadControls(StageSelectControls.ControlsForEngine(game, stageSelectMenuForEngine, game.GetLevels().Select(l => l.Name).ToList()));
 
-            selectedMenu = mainMenu;
+            if (selectedColors != null)
+            {
+                charSelectMenu.selectedColors = selectedColors;
+                selectedMenu = stageSelectMenuForGameMenu;
+            }
+            else
+                selectedMenu = mainMenu;
 
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = game.soundLevel < 0.5f ? game.soundLevel * 2 : game.soundLevel;
@@ -169,7 +175,7 @@ namespace Game1.States
                 if (playerState.IsConnected)
                     players.Add(playerIndex);
             }
-                
+
 
             return players;
         }

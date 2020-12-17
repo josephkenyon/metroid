@@ -19,6 +19,8 @@ namespace Game1.States
     {
         private SpriteFont consoleFont;
         private SpriteFont font;
+        private SpriteFont smallFont;
+        private Texture2D buttonTexture;
         private GameProperties gameState;
         private CharacterSounds characterSounds;
         private ScoreScreen scoreScreen;
@@ -35,10 +37,13 @@ namespace Game1.States
             // load content
             consoleFont = Content.Load<SpriteFont>("Fonts\\Console");
             font = Content.Load<SpriteFont>("Fonts\\smallMenu");
+            smallFont = Content.Load<SpriteFont>("Fonts\\verySmallMenu");
 
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = game.soundLevel / 1.8f;
             MediaPlayer.Play(Content.Load<Song>("Sound\\gameMusic"));
+
+            buttonTexture = Content.Load<Texture2D>("sprites\\buttons");
 
             var players = new SerializableDictionary<PlayerIndex, Samus>();
 
@@ -176,11 +181,11 @@ namespace Game1.States
                     {
                         list.Add(player.playerIndex, player.characterStats);
                     }
-                    scoreScreen = new ScoreScreen(_game, list, font);
+                    scoreScreen = new ScoreScreen(_game, list, font, smallFont, selectedColors, buttonTexture);
                 }
                 else
                 {
-                    scoreScreen.Update();
+                    scoreScreen.Update(_game, this);
                 }
             }
 

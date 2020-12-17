@@ -10,6 +10,8 @@ namespace Library.Domain
     {
         public int shotsFired = 0;
         public int shotsHit = 0;
+        public float damageDealt = 0;
+        public float hitPointsHealed = 0;
         public float AccuracyPercentage => shotsFired != 0 ? (float)shotsHit / shotsFired * 100f : 0f;
     }
 }

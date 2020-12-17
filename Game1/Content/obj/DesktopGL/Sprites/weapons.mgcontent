@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/Joseph/source/repos/Metroid/Game1/Content/Sprites/weapons.png</SourceFile>
-  <SourceTime>2020-12-02T18:24:54.6998197-05:00</SourceTime>
+  <SourceTime>2020-12-05T12:59:32.1141211-05:00</SourceTime>
   <DestFile>C:/Users/Joseph/source/repos/Metroid/Game1/Content/bin/DesktopGL/Sprites/weapons.xnb</DestFile>
-  <DestTime>2020-12-03T14:02:39.7695085-05:00</DestTime>
+  <DestTime>2020-12-05T13:55:48.9101104-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T16:17:54-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

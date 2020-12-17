@@ -144,7 +144,15 @@ namespace Library.Assets.Samus
         }
 
         public void CheckOutOfBounds()
-        {
+        { 
+            var collisionBox = GetCollisionBox(gameState);
+            if (collisionBox.Right <= 0) {
+                SetPosition(new Vector2(gameState.tileSize * 40, Position.Y));
+            }
+            else if (collisionBox.Left >= gameState.tileSize * 40)
+            {
+                SetPosition(new Vector2(0, Position.Y));
+            }
             if (Position.Y > 1500f && Alive)
             {
                 TakeDamage(35f);

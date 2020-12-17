@@ -235,3 +235,7 @@ C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Content\Sound
 C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Content\Sound\bombExplosion.xnb
 C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Levels\levels.xml
 C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Content\Levels\levels.xml
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Fonts\verySmallMenu.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Content\Fonts\verySmallMenu.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Sprites\buttons.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Debug\netcoreapp3.1\Content\Sprites\buttons.xnb

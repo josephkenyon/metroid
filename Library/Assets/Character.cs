@@ -28,7 +28,7 @@ namespace Library.Assets
         public CharacterSounds characterSounds;
         public CharacterStats characterStats = new CharacterStats();
 
-        public double Health { get; protected set; }
+        public float Health { get; protected set; }
         protected Animation[] animations;
         protected AnimationName CurrentAnimationIndex;
 
@@ -82,6 +82,11 @@ namespace Library.Assets
             Position += velocity;
         }
 
+        public void SetPosition(Vector2 newPosition)
+        {
+            Position = newPosition;
+        }
+
         public void SetDirection(Direction direction)
         {
             Direction = direction;
@@ -128,7 +133,7 @@ namespace Library.Assets
             CurrentAnimation.Reset(startingFrame, finalFrame);
         }
 
-        public void TakeDamage(double amount)
+        public void TakeDamage(float amount)
         {
             Health -= amount;
             HitTimer = 30;
@@ -148,7 +153,7 @@ namespace Library.Assets
             }
         }
 
-        public void Heal(double amount)
+        public void Heal(float amount)
         {
             Health += amount;
             if (Health > MaxHealth)

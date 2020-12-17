@@ -19,10 +19,10 @@
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>3</X>
-              <Y>1</Y>
+              <X>2</X>
+              <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -595,10 +595,10 @@
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>3</X>
-              <Y>0</Y>
+              <X>0</X>
+              <Y>2</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -1075,10 +1075,10 @@
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>3</X>
-              <Y>0</Y>
+              <X>0</X>
+              <Y>3</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -4376,54 +4376,6 @@
         <key>
           <Point>
             <X>17</X>
-            <Y>20</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>17</X>
-              <Y>20</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>3</X>
-              <Y>4</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>false</Impenetrable>
-            <Background>false</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>17</X>
-            <Y>21</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>17</X>
-              <Y>21</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>1</X>
-              <Y>4</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>true</Impenetrable>
-            <Background>false</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>17</X>
             <Y>22</Y>
           </Point>
         </key>
@@ -4435,10 +4387,34 @@
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>3</X>
-              <Y>1</Y>
+              <X>7</X>
+              <Y>5</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
+            <Impenetrable>true</Impenetrable>
+            <Background>false</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>22</X>
+            <Y>22</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>22</X>
+              <Y>22</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>6</X>
+              <Y>4</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -4567,54 +4543,6 @@
       <item>
         <key>
           <Point>
-            <X>21</X>
-            <Y>21</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>21</X>
-              <Y>21</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>6</X>
-              <Y>2</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>true</Impenetrable>
-            <Background>false</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>18</X>
-            <Y>21</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>18</X>
-              <Y>21</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>7</X>
-              <Y>2</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>true</Impenetrable>
-            <Background>false</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
             <X>19</X>
             <Y>0</Y>
           </Point>
@@ -4724,54 +4652,6 @@
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
               <X>2</X>
-              <Y>5</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>true</Impenetrable>
-            <Background>false</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>21</X>
-            <Y>22</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>21</X>
-              <Y>22</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>6</X>
-              <Y>4</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>true</Impenetrable>
-            <Background>false</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>18</X>
-            <Y>22</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>18</X>
-              <Y>22</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>7</X>
               <Y>5</Y>
             </SpriteLocation>
             <tileSize>0</tileSize>
@@ -5144,30 +5024,6 @@
         <key>
           <Point>
             <X>22</X>
-            <Y>20</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>22</X>
-              <Y>20</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>3</X>
-              <Y>4</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>false</Impenetrable>
-            <Background>false</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>22</X>
             <Y>21</Y>
           </Point>
         </key>
@@ -5179,10 +5035,10 @@
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>1</X>
-              <Y>4</Y>
+              <X>6</X>
+              <Y>2</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -5191,22 +5047,22 @@
       <item>
         <key>
           <Point>
-            <X>22</X>
-            <Y>22</Y>
+            <X>17</X>
+            <Y>21</Y>
           </Point>
         </key>
         <value>
           <TerrainBlock>
             <Position>
-              <X>22</X>
-              <Y>22</Y>
+              <X>17</X>
+              <Y>21</Y>
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>3</X>
-              <Y>1</Y>
+              <X>7</X>
+              <Y>2</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -8443,10 +8299,10 @@
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>2</X>
-              <Y>0</Y>
+              <X>1</X>
+              <Y>2</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -8923,10 +8779,10 @@
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>3</X>
-              <Y>0</Y>
+              <X>1</X>
+              <Y>3</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -13905,30 +13761,6 @@
       <item>
         <key>
           <Point>
-            <X>38</X>
-            <Y>21</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>38</X>
-              <Y>21</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>7</X>
-              <Y>1</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>false</Impenetrable>
-            <Background>true</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
             <X>36</X>
             <Y>20</Y>
           </Point>
@@ -17481,22 +17313,22 @@
       <item>
         <key>
           <Point>
-            <X>18</X>
-            <Y>21</Y>
+            <X>17</X>
+            <Y>22</Y>
           </Point>
         </key>
         <value>
           <TerrainBlock>
             <Position>
-              <X>18</X>
-              <Y>21</Y>
+              <X>17</X>
+              <Y>22</Y>
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>7</X>
-              <Y>4</Y>
+              <X>6</X>
+              <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -17520,7 +17352,7 @@
               <X>7</X>
               <Y>4</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -17544,103 +17376,7 @@
               <X>7</X>
               <Y>4</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>false</Impenetrable>
-            <Background>true</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>21</X>
-            <Y>21</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>21</X>
-              <Y>21</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>7</X>
-              <Y>4</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>false</Impenetrable>
-            <Background>true</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>21</X>
-            <Y>22</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>21</X>
-              <Y>22</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>6</X>
-              <Y>0</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>false</Impenetrable>
-            <Background>true</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>20</X>
-            <Y>22</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>20</X>
-              <Y>22</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>7</X>
-              <Y>1</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>false</Impenetrable>
-            <Background>true</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>19</X>
-            <Y>22</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>19</X>
-              <Y>22</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>7</X>
-              <Y>1</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -17664,7 +17400,199 @@
               <X>6</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>21</X>
+            <Y>22</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>21</X>
+              <Y>22</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>6</X>
+              <Y>0</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>20</X>
+            <Y>22</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>20</X>
+              <Y>22</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>6</X>
+              <Y>0</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>19</X>
+            <Y>22</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>19</X>
+              <Y>22</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>6</X>
+              <Y>0</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>22</X>
+            <Y>22</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>22</X>
+              <Y>22</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>6</X>
+              <Y>0</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>22</X>
+            <Y>21</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>22</X>
+              <Y>21</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>7</X>
+              <Y>4</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>21</X>
+            <Y>21</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>21</X>
+              <Y>21</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>7</X>
+              <Y>4</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>18</X>
+            <Y>21</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>18</X>
+              <Y>21</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>7</X>
+              <Y>4</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>17</X>
+            <Y>21</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>17</X>
+              <Y>21</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>7</X>
+              <Y>4</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -17711,7 +17639,7 @@
           <X>19</X>
           <Y>11</Y>
         </Location>
-        <tileSize>40</tileSize>
+        <tileSize>48</tileSize>
       </PowerUpSpawner>
       <PowerUpSpawner>
         <PowerUpType>RocketAmmo</PowerUpType>
@@ -17719,7 +17647,7 @@
           <X>19</X>
           <Y>3</Y>
         </Location>
-        <tileSize>40</tileSize>
+        <tileSize>48</tileSize>
       </PowerUpSpawner>
       <PowerUpSpawner>
         <PowerUpType>Health</PowerUpType>
@@ -17727,7 +17655,7 @@
           <X>36</X>
           <Y>12</Y>
         </Location>
-        <tileSize>40</tileSize>
+        <tileSize>48</tileSize>
       </PowerUpSpawner>
       <PowerUpSpawner>
         <PowerUpType>Health</PowerUpType>
@@ -17735,7 +17663,7 @@
           <X>3</X>
           <Y>12</Y>
         </Location>
-        <tileSize>40</tileSize>
+        <tileSize>48</tileSize>
       </PowerUpSpawner>
       <PowerUpSpawner>
         <PowerUpType>Health</PowerUpType>
@@ -17743,7 +17671,7 @@
           <X>25</X>
           <Y>15</Y>
         </Location>
-        <tileSize>40</tileSize>
+        <tileSize>48</tileSize>
       </PowerUpSpawner>
     </PowerUpSpawners>
   </Level>
@@ -66214,10 +66142,10 @@
     </BackgroundColor>
     <TintColor>
       <B>255</B>
-      <G>255</G>
-      <R>255</R>
+      <G>115</G>
+      <R>115</R>
       <A>255</A>
-      <PackedValue>4294967295</PackedValue>
+      <PackedValue>4294931315</PackedValue>
     </TintColor>
     <Gravity>0.0035</Gravity>
     <SpawnLocations>
@@ -66245,7 +66173,7 @@
           <X>9</X>
           <Y>4</Y>
         </Location>
-        <tileSize>64</tileSize>
+        <tileSize>40</tileSize>
       </PowerUpSpawner>
       <PowerUpSpawner>
         <PowerUpType>Health</PowerUpType>
@@ -66253,7 +66181,7 @@
           <X>30</X>
           <Y>4</Y>
         </Location>
-        <tileSize>64</tileSize>
+        <tileSize>40</tileSize>
       </PowerUpSpawner>
       <PowerUpSpawner>
         <PowerUpType>RocketAmmo</PowerUpType>
@@ -66261,7 +66189,7 @@
           <X>23</X>
           <Y>4</Y>
         </Location>
-        <tileSize>64</tileSize>
+        <tileSize>40</tileSize>
       </PowerUpSpawner>
       <PowerUpSpawner>
         <PowerUpType>RocketAmmo</PowerUpType>
@@ -66269,7 +66197,7 @@
           <X>16</X>
           <Y>4</Y>
         </Location>
-        <tileSize>64</tileSize>
+        <tileSize>40</tileSize>
       </PowerUpSpawner>
     </PowerUpSpawners>
   </Level>
@@ -66295,7 +66223,7 @@
               <X>6</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -67301,33 +67229,9 @@
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
               <X>6</X>
-              <Y>0</Y>
+              <Y>5</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>true</Impenetrable>
-            <Background>false</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>0</X>
-            <Y>7</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>0</X>
-              <Y>7</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>6</X>
-              <Y>0</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -67348,10 +67252,10 @@
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>6</X>
-              <Y>0</Y>
+              <X>7</X>
+              <Y>4</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -68935,7 +68839,7 @@
               <X>6</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -68956,34 +68860,10 @@
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>6</X>
-              <Y>0</Y>
+              <X>7</X>
+              <Y>4</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>true</Impenetrable>
-            <Background>false</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>39</X>
-            <Y>7</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>39</X>
-              <Y>7</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>6</X>
-              <Y>0</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -69005,9 +68885,9 @@
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
               <X>6</X>
-              <Y>0</Y>
+              <Y>5</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -69317,33 +69197,9 @@
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
               <X>6</X>
-              <Y>4</Y>
+              <Y>3</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>true</Impenetrable>
-            <Background>false</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>38</X>
-            <Y>7</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>38</X>
-              <Y>7</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
-              <X>6</X>
-              <Y>4</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -69364,10 +69220,10 @@
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>6</X>
+              <X>7</X>
               <Y>4</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -69388,10 +69244,10 @@
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>6</X>
-              <Y>4</Y>
+              <X>4</X>
+              <Y>3</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -70876,34 +70732,10 @@
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
-              <X>5</X>
-              <Y>2</Y>
-            </SpriteLocation>
-            <tileSize>0</tileSize>
-            <Impenetrable>true</Impenetrable>
-            <Background>false</Background>
-          </TerrainBlock>
-        </value>
-      </item>
-      <item>
-        <key>
-          <Point>
-            <X>1</X>
-            <Y>7</Y>
-          </Point>
-        </key>
-        <value>
-          <TerrainBlock>
-            <Position>
-              <X>1</X>
-              <Y>7</Y>
-            </Position>
-            <SpriteTileSize>16</SpriteTileSize>
-            <SpriteLocation>
               <X>7</X>
-              <Y>5</Y>
+              <Y>4</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -70925,9 +70757,9 @@
             <SpriteTileSize>16</SpriteTileSize>
             <SpriteLocation>
               <X>7</X>
-              <Y>5</Y>
+              <Y>3</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -75967,7 +75799,7 @@
               <X>7</X>
               <Y>2</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -77935,7 +77767,7 @@
               <X>6</X>
               <Y>2</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -77959,7 +77791,7 @@
               <X>6</X>
               <Y>3</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>true</Impenetrable>
             <Background>false</Background>
           </TerrainBlock>
@@ -89673,7 +89505,7 @@
               <X>2</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -89697,7 +89529,7 @@
               <X>2</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -89721,7 +89553,7 @@
               <X>2</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -91017,7 +90849,7 @@
               <X>2</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -91041,7 +90873,7 @@
               <X>2</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -93969,7 +93801,7 @@
               <X>2</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -93978,14 +93810,14 @@
       <item>
         <key>
           <Point>
-            <X>38</X>
+            <X>39</X>
             <Y>7</Y>
           </Point>
         </key>
         <value>
           <TerrainBlock>
             <Position>
-              <X>38</X>
+              <X>39</X>
               <Y>7</Y>
             </Position>
             <SpriteTileSize>16</SpriteTileSize>
@@ -93993,7 +93825,7 @@
               <X>2</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -94017,7 +93849,7 @@
               <X>2</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -94113,7 +93945,7 @@
               <X>2</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -94137,7 +93969,7 @@
               <X>2</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -94161,7 +93993,7 @@
               <X>2</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -94233,7 +94065,7 @@
               <X>2</X>
               <Y>0</Y>
             </SpriteLocation>
-            <tileSize>0</tileSize>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>
@@ -96970,6 +96802,174 @@
               <Y>0</Y>
             </SpriteLocation>
             <tileSize>0</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>0</X>
+            <Y>7</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>0</X>
+              <Y>7</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>2</X>
+              <Y>0</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>0</X>
+            <Y>6</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>0</X>
+              <Y>6</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>2</X>
+              <Y>0</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>0</X>
+            <Y>8</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>0</X>
+              <Y>8</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>2</X>
+              <Y>0</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>38</X>
+            <Y>7</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>38</X>
+              <Y>7</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>2</X>
+              <Y>0</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>39</X>
+            <Y>6</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>39</X>
+              <Y>6</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>2</X>
+              <Y>0</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>39</X>
+            <Y>8</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>39</X>
+              <Y>8</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>2</X>
+              <Y>0</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
+            <Impenetrable>false</Impenetrable>
+            <Background>true</Background>
+          </TerrainBlock>
+        </value>
+      </item>
+      <item>
+        <key>
+          <Point>
+            <X>39</X>
+            <Y>5</Y>
+          </Point>
+        </key>
+        <value>
+          <TerrainBlock>
+            <Position>
+              <X>39</X>
+              <Y>5</Y>
+            </Position>
+            <SpriteTileSize>16</SpriteTileSize>
+            <SpriteLocation>
+              <X>3</X>
+              <Y>0</Y>
+            </SpriteLocation>
+            <tileSize>40</tileSize>
             <Impenetrable>false</Impenetrable>
             <Background>true</Background>
           </TerrainBlock>

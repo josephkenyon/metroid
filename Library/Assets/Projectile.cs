@@ -39,6 +39,16 @@ namespace Library.Assets
             );
         }
 
+        public Rectangle GetCollisionBoxForTerrain(GameProperties gameState)
+        {
+            return new Rectangle(
+                (int)(Position.X - 1),
+                (int)(Position.Y - 1),
+                2,
+                2
+            );
+        }
+
 
 
         public void Update(GameProperties gameState)
@@ -58,7 +68,7 @@ namespace Library.Assets
             var terrainCollision = WillCollideWithTerrain(gameState);
             if (!Dead)
             {
-                if (AtMaxRange || terrainCollision || (WeaponType.weaponType != Enums.WeaponType.Bomb && WillCollideWithPlayer(gameState)))
+                if (AtMaxRange || (WeaponType.weaponType != Enums.WeaponType.Bomb && WillCollideWithPlayer(gameState)) || terrainCollision)
                 {
                     Dead = true;
                     if (Weapon.WeaponExplosionSounds.ContainsKey(WeaponType.weaponType))
@@ -97,11 +107,12 @@ namespace Library.Assets
                                                    select block;
             foreach (TerrainBlock candidate in candidates)
             {
-                var projectileCollisionBox = GetCollisionBox(gameState);
+                var projectileCollisionBox = GetCollisionBoxForTerrain(gameState);
                 var candidateCollisionBox = candidate.GetCollisionBox(gameState);
                 var candidatePolygon = new Polygon(candidateCollisionBox);
 
-                var nextPosition = new Polygon((Position + velocity).ToPoint(), (WeaponType.collisionBoxSize.ToVector2() * gameState.tileSize / SpriteTileSize).ToPoint(), Angle);
+                var angle = Angle * 180 / Math.PI;
+                var nextPosition = new Polygon((Position + velocity).ToPoint(), projectileCollisionBox.Size.ToVector2().ToPoint(), Angle + (90f / 180f * (float)Math.PI));
                 if (new Polygon(Polygon.AddPoints(nextPosition.Points)).IsIntersectingWith(candidatePolygon))
                 {
 
@@ -126,13 +137,14 @@ namespace Library.Assets
             {
                 var candidatePolygon = new Polygon(player.GetCollisionBox(gameState));
 
-                var nextPosition = new Polygon((Position + velocity).ToPoint(), (WeaponType.collisionBoxSize.ToVector2() * gameState.tileSize / SpriteTileSize).ToPoint(), Angle);
+                var nextPosition = new Polygon((Position + velocity).ToPoint(), (WeaponType.collisionBoxSize.ToVector2() * gameState.tileSize / SpriteTileSize).ToPoint(), Angle + (90f / 180f * (float)Math.PI));
                 if (new Polygon(Polygon.AddPoints(nextPosition.Points)).IsIntersectingWith(candidatePolygon) && Weapon.playerIndex != player.playerIndex && player.Alive)
                 {
                     if (WeaponType.damageFrame == null || CurrentFrameIndex == WeaponType.damageFrame * WeaponType.frameSkip)
                     {
                         player.TakeDamage(WeaponType.weaponPower);
                         Weapon.Character.characterStats.shotsHit++;
+                        Weapon.Character.characterStats.damageDealt += WeaponType.weaponPower;
                         if (WeaponType.weaponType == Enums.WeaponType.Rocket)
                         {
                             player.SetVelocity(player.GetCurrentVelocity + (Direction * 20));

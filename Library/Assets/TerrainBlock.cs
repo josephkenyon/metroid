@@ -34,6 +34,7 @@ namespace Library.Assets
             this.SpriteTileSize = SpriteTileSize;
             this.Impenetrable = Impenetrable;
             this.Background = Background;
+            this.Position = Position;
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameProperties gameState)

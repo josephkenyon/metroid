@@ -1,7 +1,10 @@
-﻿using Library.Domain;
+﻿using Game1.States;
+using Library.Domain;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using static Library.Domain.Enums;
 
 namespace Game1.Menu
 {
@@ -9,18 +12,24 @@ namespace Game1.Menu
     {
         public Dictionary<PlayerIndex, CharacterStats> characterStats;
         public SpriteFont font;
+        public SpriteFont smallFont;
         public Game1 game;
         public int timer = 0;
         public Texture2D whiteTexture;
+        public Texture2D buttonTexture;
         public Dictionary<PlayerIndex, int> xPositions;
+        private Dictionary<PlayerIndex, SamusColor> selectedColors;
 
-        public ScoreScreen(Game1 game, Dictionary<PlayerIndex, CharacterStats> characterStats, SpriteFont font)
+        public ScoreScreen(Game1 game, Dictionary<PlayerIndex, CharacterStats> characterStats, SpriteFont font, SpriteFont smallFont, Dictionary<PlayerIndex, SamusColor> selectedColors, Texture2D buttonTexture)
         {
+            this.selectedColors = selectedColors;
             this.game = game;
             this.font = font;
+            this.smallFont = smallFont;
             this.characterStats = characterStats;
             whiteTexture = new Texture2D(game.GraphicsDevice, 1, 1);
             whiteTexture.SetData(new Color[] { Color.White });
+            this.buttonTexture = buttonTexture;
 
             xPositions = new Dictionary<PlayerIndex, int>
             {
@@ -32,8 +41,26 @@ namespace Game1.Menu
 
         }
 
-        public void Update()
+        public void Update(Game1 game, GameState gameState)
         {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed)
+            {
+                game.ChangeState(new MenuState(game, game.GraphicsDevice, game.Content));
+                return;
+            }
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed)
+            {
+                game.ChangeState(new MenuState(game, game.GraphicsDevice, game.Content, selectedColors));
+                return;
+            }
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
+            {
+                gameState.Restart();
+                return;
+            }
+
             if (timer < 75)
             {
                 timer++;
@@ -58,14 +85,33 @@ namespace Game1.Menu
             spriteBatch.End();
 
 
+            int yPosition = (int)(screenSize.Height / 6f);
+
             foreach (PlayerIndex playerIndex in characterStats.Keys)
             {
+                int index = 0;
                 spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp);
                 var accuracy = "Accuracy: " + characterStats[playerIndex].AccuracyPercentage.ToString("0.0") + "%";
-                DrawString(spriteBatch, new Point(xPositions[playerIndex], (int)(screenSize.Height / 6f)), font, "Player " + playerIndex.ToString());
-                DrawString(spriteBatch, new Point(xPositions[playerIndex], (int)(screenSize.Height / 3f)), font, accuracy);
+                var damageDealt = "Damage Dealt: " + characterStats[playerIndex].damageDealt.ToString("0.0");
+                var hitPointsHealed = "Hitpoints Healed: " + characterStats[playerIndex].hitPointsHealed.ToString("0.0");
+                DrawString(spriteBatch, new Point(xPositions[playerIndex], yPosition + index++ * (int)(font.MeasureString("A").Y * 2)), font, "Player " + playerIndex.ToString());
+                DrawString(spriteBatch, new Point(xPositions[playerIndex], yPosition + index++ * (int)(font.MeasureString("A").Y * 2)), smallFont, accuracy);
+                DrawString(spriteBatch, new Point(xPositions[playerIndex], yPosition + index++ * (int)(font.MeasureString("A").Y * 2)), smallFont, damageDealt);
+                DrawString(spriteBatch, new Point(xPositions[playerIndex], yPosition + index++ * (int)(font.MeasureString("A").Y * 2)), smallFont, hitPointsHealed);
+
                 spriteBatch.End();
+
             }
+
+
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp);
+            DrawString(spriteBatch, new Point(xPositions[PlayerIndex.One], screenSize.Height - yPosition), smallFont, "Replay Level: ");
+            //spriteBatch.Draw(buttonTexture)
+
+            DrawString(spriteBatch, new Point(xPositions[PlayerIndex.Two], screenSize.Height - yPosition), smallFont, "Pick new Stage: ");
+
+            DrawString(spriteBatch, new Point(xPositions[PlayerIndex.Three], screenSize.Height - yPosition), smallFont, "Back to Main Menu: ");
+            spriteBatch.End();
 
         }
     }
