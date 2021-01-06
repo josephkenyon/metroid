@@ -227,3 +227,15 @@ C:\Users\Joseph\source\repos\Metroid\Game1\obj\Release\netcoreapp3.1\Game1.cspro
 C:\Users\Joseph\source\repos\Metroid\Game1\obj\Release\netcoreapp3.1\Metroid.dll
 C:\Users\Joseph\source\repos\Metroid\Game1\obj\Release\netcoreapp3.1\Metroid.pdb
 C:\Users\Joseph\source\repos\Metroid\Game1\obj\Release\netcoreapp3.1\Game1.genruntimeconfig.cache
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Release\netcoreapp3.1\levels.xml
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Release\netcoreapp3.1\Fonts\verySmallMenu.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Release\netcoreapp3.1\Levels\levels.xml
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Release\netcoreapp3.1\Sound\bombDrop.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Release\netcoreapp3.1\Sound\bombExplosion.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Release\netcoreapp3.1\Sprites\buttons.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Release\netcoreapp3.1\Content\Fonts\verySmallMenu.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Release\netcoreapp3.1\Content\levels.xml
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Release\netcoreapp3.1\Content\Levels\levels.xml
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Release\netcoreapp3.1\Content\Sound\bombDrop.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Release\netcoreapp3.1\Content\Sound\bombExplosion.xnb
+C:\Users\Joseph\source\repos\Metroid\Game1\bin\Release\netcoreapp3.1\Content\Sprites\buttons.xnb

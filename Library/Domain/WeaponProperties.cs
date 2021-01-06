@@ -64,7 +64,7 @@ namespace Library.Assets
                     acceleration = 1.00f;
                     liveLoopIndex = 0;
                     liveFrames = 4;
-                    range = 100f;
+                    range = 60f;
                     deathFrames = 11;
                     frameSkip = 3;
                     damageFrame = 7;

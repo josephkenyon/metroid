@@ -69,7 +69,7 @@ namespace Game1
             graphics.PreferredBackBufferHeight = resolution.Y;
 
             Window.IsBorderless = true;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             Window.Position = new Point((GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - 1920) / 2, (GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 1080) / 2);
 
             graphics.ApplyChanges();
